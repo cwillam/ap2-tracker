@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="AP2 Tracker FIAE - Der kostenlose, lokale Lernbegleiter für Fachinformatiker Anwendungsentwicklung zur Abschlussprüfung Teil 2."
+    />
+    <meta name="author" content="Christoph Willam" />
+    <meta property="og:title" content="AP2 Tracker FIAE | Dein Lernbegleiter" />
+    <meta
+      property="og:description"
+      content="Kostenlos, ohne Anmeldung, alles lokal. Bereite dich strukturiert auf die FIAE-Abschlussprüfung Teil 2 vor."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="robots" content="index, follow" />
+
+    <title>AP2 Tracker FIAE | cwillam</title>
+
+    <script src="assets/js/tailwind.js"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                'system-ui',
+                '-apple-system',
+                'BlinkMacSystemFont',
+                'Segoe UI',
+                'Roboto',
+                'Helvetica Neue',
+                'Arial',
+                'sans-serif',
+              ],
+              mono: [
+                'ui-monospace',
+                'SFMono-Regular',
+                'Menlo',
+                'Monaco',
+                'Consolas',
+                'Liberation Mono',
+                'Courier New',
+                'monospace',
+              ],
+            },
+            colors: {
+              dark: {
+                bg: '#020617', // Slate 950
+                card: '#0f172a', // Slate 900
+                border: '#1e293b', // Slate 800
+                text: '#f8fafc', // Slate 50
+                muted: '#94a3b8', // Slate 400
+                accent: '#8b5cf6', // Violet 500
+                success: '#10b981', // Emerald 500
+                warning: '#f59e0b', // Amber 500
+                danger: '#ef4444', // Red 500
+              },
+            },
+            boxShadow: {
+              glow: '0 0 20px rgba(139, 92, 246, 0.15)',
+              card: '0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)',
+            },
+            animation: {
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+          },
+        },
+      };
+    </script>
+
+    <link href="assets/css/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <!-- Loading Overlay -->
+    <div
+      id="loadingOverlay"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-dark-bg transition-opacity duration-500"
+    >
+      <div class="relative w-16 h-16 mb-4">
+        <div class="absolute inset-0 border-t-2 border-dark-accent rounded-full animate-spin"></div>
+        <div
+          class="absolute inset-2 border-t-2 border-dark-success rounded-full animate-spin reverse"
+        ></div>
+      </div>
+      <p
+        class="text-dark-muted font-mono text-xs tracking-widest uppercase animate-pulse"
+        id="loadingText"
+      >
+        System Init...
+      </p>
+    </div>
+
+    <!-- Legal Modal -->
+    <div
+      id="legalModal"
+      class="fixed inset-0 z-[90] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print"
+    >
+      <div class="min-h-screen px-4 text-center">
+        <span class="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+        <div
+          class="inline-block w-full max-w-2xl p-6 my-8 text-left align-middle transition-all transform bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative"
+        >
+          <button
+            onclick="app.closeLegal()"
+            class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
+          >
+            <i class="fa-solid fa-xmark text-xl"></i>
+          </button>
+          <div id="legalContent" class="prose prose-invert prose-sm max-w-none"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome Modal AP2 -->
+    <div
+      id="welcomeModal"
+      class="fixed inset-0 z-[100] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print flex items-center justify-center p-4"
+    >
+      <div class="w-full max-w-lg relative transition-all transform">
+        <div
+          class="bg-dark-card border border-dark-accent/30 shadow-[0_0_30px_rgba(139,92,246,0.2)] rounded-2xl relative overflow-hidden p-8"
+        >
+          <div class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+          
+          <div class="relative z-10 text-center">
+            <div class="w-16 h-16 bg-dark-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-dark-accent/30">
+              <i class="fa-solid fa-rocket text-dark-accent text-3xl"></i>
+            </div>
+            
+            <h2 class="text-2xl font-bold text-white mb-4">Offizieller AP2 Release! 🚀</h2>
+            
+            <div class="text-dark-muted leading-relaxed mb-6 space-y-4 text-sm text-left">
+              <p>
+                Der spezialisierte Tracker für die <span class="text-white font-bold">Abschlussprüfung Teil 2 (FIAE)</span> ist nun offiziell live! Bereite dich mit gewichteten Themen und aktuellem IHK-Katalog optimal vor.
+              </p>
+              <p>
+                Du suchst den Tracker für Teil 1? Dieser ist weiterhin unter <a href="https://ap1.cwillam.de" target="_blank" class="text-dark-accent hover:underline font-bold">ap1.cwillam.de</a> erreichbar.
+              </p>
+              <p>
+                Falls du Fehler findest oder Verbesserungsvorschläge hast, erstelle gerne ein <a href="https://github.com/cwillam/ap2-tracker/issues" target="_blank" class="text-white hover:underline">GitHub Issue</a> oder kontaktiere mich direkt.
+              </p>
+              <p class="pt-2 italic border-t border-dark-border/50 text-xs">
+                Dieser Tracker ist <span class="text-dark-success font-bold">100% kostenlos</span>. Über eine kleine freiwillige Unterstützung für Serverkosten und die Erstellung zukünftiger Lernzettel freue ich mich aber riesig! ☕
+              </p>
+            </div>
+            
+            <div class="flex flex-col gap-3">
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="https://buymeacoffee.com/cwillam"
+                  target="_blank"
+                  class="flex-1 py-3 px-6 bg-[#FFDD00] text-black font-bold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                >
+                  <i class="fa-solid fa-mug-hot"></i> Support
+                </a>
+                <button
+                  onclick="app.closeWelcomeModal()"
+                  class="flex-1 py-3 px-6 bg-dark-accent hover:bg-violet-400 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-glow"
+                >
+                  Starten
+                </button>
+              </div>
+              <button
+                onclick="app.dismissWelcomeModal()"
+                class="text-[10px] text-dark-muted hover:text-white transition-colors uppercase font-bold tracking-widest mt-2"
+              >
+                Nicht mehr anzeigen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-header sticky top-0 z-50 no-print">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div
+            class="flex items-center gap-3 cursor-pointer group"
+            onclick="window.scrollTo({top:0, behavior:'smooth'})"
+          >
+            <div
+              class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-glow transition-transform group-hover:scale-105"
+            >
+              <i class="fa-solid fa-code-merge text-white"></i>
+            </div>
+            <div class="flex flex-col">
+              <h1 class="font-bold text-lg leading-none text-white tracking-tight">
+                AP2 <span class="text-dark-accent">Tracker</span>
+                <span class="ml-1 text-[10px] bg-dark-accent/20 text-dark-accent px-1.5 py-0.5 rounded border border-dark-accent/30">FIAE</span>
+              </h1>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
+                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v1.0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+            <div class="hidden lg:flex flex-col items-end mr-4">
+              <span class="text-[10px] font-mono text-dark-muted uppercase"
+                >Prüfung: vorauss. 28.04.2026</span
+              >
+              <span class="text-sm font-bold text-white font-mono">
+                <span id="headerCountdown" class="text-dark-accent">--</span> Tage
+              </span>
+            </div>
+
+            <!-- Update Button -->
+            <a
+              href="updates.html"
+              class="hidden md:flex mr-4 group items-center gap-2 px-3 py-1.5 rounded-full bg-dark-card border border-dark-border hover:border-dark-accent transition-all"
+            >
+              <div class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"
+                ></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+              </div>
+              <span
+                class="text-xs font-bold text-dark-muted group-hover:text-white transition-colors"
+                >Updates</span
+              >
+            </a>
+
+            <a
+              href="https://buymeacoffee.com/cwillam"
+              target="_blank"
+              class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#FFDD00] text-black hover:scale-110 transition-transform shadow-lg"
+              title="Spendier mir einen Kaffee ☕"
+            >
+              <i class="fa-solid fa-mug-hot"></i>
+            </a>
+
+            <div class="h-6 w-px bg-dark-border hidden md:block"></div>
+
+            <button
+              onclick="app.exportData()"
+              class="p-2 text-dark-muted hover:text-white hover:bg-dark-border/50 rounded-lg transition-colors"
+              title="Backup speichern"
+            >
+              <i class="fa-solid fa-download"></i>
+            </button>
+            <button
+              onclick="document.getElementById('importFile').click()"
+              class="p-2 text-dark-muted hover:text-white hover:bg-dark-border/50 rounded-lg transition-colors"
+              title="Backup laden"
+            >
+              <i class="fa-solid fa-upload"></i>
+            </button>
+            <input type="file" id="importFile" class="hidden" onchange="app.importData(this)" />
+
+            <button
+              onclick="app.resetData()"
+              class="p-2 text-dark-muted hover:text-dark-danger hover:bg-dark-danger/10 rounded-lg transition-colors"
+              title="Alles zurücksetzen"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <!-- Info Box -->
+      <div
+        id="infoBox"
+        class="bg-gradient-to-r from-slate-900 to-dark-card border border-dark-border rounded-xl p-5 relative shadow-card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group no-print"
+      >
+        <div class="max-w-3xl">
+          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-dark-accent"></i> AP2 Vorbereitung FIAE
+          </h3>
+          <div class="text-xs text-dark-muted leading-relaxed space-y-2 tracking-wide">
+            <p>
+              Dieser Tracker ist speziell auf die <strong>Abschlussprüfung Teil 2 (FIAE)</strong> zugeschnitten.
+              Alle Daten werden <strong>nur lokal</strong> in deinem Browser gespeichert.
+            </p>
+            <p>
+              Tipp: Nutze den <strong>Smart Focus</strong>, um Themen mit hoher Relevanz und Häufigkeit zuerst zu lernen.
+            </p>
+          </div>
+          <p class="text-xs text-dark-accent mt-2 font-mono italic opacity-80" id="motivationQuote">
+            „Code is poetry.“
+          </p>
+        </div>
+        <button
+          onclick="app.hideInfoBox()"
+          class="text-xs font-mono text-dark-muted hover:text-white bg-dark-bg/50 px-4 py-2 rounded border border-dark-border transition-colors whitespace-nowrap self-start md:self-center"
+        >
+          Verstanden & Ausblenden
+        </button>
+      </div>
+
+      <!-- Dashboard Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 no-print">
+        <!-- Stats Card -->
+        <div
+          class="lg:col-span-8 bg-dark-card border border-dark-border rounded-xl p-5 relative overflow-hidden shadow-card flex flex-col gap-5 justify-between group min-h-[160px]"
+        >
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-dark-accent/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none transition-opacity duration-1000 group-hover:opacity-100 opacity-50"
+          ></div>
+
+          <div class="flex flex-col sm:flex-row justify-between gap-4 w-full">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between mb-2">
+                <span
+                  class="text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider"
+                  >Aktivität (40 Tage)</span
+                >
+                <span
+                  class="text-[10px] font-mono text-dark-success uppercase bg-dark-success/10 px-2 py-0.5 rounded border border-dark-success/20 hidden sm:inline-block"
+                  id="streakBadge"
+                >
+                  🔥 <span id="streakCount">0</span> Tag Streak
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-1" id="streakGraph"></div>
+            </div>
+
+            <div class="flex items-center gap-5 shrink-0 border-l border-dark-border pl-5">
+              <div class="text-right">
+                <div class="text-3xl font-bold text-white font-mono leading-none" id="doneCount">
+                  0
+                </div>
+                <div class="text-[10px] text-dark-muted uppercase mt-1">Erledigt</div>
+              </div>
+              <div class="text-right">
+                <div
+                  class="text-3xl font-bold text-dark-accent font-mono leading-none"
+                  id="totalPercentTop"
+                >
+                  0%
+                </div>
+                <div class="text-[10px] text-dark-muted uppercase mt-1">Gesamt</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="w-full bg-dark-bg/50 rounded-lg p-3 border border-dark-border/50 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-8 h-8 rounded bg-dark-card border border-dark-border flex items-center justify-center"
+              >
+                <i class="fa-solid fa-crown text-dark-warning"></i>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[9px] font-mono text-dark-muted uppercase">Aktueller Rang</span>
+                <span class="font-bold text-white text-sm tracking-wide" id="levelName"
+                  >Hello World</span
+                >
+              </div>
+            </div>
+
+            <div class="w-full sm:w-1/2 flex flex-col gap-1">
+              <div class="flex justify-between text-[9px] text-dark-muted">
+                <span>Fortschritt zum nächsten Rang</span>
+              </div>
+              <div
+                class="w-full bg-dark-card rounded-full h-2 overflow-hidden border border-dark-border/50"
+              >
+                <div
+                  id="levelProgress"
+                  class="h-full bg-dark-warning w-0 transition-all duration-1000"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-auto">
+            <div
+              class="w-full bg-dark-bg rounded-full h-2.5 overflow-hidden border border-dark-border"
+            >
+              <div
+                id="mainProgressBar"
+                class="h-full bg-gradient-to-r from-violet-600 via-indigo-500 to-purple-400 shadow-[0_0_15px_rgba(139,92,246,0.4)] transition-all duration-1000 ease-out w-0 relative"
+              >
+                <div class="absolute inset-0 bg-white/20 w-full h-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Widgets -->
+        <div class="lg:col-span-4 grid grid-cols-2 gap-4">
+          <!-- Focus Timer -->
+          <div
+            class="col-span-2 bg-dark-card border border-dark-border rounded-xl p-3 shadow-card relative overflow-hidden group flex flex-col justify-between min-h-[140px]"
+          >
+            <div class="flex justify-between items-center mb-1">
+              <p class="text-[10px] font-mono text-dark-muted uppercase">
+                <i class="fa-regular fa-clock mr-1"></i>Focus Timer
+              </p>
+            </div>
+            <div class="flex items-center justify-between mt-1 mb-2">
+              <h3
+                class="text-4xl font-bold text-white font-mono tabular-nums tracking-tight"
+                id="pomoTimer"
+              >
+                25:00
+              </h3>
+              <button
+                onclick="app.togglePomodoro()"
+                id="pomoBtn"
+                class="w-10 h-10 rounded-xl bg-dark-border hover:bg-dark-accent hover:text-white text-dark-muted flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg"
+              >
+                <i class="fa-solid fa-play text-lg ml-1"></i>
+              </button>
+            </div>
+            <div class="flex justify-between gap-1">
+              <button onclick="app.setPomoTime(5)" class="flex-1 text-[9px] font-bold bg-dark-bg border border-dark-border hover:border-dark-accent text-dark-muted hover:text-white py-1.5 rounded transition-colors">5</button>
+              <button onclick="app.setPomoTime(15)" class="flex-1 text-[9px] font-bold bg-dark-bg border border-dark-border hover:border-dark-accent text-dark-muted hover:text-white py-1.5 rounded transition-colors">15</button>
+              <button onclick="app.setPomoTime(25)" class="flex-1 text-[9px] font-bold bg-dark-bg border border-dark-border hover:border-dark-accent text-dark-muted hover:text-white py-1.5 rounded transition-colors">25</button>
+            </div>
+          </div>
+
+          <!-- Random Button -->
+          <button
+            onclick="app.randomTopic()"
+            class="col-span-1 bg-dark-card border border-dark-border rounded-xl p-3 hover:border-dark-warning/50 hover:bg-dark-warning/5 transition-all text-left group relative overflow-hidden flex flex-col justify-center outline-none focus:ring-1 focus:ring-dark-warning/50"
+          >
+            <i class="fa-solid fa-dice text-dark-warning text-xl mb-1 animate-dice-hover"></i>
+            <p class="text-xs font-bold text-white">Zufall</p>
+            <p class="text-[9px] text-dark-muted">Lern-Roulette</p>
+          </button>
+
+          <!-- Smart Focus Button -->
+          <button
+            onclick="app.scrollToRec()"
+            class="col-span-1 bg-dark-card border border-dark-border rounded-xl p-3 hover:border-dark-success/50 hover:bg-dark-success/5 transition-all text-left group relative flex flex-col justify-center outline-none focus:ring-1 focus:ring-dark-success/50"
+          >
+            <div class="absolute top-2 right-2 w-2 h-2 bg-dark-success rounded-full animate-pulse-slow"></div>
+            <i class="fa-solid fa-crosshairs text-dark-success text-xl mb-1 animate-focus-hover"></i>
+            <p class="text-xs font-bold text-white">Smart Focus</p>
+            <p class="text-[9px] text-dark-muted truncate w-full" id="recShort">Berechne...</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="sticky top-4 z-40 no-print" id="filterBar">
+        <div
+          class="bg-dark-bg/95 backdrop-blur-md border border-dark-border rounded-xl p-2 flex flex-col sm:flex-row gap-3 justify-between items-center shadow-2xl ring-1 ring-white/5"
+        >
+          <div class="flex gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar pb-1 sm:pb-0">
+            <button class="filter-btn active px-4 py-2 text-xs font-bold rounded-lg bg-dark-card text-white border border-dark-border transition-all whitespace-nowrap" data-filter="all" onclick="app.setFilter('all')">Alle</button>
+            <button class="filter-btn px-4 py-2 text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap" data-filter="open" onclick="app.setFilter('open')">Noch offen</button>
+            <button class="filter-btn px-4 py-2 text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap" data-filter="high" onclick="app.setFilter('high')"><span class="text-dark-danger mr-1">●</span> Prio Hoch</button>
+          </div>
+          <div class="relative w-full sm:w-auto group">
+            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted text-xs group-focus-within:text-dark-accent transition-colors"></i>
+            <input type="text" id="searchInput" onkeyup="app.search()" placeholder="Thema, Stichwort..." class="w-full sm:w-56 bg-dark-bg border border-dark-border rounded-lg py-2 pl-9 pr-3 text-xs text-white focus:border-dark-accent focus:ring-1 focus:ring-dark-accent outline-none transition-all placeholder:text-dark-muted/50" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Container -->
+      <div id="contentList" class="space-y-8 pb-20 min-h-[300px]"></div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center opacity-50 no-print">
+        <div class="w-20 h-20 bg-dark-card rounded-full flex items-center justify-center mb-4 border border-dark-border">
+          <i class="fa-solid fa-check-double text-3xl text-dark-success"></i>
+        </div>
+        <p class="text-dark-muted text-sm font-medium">Nichts gefunden.</p>
+        <button onclick="app.setFilter('all'); document.getElementById('searchInput').value=''; app.search();" class="mt-6 text-xs font-bold text-white bg-dark-accent hover:bg-violet-400 px-4 py-2 rounded-lg transition-colors">Alles anzeigen</button>
+      </div>
+    </main>
+
+        <!-- Footer -->
+            <footer class="border-t border-dark-border bg-dark-card mt-auto py-8 no-print">
+              <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted">
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-white">cwillam</span> &copy; 2026
+                </div>
+                <div class="flex gap-6 items-center flex-wrap justify-center">
+                  <a href="https://buymeacoffee.com/cwillam" target="_blank" class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold">
+                    <i class="fa-solid fa-mug-hot"></i> Support
+                  </a>              
+              <!-- Footer Updates -->
+              <a
+                href="updates.html"
+                class="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-dark-card border border-dark-border hover:border-dark-accent transition-all"
+              >
+                <div class="relative flex h-2 w-2">
+                  <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"
+                  ></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                </div>
+                <span class="text-xs font-bold text-dark-muted group-hover:text-white transition-colors"
+                  >Updates</span
+                >
+              </a>
+    
+              <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition">
+                <i class="fa-brands fa-github mr-1"></i>GitHub
+              </a>
+              <button onclick="app.openLegal('impressum')" class="hover:text-white transition">
+                Impressum
+              </button>
+              <button onclick="app.openLegal('privacy')" class="hover:text-white transition">
+                Datenschutz
+              </button>
+            </div>
+          </div>
+        </footer>
+    
+        <!-- Templates -->
+        <template id="tpl-category">
+          <div class="scroll-mt-32 category-block">
+            <div class="flex items-center gap-4 mb-4 pb-2 border-b border-dark-border sticky top-0 bg-dark-bg/95 backdrop-blur z-10 py-2">
+              <div class="w-10 h-10 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center text-dark-accent font-bold text-sm cat-icon shadow-sm shrink-0">
+              </div>
+              <div class="flex-1 min-w-0">
+                <h2 class="text-lg font-bold text-white cat-title truncate">Modul</h2>
+            <div class="flex items-center gap-3">
+              <p class="text-[10px] text-dark-muted uppercase tracking-wider cat-desc truncate hidden sm:block">Beschreibung</p>
+              <button class="cat-reset text-[9px] text-dark-danger hover:underline hidden group-hover:block transition-all opacity-70 hover:opacity-100 whitespace-nowrap" title="Modul zurücksetzen">
+                <i class="fa-solid fa-rotate-left mr-1"></i>Reset
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="grid gap-3 cat-topics"></div>
+      </div>
+    </template>
+
+    <template id="tpl-topic">
+      <div class="topic-card bg-dark-card border border-dark-border rounded-xl hover:border-dark-accent/30 transition-all duration-300 group shadow-card" data-id="">
+        <div class="p-3 sm:p-4 cursor-pointer select-none header-area relative">
+          <div class="flex gap-3 sm:gap-4 pl-1 sm:pl-3 items-center">
+            <div class="shrink-0 flex items-center justify-center h-full" onclick="event.stopPropagation()">
+              <label class="checkbox-wrapper relative flex items-center justify-center cursor-pointer w-6 h-6 sm:w-7 sm:h-7">
+                <input type="checkbox" class="peer sr-only topic-check" />
+                <div class="w-6 h-6 sm:w-7 sm:h-7 border-2 border-dark-border rounded-lg bg-dark-bg transition-all peer-hover:border-dark-muted flex items-center justify-center checkbox-bg">
+                  <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white transform scale-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+              </label>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start sm:items-center flex-col sm:flex-row gap-1 sm:gap-3 mb-1">
+                <h3 class="text-sm sm:text-base font-bold text-white topic-title group-hover:text-dark-accent transition-colors leading-tight">Title</h3>
+                <div class="flex gap-2 items-center flex-wrap">
+                  <span class="weight-badge text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider shrink-0"></span>
+                  <span class="rep-indicator hidden text-[9px] font-bold px-2 py-0.5 rounded border border-dark-accent/30 bg-dark-accent/10 text-dark-accent uppercase tracking-wider shrink-0"></span>
+                  <a href="#" target="_blank" class="google-link hidden sm:inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i>Suche</a>
+                  <a href="#" target="_blank" class="duckduckgo-link hidden sm:inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()">DuckDuckGo</a>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 text-[10px] font-mono text-dark-muted mt-1 sm:mt-0">
+                <span class="time-label"><i class="fa-regular fa-clock mr-1"></i>-- min</span>
+              </div>
+            </div>
+            <div class="w-8 h-8 flex items-center justify-center text-dark-muted accordion-icon transition-transform duration-300 bg-dark-bg/50 rounded-full border border-dark-border group-hover:border-dark-muted shrink-0">
+              <i class="fa-solid fa-chevron-down text-xs"></i>
+            </div>
+          </div>
+        </div>
+        <div class="topic-body bg-dark-bg/50">
+          <div class="topic-content p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <h4 class="text-[10px] font-bold text-dark-muted uppercase flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Lerninhalte</h4>
+                <a href="#" target="_blank" class="google-link-mobile sm:hidden inline-flex items-center text-dark-accent text-[10px] uppercase font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i> Google</a>
+              </div>
+              <ul class="subtask-list space-y-2.5"></ul>
+            </div>
+            <div class="flex flex-col gap-5 border-l border-dark-border pl-0 md:pl-6 md:border-l-0 border-t md:border-t-0 pt-4 md:pt-0">
+              <div>
+                <span class="text-[10px] font-bold text-dark-muted uppercase mb-2 block">Wiederholungen</span>
+                <div class="flex gap-2">
+                  <label class="cursor-pointer group/rep w-10 h-10">
+                    <input type="checkbox" class="rep-check sr-only" data-idx="0" />
+                    <div class="w-full h-full flex items-center justify-center rounded-lg border border-dark-border bg-dark-bg text-xs font-bold text-dark-muted hover:border-dark-muted transition-all peer-checked:bg-dark-accent peer-checked:text-white peer-checked:border-dark-accent peer-checked:shadow-glow">1</div>
+                  </label>
+                  <label class="cursor-pointer group/rep w-10 h-10">
+                    <input type="checkbox" class="rep-check sr-only" data-idx="1" />
+                    <div class="w-full h-full flex items-center justify-center rounded-lg border border-dark-border bg-dark-bg text-xs font-bold text-dark-muted hover:border-dark-muted transition-all peer-checked:bg-dark-accent peer-checked:text-white peer-checked:border-dark-accent peer-checked:shadow-glow">2</div>
+                  </label>
+                  <label class="cursor-pointer group/rep w-10 h-10">
+                    <input type="checkbox" class="rep-check sr-only" data-idx="2" />
+                    <div class="w-full h-full flex items-center justify-center rounded-lg border border-dark-border bg-dark-bg text-xs font-bold text-dark-muted hover:border-dark-muted transition-all peer-checked:bg-dark-accent peer-checked:text-white peer-checked:border-dark-accent peer-checked:shadow-glow">3</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
