@@ -15,9 +15,15 @@
       content="Kostenlos, ohne Anmeldung, alles lokal. Bereite dich strukturiert auf die FIAE-Abschlussprüfung Teil 2 vor."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/img/og-image.png" />
     <meta name="robots" content="index, follow" />
 
     <title>AP2 Tracker FIAE | cwillam</title>
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>"
+    />
 
     <script src="assets/js/tailwind.js"></script>
 
@@ -140,9 +146,21 @@
               <p>
                 Der spezialisierte Tracker für die <span class="text-white font-bold">Abschlussprüfung Teil 2 (FIAE)</span> ist nun offiziell live! Bereite dich mit gewichteten Themen und aktuellem IHK-Katalog optimal vor.
               </p>
-              <p>
-                Du suchst den Tracker für Teil 1? Dieser ist weiterhin unter <a href="https://ap1.cwillam.de" target="_blank" class="text-dark-accent hover:underline font-bold">ap1.cwillam.de</a> erreichbar.
-              </p>
+              
+              <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3 space-y-2">
+                <span class="text-[10px] font-bold text-dark-muted uppercase tracking-widest">Andere Tracker</span>
+                <div class="grid grid-cols-2 gap-2">
+                  <a href="https://ap1.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
+                    <div class="w-2 h-2 rounded-full bg-dark-accent group-hover:animate-pulse"></div>
+                    <span class="text-xs font-bold text-white">Teil 1 (AP1)</span>
+                  </a>
+                  <a href="https://ap2-fisi.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
+                    <div class="w-2 h-2 rounded-full bg-dark-success group-hover:animate-pulse"></div>
+                    <span class="text-xs font-bold text-white">FISI Edition</span>
+                  </a>
+                </div>
+              </div>
+
               <p>
                 Falls du Fehler findest oder Verbesserungsvorschläge hast, erstelle gerne ein <a href="https://github.com/cwillam/ap2-tracker/issues" target="_blank" class="text-white hover:underline">GitHub Issue</a> oder kontaktiere mich direkt.
               </p>
@@ -184,83 +202,83 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
           <div
-            class="flex items-center gap-3 cursor-pointer group"
+            class="flex items-center gap-2 sm:gap-3 cursor-pointer group"
             onclick="window.scrollTo({top:0, behavior:'smooth'})"
           >
             <div
-              class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-glow transition-transform group-hover:scale-105"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-glow transition-transform group-hover:scale-105 shrink-0"
             >
-              <i class="fa-solid fa-code-merge text-white"></i>
+              <i class="fa-solid fa-code-merge text-white text-sm sm:text-base"></i>
             </div>
             <div class="flex flex-col">
-              <h1 class="font-bold text-lg leading-none text-white tracking-tight">
+              <h1 class="font-bold text-base sm:text-lg leading-none text-white tracking-tight">
                 AP2 <span class="text-dark-accent">Tracker</span>
-                <span class="ml-1 text-[10px] bg-dark-accent/20 text-dark-accent px-1.5 py-0.5 rounded border border-dark-accent/30">FIAE</span>
+                <span class="ml-1 text-[9px] sm:text-[10px] bg-dark-accent/20 text-dark-accent px-1.5 py-0.5 rounded border border-dark-accent/30">FIAE</span>
               </h1>
               <div class="flex items-center gap-2 mt-0.5">
-                <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
+                <span class="hidden sm:inline text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
                 <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v1.0</span>
               </div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 sm:gap-4">
-            <div class="hidden lg:flex flex-col items-end mr-4">
-              <span class="text-[10px] font-mono text-dark-muted uppercase"
-                >Prüfung: vorauss. 28.04.2026</span
-              >
+          <div class="flex items-center gap-1 sm:gap-2">
+            <!-- Countdown -->
+            <div class="hidden lg:flex flex-col items-end mr-2">
+              <span class="text-[10px] font-mono text-dark-muted uppercase">Prüfung: vorauss. 28.04.2026</span>
               <span class="text-sm font-bold text-white font-mono">
                 <span id="headerCountdown" class="text-dark-accent">--</span> Tage
               </span>
             </div>
 
-            <!-- Update Button -->
+            <!-- Update Bell -->
             <a
               href="updates.html"
-              class="hidden md:flex mr-4 group items-center gap-2 px-3 py-1.5 rounded-full bg-dark-card border border-dark-border hover:border-dark-accent transition-all"
+              class="p-2 text-dark-muted hover:text-white transition-all relative group"
+              title="Updates"
             >
-              <div class="relative flex h-2 w-2">
-                <span
-                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"
-                ></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
-              </div>
-              <span
-                class="text-xs font-bold text-dark-muted group-hover:text-white transition-colors"
-                >Updates</span
-              >
+              <i class="fa-solid fa-bell group-hover:rotate-12 transition-transform"></i>
+              <span class="absolute top-2 right-2 flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dark-success opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-dark-accent"></span>
+              </span>
             </a>
 
+            <div class="h-6 w-px bg-dark-border mx-1 hidden sm:block"></div>
+
+            <!-- Support -->
             <a
               href="https://buymeacoffee.com/cwillam"
               target="_blank"
-              class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#FFDD00] text-black hover:scale-110 transition-transform shadow-lg"
+              class="p-2 text-dark-muted hover:text-[#FFDD00] transition-colors"
               title="Spendier mir einen Kaffee ☕"
             >
               <i class="fa-solid fa-mug-hot"></i>
             </a>
 
-            <div class="h-6 w-px bg-dark-border hidden md:block"></div>
-
+            <!-- Export -->
             <button
               onclick="app.exportData()"
-              class="p-2 text-dark-muted hover:text-white hover:bg-dark-border/50 rounded-lg transition-colors"
+              class="p-2 text-dark-muted hover:text-white transition-colors"
               title="Backup speichern"
             >
               <i class="fa-solid fa-download"></i>
             </button>
+
+            <!-- Import -->
             <button
               onclick="document.getElementById('importFile').click()"
-              class="p-2 text-dark-muted hover:text-white hover:bg-dark-border/50 rounded-lg transition-colors"
+              class="p-2 text-dark-muted hover:text-white transition-colors"
               title="Backup laden"
             >
               <i class="fa-solid fa-upload"></i>
             </button>
             <input type="file" id="importFile" class="hidden" onchange="app.importData(this)" />
 
+            <!-- Reset -->
             <button
               onclick="app.resetData()"
-              class="p-2 text-dark-muted hover:text-dark-danger hover:bg-dark-danger/10 rounded-lg transition-colors"
+              class="p-2 text-dark-muted hover:text-dark-danger transition-colors"
               title="Alles zurücksetzen"
             >
               <i class="fa-solid fa-trash-can"></i>
