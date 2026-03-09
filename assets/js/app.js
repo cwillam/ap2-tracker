@@ -20,6 +20,12 @@ const app = {
   timerRunning: false,
   timeLeft: 1500,
   searchQuery: '',
+  cardMap: {},
+  catMap: {},
+  searchOpenedTopics: new Set(),
+  _statsRAF: null,
+  _searchTimer: null,
+  _streakCells: null,
 
   quotes: [
     '„Jede Zeile Code ist ein Schritt zur Meisterschaft.“',
@@ -87,7 +93,8 @@ const app = {
       this.renderActivityGraph();
       this.updateCountdown();
       setInterval(() => this.updateCountdown(), 60000);
-      this.render();
+      this.buildDOM();
+      this.applyFilter();
     } catch (err) {
       console.error('Critical Init Error:', err);
     } finally {
@@ -102,7 +109,7 @@ const app = {
     } catch (e) {
       console.error('Storage quota exceeded or error', e);
     }
-    this.updateStats();
+    this.scheduleStatsUpdate();
   },
 
   hideInfoBox() {
@@ -134,9 +141,21 @@ const app = {
   renderActivityGraph() {
     const container = document.getElementById('streakGraph');
     if (!container) return;
-    container.innerHTML = '';
+
     const days = 40;
     const now = new Date();
+
+    if (!this._streakCells) {
+      this._streakCells = [];
+      container.innerHTML = '';
+      for (let i = days; i >= 0; i--) {
+        const el = document.createElement('div');
+        el.className =
+          'w-3 h-3 sm:w-4 sm:h-4 rounded-sm bg-dark-border streak-cell cursor-default';
+        container.appendChild(el);
+        this._streakCells.push(el);
+      }
+    }
 
     for (let i = days; i >= 0; i--) {
       const d = new Date();
@@ -149,10 +168,13 @@ const app = {
       if (count > 4) colorClass = 'bg-dark-accent/70';
       if (count > 8) colorClass = 'bg-dark-accent';
 
-      const el = document.createElement('div');
-      el.className = `w-3 h-3 sm:w-4 sm:h-4 rounded-sm ${colorClass} streak-cell cursor-default`;
-      el.title = `${dateStr}: ${count} Aktionen`;
-      container.appendChild(el);
+      const cellIdx = days - i;
+      const el = this._streakCells[cellIdx];
+      if (el) {
+        el.className =
+          `w-3 h-3 sm:w-4 sm:h-4 rounded-sm ${colorClass} streak-cell cursor-default`;
+        el.title = `${dateStr}: ${count} Aktionen`;
+      }
     }
   },
 
@@ -257,8 +279,11 @@ const app = {
 
   // --- INTERACTION ---
   search() {
-    this.searchQuery = document.getElementById('searchInput').value.toLowerCase();
-    this.render();
+    clearTimeout(this._searchTimer);
+    this._searchTimer = setTimeout(() => {
+      this.searchQuery = document.getElementById('searchInput').value.toLowerCase();
+      this.applyFilter();
+    }, 200);
   },
 
   toggleTopic(id, checked, element) {
@@ -301,7 +326,6 @@ const app = {
         });
       }
     }
-    this.updateStats();
   },
 
   toggleSub(id, idx, checked, element) {
@@ -345,7 +369,6 @@ const app = {
     s.last = Date.now();
     this.trackActivity();
     this.save();
-    this.updateStats();
   },
 
   randomTopic() {
@@ -438,7 +461,7 @@ const app = {
         b.classList.add('text-dark-muted', 'border-transparent');
       }
     });
-    this.render();
+    this.applyFilter();
   },
 
   findTopic(id) {
@@ -470,17 +493,34 @@ const app = {
   resetCategory(catId) {
     if (!confirm('Wirklich den Fortschritt dieser Kategorie zurücksetzen?')) return;
     const cat = AP2_DATA.find((c) => c.id === catId);
-    if (cat) {
-      cat.topics.forEach((t) => {
-        if (this.state[t.id]) {
-          this.state[t.id].done = false;
-          this.state[t.id].subDone = [];
-          this.state[t.id].reps = [false, false, false];
-        }
+    if (!cat) return;
+
+    cat.topics.forEach((t) => {
+      if (this.state[t.id]) {
+        this.state[t.id].done = false;
+        this.state[t.id].subDone = [];
+        this.state[t.id].reps = [false, false, false];
+      }
+
+      const card = this.cardMap[t.id];
+      if (!card) return;
+
+      const mainCheck = card.querySelector('.topic-check');
+      if (mainCheck) mainCheck.checked = false;
+      card.classList.remove('border-dark-accent/30');
+
+      card.querySelectorAll('.subtask-list input').forEach((cb) => (cb.checked = false));
+      card.querySelectorAll('.subtask-list span').forEach((span) => {
+        span.classList.remove('line-through', 'opacity-50');
+        span.classList.add('group-hover/item:text-white');
       });
-      this.save();
-      this.render();
-    }
+
+      card.querySelectorAll('.rep-check').forEach((cb) => (cb.checked = false));
+      this.updateRepHeader(card, [false, false, false]);
+    });
+
+    this.save();
+    this.applyFilter();
   },
 
   // --- LEGAL / MODALS ---
@@ -632,11 +672,87 @@ const app = {
     }
   },
 
-  render() {
+  scheduleStatsUpdate() {
+    if (this._statsRAF) return;
+    this._statsRAF = requestAnimationFrame(() => {
+      this._statsRAF = null;
+      this.updateStats();
+    });
+  },
+
+  applyFilter() {
+    let hasVisible = false;
+
+    AP2_DATA.forEach((cat) => {
+      let visibleInCat = 0;
+
+      cat.topics.forEach((t) => {
+        const card = this.cardMap[t.id];
+        if (!card) return;
+
+        const s = this.getState(t.id);
+        let matchesSearch = true;
+        let subMatch = false;
+        if (this.searchQuery) {
+          subMatch = t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery));
+          matchesSearch =
+            t.title.toLowerCase().includes(this.searchQuery) || subMatch;
+        }
+
+        let matchesFilter = true;
+        if (this.filter === 'open' && s.done) matchesFilter = false;
+        if (this.filter === 'high' && t.weight < 4) matchesFilter = false;
+
+        if (matchesSearch && matchesFilter) {
+          card.classList.remove('hidden');
+          visibleInCat++;
+
+          if (subMatch) {
+            const body = card.querySelector('.topic-body');
+            if (!body.classList.contains('open') && !this.openTopics.has(t.id)) {
+              this.toggleAccordion(card.querySelector('.header-area'));
+              this.searchOpenedTopics.add(t.id);
+            }
+          }
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      const catEl = this.catMap[cat.id];
+      if (catEl) {
+        if (visibleInCat === 0) {
+          catEl.classList.add('hidden');
+        } else {
+          catEl.classList.remove('hidden');
+          hasVisible = true;
+        }
+      }
+    });
+
+    if (!this.searchQuery) {
+      this.searchOpenedTopics.forEach((id) => {
+        const card = this.cardMap[id];
+        if (card) {
+          const body = card.querySelector('.topic-body');
+          if (body.classList.contains('open')) {
+            this.toggleAccordion(card.querySelector('.header-area'));
+          }
+        }
+      });
+      this.searchOpenedTopics.clear();
+    }
+
+    const emptyState = document.getElementById('emptyState');
+    if (emptyState) emptyState.classList.toggle('hidden', hasVisible);
+  },
+
+  buildDOM() {
     const list = document.getElementById('contentList');
     if (!list) return;
     list.innerHTML = '';
-    let hasVisible = false;
+    this.cardMap = {};
+    this.catMap = {};
 
     const activityDates = Object.keys(this.state.activity || {});
     if (activityDates.length > 0) {
@@ -647,22 +763,7 @@ const app = {
     }
 
     AP2_DATA.forEach((cat) => {
-      const visibleTopics = cat.topics.filter((t) => {
-        const s = this.getState(t.id);
-        let matchesSearch = true;
-        if (this.searchQuery) {
-          matchesSearch =
-            t.title.toLowerCase().includes(this.searchQuery) ||
-            t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery));
-        }
-        if (!matchesSearch) return false;
-        if (this.filter === 'open' && s.done) return false;
-        if (this.filter === 'high' && t.weight < 4) return false;
-        return true;
-      });
-
-      if (visibleTopics.length === 0) return;
-      hasVisible = true;
+      const visibleTopics = cat.topics;
 
       const catNode = document.getElementById('tpl-category').content.cloneNode(true);
       catNode.querySelector('.cat-title').textContent = cat.name;
@@ -683,11 +784,9 @@ const app = {
         const node = document.getElementById('tpl-topic').content.cloneNode(true);
         const card = node.querySelector('.topic-card');
         card.dataset.id = t.id;
+        this.cardMap[t.id] = card;
 
-        if (
-          this.openTopics.has(t.id) ||
-          (this.searchQuery && t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery)))
-        ) {
+        if (this.openTopics.has(t.id)) {
           node.querySelector('.topic-body').classList.add('open');
           const icon = node.querySelector('.accordion-icon');
           icon.style.transform = 'rotate(180deg)';
@@ -719,7 +818,9 @@ const app = {
             t.title
           )}`;
         });
-        const duckduckgoLink = node.querySelectorAll('.duckduckgo-link, .duckduckgo-link-mobile');
+        const duckduckgoLink = node.querySelectorAll(
+          '.duckduckgo-link, .duckduckgo-link-mobile'
+        );
         duckduckgoLink.forEach((dl) => {
           dl.href = `https://www.duckduckgo.com/?q=Fachinformatiker+AP2+FIAE+${encodeURIComponent(
               t.title
@@ -732,7 +833,9 @@ const app = {
           wb.classList.add('text-dark-danger', 'border-dark-danger/30', 'bg-dark-danger/10');
         } else if (t.weight === 4) {
           wb.textContent = 'SEHR HOCH';
-          wb.classList.add('text-dark-warning', 'border-dark-warning/30', 'bg-dark-warning/10');
+          wb.classList.add(
+            'text-dark-warning', 'border-dark-warning/30', 'bg-dark-warning/10'
+          );
         } else if (t.weight === 3) {
           wb.textContent = 'HOCH';
           wb.classList.add('text-dark-accent', 'border-dark-accent/30', 'bg-dark-accent/10');
@@ -746,13 +849,15 @@ const app = {
         cb.onchange = (e) => this.toggleTopic(t.id, e.target.checked, e.target);
 
         if (s.done) card.classList.add('border-dark-accent/30');
-        node.querySelector('.header-area').onclick = (e) => this.toggleAccordion(e.currentTarget);
+        node.querySelector('.header-area').onclick =
+          (e) => this.toggleAccordion(e.currentTarget);
 
         const ul = node.querySelector('.subtask-list');
         t.sub.forEach((sub, idx) => {
           const isDone = s.subDone && s.subDone[idx];
           const li = document.createElement('li');
-          li.className = 'flex items-start gap-3 text-xs text-dark-muted group/item transition-all';
+          li.className =
+            'flex items-start gap-3 text-xs text-dark-muted group/item transition-all';
           li.innerHTML = `
                   <div class="shrink-0 flex items-center justify-center w-5 h-5 relative">
                       <input type="checkbox" class="peer appearance-none w-4 h-4 rounded border border-dark-border bg-dark-bg checked:bg-dark-accent checked:border-dark-accent cursor-pointer transition-colors" ${
@@ -782,12 +887,12 @@ const app = {
 
         container.appendChild(node);
       });
+      const catEl = catNode.querySelector('.category-block');
+      this.catMap[cat.id] = catEl;
       list.appendChild(catNode);
     });
 
-    const emptyState = document.getElementById('emptyState');
-    if (emptyState) emptyState.classList.toggle('hidden', hasVisible);
-    this.updateStats();
+    this.scheduleStatsUpdate();
   },
 };
 
