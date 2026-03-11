@@ -488,18 +488,131 @@
       <!-- Content Container -->
       <div id="contentList" class="space-y-8 pb-20 min-h-[300px]"></div>
 
-      <!-- Empty State -->
-      <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center opacity-50 no-print">
-        <div class="w-20 h-20 bg-dark-card rounded-full flex items-center justify-center mb-4 border border-dark-border">
-          <i class="fa-solid fa-check-double text-3xl text-dark-success"></i>
-        </div>
-        <p class="text-dark-muted text-sm font-medium">Nichts gefunden.</p>
-        <button onclick="app.setFilter('all'); document.getElementById('searchInput').value=''; app.search();" class="mt-6 text-xs font-bold text-white bg-dark-accent hover:bg-violet-400 px-4 py-2 rounded-lg transition-colors">Alles anzeigen</button>
       </div>
-    </main>
+      </main>
 
-        <!-- Footer -->
-            <footer class="border-t border-dark-border bg-dark-card mt-auto py-8 no-print">
+      <!-- ANKI Lernkarten Modal (Full Screen & Opaque) -->
+      <div id="ankiModal" class="fixed inset-0 z-[9999] hidden bg-[#020617] no-print flex flex-col">
+      <!-- Modal Header (Solid) -->
+      <div class="p-4 border-b border-dark-border flex items-center justify-between bg-[#0f172a] shrink-0">
+        <div class="flex flex-col">
+          <h2 id="ankiTopicTitle" class="text-sm font-bold text-white truncate max-w-[200px] sm:max-w-md">Thema</h2>
+          <div id="ankiModeBadge" class="flex items-center gap-1.5 mt-0.5">
+            <!-- Wird per JS befüllt -->
+          </div>
+        </div>
+        <button onclick="app.anki.close()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#020617] border border-dark-border text-dark-muted hover:text-white transition-all hover:scale-105 active:scale-95">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Progress Bar (Subtle) -->
+      <div class="h-1 w-full bg-[#020617] shrink-0">
+        <div id="ankiProgress" class="h-full bg-dark-accent shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all duration-500 w-0"></div>
+      </div>
+
+      <!-- Scrollable Content Area -->
+      <div class="flex-grow overflow-y-auto flex flex-col items-center bg-[#020617]">
+        <div class="w-full max-w-2xl px-6 py-12 flex-grow flex flex-col justify-center min-h-full text-center">
+
+          <div id="ankiModeView" class="w-full space-y-6 animate-in fade-in zoom-in duration-300">
+            <div class="mb-10">
+              <div class="w-20 h-20 bg-dark-accent/10 rounded-2xl flex items-center justify-center text-dark-accent mx-auto mb-6 border border-dark-accent/20">
+                <i class="fa-solid fa-layer-group text-4xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white tracking-tight">Lern-Zentrale</h3>
+              <p class="text-dark-muted mt-2 text-sm">Wähle deine Strategie für dieses Modul.</p>
+
+              <!-- NEU: Themen-Statistik -->
+              <div id="ankiTopicStats" class="hidden"></div>
+            </div>
+            <div class="grid gap-4">
+              <!-- Strategie Modus -->
+              <button onclick="app.anki.start('spaced')" class="w-full p-6 bg-dark-card border border-dark-accent/30 hover:border-dark-accent rounded-2xl text-left group transition-all shadow-lg hover:shadow-dark-accent/5">
+                <div class="flex items-start gap-5">
+                  <div class="w-12 h-12 rounded-xl bg-dark-accent/20 flex items-center justify-center text-dark-accent group-hover:scale-110 transition-transform shrink-0">
+                    <i class="fa-solid fa-brain text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-base font-bold text-white group-hover:text-dark-accent transition-colors">Strategie-Modus</h4>
+                    <p class="text-xs text-dark-muted leading-relaxed mt-1">
+                      <span class="text-dark-accent font-bold">Intelligente Intervalle.</span> Richtige Antworten erhöhen die Pause bis zur nächsten Wiederholung (1, 3, 7... Tage). Falsche bringen die Karte sofort zurück.
+                    </p>
+                  </div>
+                </div>
+              </button>
+
+              <!-- Freies Training -->
+              <button onclick="app.anki.start('manual')" class="w-full p-6 bg-dark-card border border-dark-border hover:border-dark-muted rounded-2xl text-left group transition-all shadow-lg">
+                <div class="flex items-start gap-5">
+                  <div class="w-12 h-12 rounded-xl bg-dark-bg flex items-center justify-center text-dark-muted group-hover:scale-110 transition-transform shrink-0">
+                    <i class="fa-solid fa-dumbbell text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-base font-bold text-white">Freies Training</h4>
+                    <p class="text-xs text-dark-muted leading-relaxed mt-1">
+                      <span class="text-white font-bold text-opacity-70">Reinpauken ohne Limit.</span> Alle 10 Karten sofort wiederholen. Kein Speichern, kein Druck.
+                    </p>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- QUESTION VIEW -->
+          <div id="ankiQuestionView" class="w-full hidden animate-in fade-in slide-in-from-bottom-8 duration-500">
+            <div class="mb-12">
+              <span class="inline-block px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-[10px] text-dark-muted uppercase font-mono tracking-widest mb-6" id="ankiCardCounter">Karte 1 von 10</span>
+              <h4 id="ankiQuestionText" class="text-2xl sm:text-4xl font-bold text-white leading-tight tracking-tight">Frage wird geladen...</h4>
+            </div>
+
+            <button id="ankiShowAnswerBtn" onclick="app.anki.showAnswer()" class="w-full py-6 px-8 bg-dark-accent hover:bg-violet-400 text-white font-bold rounded-2xl transition-all shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-lg">
+              Antwort aufdecken
+              <i class="fa-solid fa-eye ml-2"></i>
+            </button>
+          </div>
+
+          <!-- ANSWER VIEW -->
+          <div id="ankiAnswerView" class="w-full hidden animate-in fade-in zoom-in duration-300">
+            <div class="mb-8">
+               <span class="inline-block px-3 py-1 bg-dark-accent/10 border border-dark-accent/30 rounded-full text-[10px] text-dark-accent uppercase font-bold tracking-widest mb-6">Lösung</span>
+               <div class="bg-dark-card border border-dark-border rounded-3xl p-8 sm:p-12 shadow-2xl">
+                  <p id="ankiAnswerText" class="text-lg sm:text-2xl text-white leading-relaxed font-medium">Antwort wird geladen...</p>
+               </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <button onclick="app.anki.next(false)" class="order-2 sm:order-1 py-5 px-6 bg-dark-bg border border-dark-danger/30 text-dark-danger hover:bg-dark-danger/10 font-bold rounded-2xl transition-all flex items-center justify-center gap-3 group">
+                <i class="fa-solid fa-xmark text-lg group-hover:rotate-12 transition-transform"></i>
+                Nicht gewusst
+              </button>
+              <button onclick="app.anki.next(true)" class="order-1 sm:order-2 py-5 px-6 bg-dark-success text-dark-bg font-bold rounded-2xl transition-all flex items-center justify-center gap-3 shadow-lg transform hover:scale-[1.02] active:scale-[0.98]">
+                <i class="fa-solid fa-check text-lg"></i>
+                Sicher gewusst
+              </button>
+            </div>
+          </div>
+
+          <!-- FINISH VIEW -->
+          <div id="ankiFinishView" class="w-full hidden animate-in fade-in zoom-in duration-500">
+            <div class="relative mb-8">
+              <div class="w-32 h-32 bg-dark-success/20 rounded-full flex items-center justify-center mx-auto border border-dark-success/30 relative z-10">
+                <i class="fa-solid fa-circle-check text-5xl text-dark-success"></i>
+              </div>
+              <div class="absolute inset-0 bg-dark-success/10 blur-3xl rounded-full"></div>
+            </div>            <h3 class="text-3xl font-bold text-white mb-4 tracking-tight">Thema abgeschlossen!</h3>
+            <p class="text-dark-muted mb-12 max-w-xs mx-auto text-sm leading-relaxed">Hervorragend! Du hast alle Karten für dieses Modul durchgearbeitet.</p>
+
+            <button onclick="app.anki.close()" class="w-full py-5 px-8 bg-dark-accent text-white font-bold rounded-2xl shadow-glow transform hover:scale-[1.02] active:scale-[0.98]">
+              Zurück zur Übersicht
+            </button>
+          </div>
+
+        </div>
+      </div>
+      </div>
+
+      <!-- Footer -->            <footer class="border-t border-dark-border bg-dark-card mt-auto py-8 no-print">
               <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted">
                 <div class="flex items-center gap-2">
                   <span class="font-bold text-white">cwillam</span> &copy; 2026
@@ -577,6 +690,15 @@
                 <div class="flex gap-2 items-center flex-wrap">
                   <span class="weight-badge text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider shrink-0"></span>
                   <span class="rep-indicator hidden text-[9px] font-bold px-2 py-0.5 rounded border border-dark-accent/30 bg-dark-accent/10 text-dark-accent uppercase tracking-wider shrink-0"></span>
+                  
+                  <div class="relative flex items-center group/anki">
+                    <button class="anki-btn hidden items-center text-dark-accent hover:bg-dark-accent hover:text-white transition-all text-[10px] bg-dark-accent/10 px-2 py-1 rounded border border-dark-accent/30 uppercase tracking-wider font-bold" onclick="event.stopPropagation()">
+                      <i class="fa-solid fa-layer-group mr-1"></i> Lernkarten
+                    </button>
+                    <!-- Status Badge -->
+                    <span class="anki-badge hidden absolute -top-2.5 -right-1 text-[8px] font-bold px-1 rounded border bg-dark-bg transition-transform group-hover/anki:scale-110"></span>
+                  </div>
+
                   <a href="#" target="_blank" class="google-link hidden sm:inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i>Suche</a>
                   <a href="#" target="_blank" class="duckduckgo-link hidden sm:inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()">DuckDuckGo</a>
                 </div>
@@ -625,6 +747,7 @@
 
     <script src="assets/js/confetti.js"></script>
     <script src="assets/js/data.js"></script>
+    <script src="assets/js/questions.js"></script>
     <script src="assets/js/app.js"></script>
   </body>
 </html>
