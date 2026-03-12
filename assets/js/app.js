@@ -967,9 +967,6 @@ const app = {
         }
 
         node.querySelector('.topic-title').textContent = t.title;
-        node.querySelector(
-          '.time-label'
-        ).innerHTML = `<i class="fa-regular fa-clock mr-1"></i>~${t.time} min`;
 
         const repIndicator = node.querySelector('.rep-indicator');
         const repCount = s.reps.filter(Boolean).length;
@@ -997,15 +994,9 @@ const app = {
           
           if (ankiBadge) {
             ankiBadge.classList.remove('hidden');
-            if (hasSessions) {
-              ankiBadge.innerHTML = `<i class="fa-solid fa-check text-dark-success"></i>`;
-              ankiBadge.classList.add('border-dark-success/30', 'text-dark-success');
-              ankiBadge.title = "Bereits gelernt";
-            } else {
-              ankiBadge.textContent = "NEU";
-              ankiBadge.classList.add('border-dark-accent/30', 'text-dark-accent');
-              ankiBadge.title = "Noch nicht gelernt";
-            }
+            ankiBadge.textContent = "NEU";
+            ankiBadge.classList.add('border-dark-accent/30', 'text-dark-accent');
+            ankiBadge.title = "Neu verfügbar";
           }
 
           ankiBtn.onclick = (e) => {

@@ -206,7 +206,7 @@
             onclick="window.scrollTo({top:0, behavior:'smooth'})"
           >
             <div
-              class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-glow transition-transform group-hover:scale-105 shrink-0"
+              class="hidden sm:flex w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 items-center justify-center shadow-glow transition-transform group-hover:scale-105 shrink-0"
             >
               <i class="fa-solid fa-code-merge text-white text-sm sm:text-base"></i>
             </div>
@@ -469,18 +469,18 @@
       </div>
 
       <!-- Filter Bar -->
-      <div class="sticky top-4 z-40 no-print" id="filterBar">
+      <div class="sm:sticky top-[64px] sm:top-4 z-40 no-print" id="filterBar">
         <div
-          class="bg-dark-bg/95 backdrop-blur-md border border-dark-border rounded-xl p-2 flex flex-col sm:flex-row gap-3 justify-between items-center shadow-2xl ring-1 ring-white/5"
+          class="bg-dark-bg/95 backdrop-blur-md border border-dark-border rounded-xl p-2 flex flex-col sm:flex-row gap-2 sm:gap-3 justify-between items-center shadow-2xl ring-1 ring-white/5"
         >
-          <div class="flex gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar pb-1 sm:pb-0">
-            <button class="filter-btn active px-4 py-2 text-xs font-bold rounded-lg bg-dark-card text-white border border-dark-border transition-all whitespace-nowrap" data-filter="all" onclick="app.setFilter('all')">Alle</button>
-            <button class="filter-btn px-4 py-2 text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap" data-filter="open" onclick="app.setFilter('open')">Noch offen</button>
-            <button class="filter-btn px-4 py-2 text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap" data-filter="high" onclick="app.setFilter('high')"><span class="text-dark-danger mr-1">●</span> Prio Hoch</button>
+          <div class="flex gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar">
+            <button class="filter-btn active px-3 sm:px-4 py-2 text-[10px] sm:text-xs font-bold rounded-lg bg-dark-card text-white border border-dark-border transition-all whitespace-nowrap" data-filter="all" onclick="app.setFilter('all')">Alle</button>
+            <button class="filter-btn px-3 sm:px-4 py-2 text-[10px] sm:text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap" data-filter="open" onclick="app.setFilter('open')">Noch offen</button>
+            <button class="filter-btn px-3 sm:px-4 py-2 text-[10px] sm:text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap" data-filter="high" onclick="app.setFilter('high')"><span class="text-dark-danger mr-1">●</span> Prio</button>
           </div>
-          <div class="relative w-full sm:w-auto group">
-            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted text-xs group-focus-within:text-dark-accent transition-colors"></i>
-            <input type="text" id="searchInput" onkeyup="app.search()" placeholder="Thema, Stichwort..." class="w-full sm:w-56 bg-dark-bg border border-dark-border rounded-lg py-2 pl-9 pr-3 text-xs text-white focus:border-dark-accent focus:ring-1 focus:ring-dark-accent outline-none transition-all placeholder:text-dark-muted/50" />
+          <div class="relative w-full sm:w-56 group mt-1 sm:mt-0">
+            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted text-[10px] group-focus-within:text-dark-accent transition-colors"></i>
+            <input type="text" id="searchInput" onkeyup="app.search()" placeholder="Suche..." class="w-full bg-dark-bg border border-dark-border rounded-lg py-1.5 pl-8 pr-3 text-[10px] sm:text-xs text-white focus:border-dark-accent focus:ring-1 focus:ring-dark-accent outline-none transition-all placeholder:text-dark-muted/50" />
           </div>
         </div>
       </div>
@@ -495,15 +495,18 @@
       <div id="ankiModal" class="fixed inset-0 z-[9999] hidden bg-[#020617] no-print flex flex-col">
       <!-- Modal Header (Solid) -->
       <div class="p-4 border-b border-dark-border flex items-center justify-between bg-[#0f172a] shrink-0">
-        <div class="flex flex-col">
+        <div class="flex-1"></div>
+        <div class="flex flex-col items-center text-center flex-[2]">
           <h2 id="ankiTopicTitle" class="text-sm font-bold text-white truncate max-w-[200px] sm:max-w-md">Thema</h2>
-          <div id="ankiModeBadge" class="flex items-center gap-1.5 mt-0.5">
+          <div id="ankiModeBadge" class="flex items-center justify-center gap-1.5 mt-0.5">
             <!-- Wird per JS befüllt -->
           </div>
         </div>
-        <button onclick="app.anki.close()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#020617] border border-dark-border text-dark-muted hover:text-white transition-all hover:scale-105 active:scale-95">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
+        <div class="flex-1 flex justify-end">
+          <button onclick="app.anki.close()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#020617] border border-dark-border text-dark-muted hover:text-white transition-all hover:scale-105 active:scale-95">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
       </div>
 
       <!-- Progress Bar (Subtle) -->
@@ -528,29 +531,29 @@
             </div>
             <div class="grid gap-4">
               <!-- Strategie Modus -->
-              <button onclick="app.anki.start('spaced')" class="w-full p-6 bg-dark-card border border-dark-accent/30 hover:border-dark-accent rounded-2xl text-left group transition-all shadow-lg hover:shadow-dark-accent/5">
-                <div class="flex items-start gap-5">
+              <button onclick="app.anki.start('spaced')" class="w-full p-6 bg-dark-card border border-dark-accent/30 hover:border-dark-accent rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-accent/5">
+                <div class="flex flex-col items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-dark-accent/20 flex items-center justify-center text-dark-accent group-hover:scale-110 transition-transform shrink-0">
                     <i class="fa-solid fa-brain text-xl"></i>
                   </div>
                   <div>
                     <h4 class="text-base font-bold text-white group-hover:text-dark-accent transition-colors">Strategie-Modus</h4>
-                    <p class="text-xs text-dark-muted leading-relaxed mt-1">
-                      <span class="text-dark-accent font-bold">Intelligente Intervalle.</span> Richtige Antworten erhöhen die Pause bis zur nächsten Wiederholung (1, 3, 7... Tage). Falsche bringen die Karte sofort zurück.
+                    <p class="text-xs text-dark-muted leading-relaxed mt-1 max-w-sm">
+                      <span class="text-dark-accent font-bold">Intelligente Intervalle.</span> Richtige Antworten erhöhen die Pause bis zur nächsten Wiederholung.
                     </p>
                   </div>
                 </div>
               </button>
 
               <!-- Freies Training -->
-              <button onclick="app.anki.start('manual')" class="w-full p-6 bg-dark-card border border-dark-border hover:border-dark-muted rounded-2xl text-left group transition-all shadow-lg">
-                <div class="flex items-start gap-5">
+              <button onclick="app.anki.start('manual')" class="w-full p-6 bg-dark-card border border-dark-border hover:border-dark-muted rounded-2xl text-center group transition-all shadow-lg">
+                <div class="flex flex-col items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-dark-bg flex items-center justify-center text-dark-muted group-hover:scale-110 transition-transform shrink-0">
                     <i class="fa-solid fa-dumbbell text-xl"></i>
                   </div>
                   <div>
                     <h4 class="text-base font-bold text-white">Freies Training</h4>
-                    <p class="text-xs text-dark-muted leading-relaxed mt-1">
+                    <p class="text-xs text-dark-muted leading-relaxed mt-1 max-w-sm">
                       <span class="text-white font-bold text-opacity-70">Reinpauken ohne Limit.</span> Alle 10 Karten sofort wiederholen. Kein Speichern, kein Druck.
                     </p>
                   </div>
@@ -560,10 +563,10 @@
           </div>
 
           <!-- QUESTION VIEW -->
-          <div id="ankiQuestionView" class="w-full hidden animate-in fade-in slide-in-from-bottom-8 duration-500">
+          <div id="ankiQuestionView" class="w-full hidden animate-in fade-in slide-in-from-bottom-8 duration-500 text-center">
             <div class="mb-12">
               <span class="inline-block px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-[10px] text-dark-muted uppercase font-mono tracking-widest mb-6" id="ankiCardCounter">Karte 1 von 10</span>
-              <h4 id="ankiQuestionText" class="text-2xl sm:text-4xl font-bold text-white leading-tight tracking-tight">Frage wird geladen...</h4>
+              <h4 id="ankiQuestionText" class="text-2xl sm:text-4xl font-bold text-white leading-tight tracking-tight px-4">Frage wird geladen...</h4>
             </div>
 
             <button id="ankiShowAnswerBtn" onclick="app.anki.showAnswer()" class="w-full py-6 px-8 bg-dark-accent hover:bg-violet-400 text-white font-bold rounded-2xl transition-all shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-lg">
@@ -573,10 +576,10 @@
           </div>
 
           <!-- ANSWER VIEW -->
-          <div id="ankiAnswerView" class="w-full hidden animate-in fade-in zoom-in duration-300">
-            <div class="mb-8">
+          <div id="ankiAnswerView" class="w-full hidden animate-in fade-in zoom-in duration-300 text-center">
+            <div class="mb-8 flex flex-col items-center">
                <span class="inline-block px-3 py-1 bg-dark-accent/10 border border-dark-accent/30 rounded-full text-[10px] text-dark-accent uppercase font-bold tracking-widest mb-6">Lösung</span>
-               <div class="bg-dark-card border border-dark-border rounded-3xl p-8 sm:p-12 shadow-2xl">
+               <div class="bg-dark-card border border-dark-border rounded-3xl p-8 sm:p-12 shadow-2xl w-full">
                   <p id="ankiAnswerText" class="text-lg sm:text-2xl text-white leading-relaxed font-medium">Antwort wird geladen...</p>
                </div>
             </div>
@@ -594,13 +597,14 @@
           </div>
 
           <!-- FINISH VIEW -->
-          <div id="ankiFinishView" class="w-full hidden animate-in fade-in zoom-in duration-500">
+          <div id="ankiFinishView" class="w-full hidden animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center">
             <div class="relative mb-8">
               <div class="w-32 h-32 bg-dark-success/20 rounded-full flex items-center justify-center mx-auto border border-dark-success/30 relative z-10">
                 <i class="fa-solid fa-circle-check text-5xl text-dark-success"></i>
               </div>
               <div class="absolute inset-0 bg-dark-success/10 blur-3xl rounded-full"></div>
-            </div>            <h3 class="text-3xl font-bold text-white mb-4 tracking-tight">Thema abgeschlossen!</h3>
+            </div>
+            <h3 class="text-3xl font-bold text-white mb-4 tracking-tight">Thema abgeschlossen!</h3>
             <p class="text-dark-muted mb-12 max-w-xs mx-auto text-sm leading-relaxed">Hervorragend! Du hast alle Karten für dieses Modul durchgearbeitet.</p>
 
             <button onclick="app.anki.close()" class="w-full py-5 px-8 bg-dark-accent text-white font-bold rounded-2xl shadow-glow transform hover:scale-[1.02] active:scale-[0.98]">
@@ -672,9 +676,9 @@
 
     <template id="tpl-topic">
       <div class="topic-card bg-dark-card border border-dark-border rounded-xl hover:border-dark-accent/30 transition-all duration-300 group shadow-card" data-id="">
-        <div class="p-3 sm:p-4 cursor-pointer select-none header-area relative">
-          <div class="flex gap-3 sm:gap-4 pl-1 sm:pl-3 items-center">
-            <div class="shrink-0 flex items-center justify-center h-full" onclick="event.stopPropagation()">
+        <div class="p-3 sm:p-4 cursor-pointer select-none header-area relative flex items-center min-h-[70px] sm:min-h-[80px]">
+          <div class="flex gap-3 sm:gap-4 pl-1 sm:pl-3 items-center w-full">
+            <div class="shrink-0 flex items-center justify-center" onclick="event.stopPropagation()">
               <label class="checkbox-wrapper relative flex items-center justify-center cursor-pointer w-6 h-6 sm:w-7 sm:h-7">
                 <input type="checkbox" class="peer sr-only topic-check" />
                 <div class="w-6 h-6 sm:w-7 sm:h-7 border-2 border-dark-border rounded-lg bg-dark-bg transition-all peer-hover:border-dark-muted flex items-center justify-center checkbox-bg">
@@ -684,27 +688,30 @@
                 </div>
               </label>
             </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-start sm:items-center flex-col sm:flex-row gap-1 sm:gap-3 mb-1">
-                <h3 class="text-sm sm:text-base font-bold text-white topic-title group-hover:text-dark-accent transition-colors leading-tight">Title</h3>
-                <div class="flex gap-2 items-center flex-wrap">
-                  <span class="weight-badge text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider shrink-0"></span>
-                  <span class="rep-indicator hidden text-[9px] font-bold px-2 py-0.5 rounded border border-dark-accent/30 bg-dark-accent/10 text-dark-accent uppercase tracking-wider shrink-0"></span>
-                  
-                  <div class="relative flex items-center group/anki">
-                    <button class="anki-btn hidden items-center text-dark-accent hover:bg-dark-accent hover:text-white transition-all text-[10px] bg-dark-accent/10 px-2 py-1 rounded border border-dark-accent/30 uppercase tracking-wider font-bold" onclick="event.stopPropagation()">
-                      <i class="fa-solid fa-layer-group mr-1"></i> Lernkarten
-                    </button>
-                    <!-- Status Badge -->
-                    <span class="anki-badge hidden absolute -top-2.5 -right-1 text-[8px] font-bold px-1 rounded border bg-dark-bg transition-transform group-hover/anki:scale-110"></span>
+            <div class="flex-1 min-w-0 flex flex-col justify-center py-1">
+              <h3 class="text-sm sm:text-base font-bold text-white topic-title group-hover:text-dark-accent transition-colors leading-tight mb-1.5 sm:mb-2">Title</h3>
+              
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                <!-- Links: Gewichtung & Suche -->
+                <div class="flex items-center gap-3 flex-wrap">
+                  <div class="flex gap-2 items-center">
+                    <span class="weight-badge text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider shrink-0"></span>
+                    <span class="rep-indicator hidden text-[9px] font-bold px-2 py-0.5 rounded border border-dark-accent/30 bg-dark-accent/10 text-dark-accent uppercase tracking-wider shrink-0"></span>
                   </div>
-
-                  <a href="#" target="_blank" class="google-link hidden sm:inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i>Suche</a>
-                  <a href="#" target="_blank" class="duckduckgo-link hidden sm:inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()">DuckDuckGo</a>
+                  
+                  <div class="hidden sm:flex gap-2 items-center border-l border-dark-border/50 pl-3">
+                    <a href="#" target="_blank" class="google-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i>Suche</a>
+                    <a href="#" target="_blank" class="duckduckgo-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i class="fa-solid fa-magnifying-glass mr-1"></i>DuckDuckGo</a>
+                  </div>
                 </div>
-              </div>
-              <div class="flex items-center gap-3 text-[10px] font-mono text-dark-muted mt-1 sm:mt-0">
-                <span class="time-label"><i class="fa-regular fa-clock mr-1"></i>-- min</span>
+
+                <!-- Rechts/Unten: Lernkarten -->
+                <div class="relative flex items-center group/anki w-fit mt-0.5 sm:mt-0">
+                  <button class="anki-btn hidden items-center text-dark-accent hover:bg-dark-accent hover:text-white transition-all text-[10px] bg-dark-accent/10 px-2.5 py-1 rounded border border-dark-accent/30 uppercase tracking-wider font-bold" onclick="event.stopPropagation()">
+                    <i class="fa-solid fa-layer-group mr-1.5"></i> Lernkarten
+                  </button>
+                  <span class="anki-badge hidden absolute -top-2 -right-2 text-[7px] sm:text-[8px] font-extrabold px-1.5 py-0.5 rounded border bg-dark-bg leading-none transition-transform group-hover/anki:scale-110 shadow-sm z-10"></span>
+                </div>
               </div>
             </div>
             <div class="w-8 h-8 flex items-center justify-center text-dark-muted accordion-icon transition-transform duration-300 bg-dark-bg/50 rounded-full border border-dark-border group-hover:border-dark-muted shrink-0">
@@ -717,13 +724,17 @@
             <div>
               <div class="flex justify-between items-center mb-3">
                 <h4 class="text-[10px] font-bold text-dark-muted uppercase flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Lerninhalte</h4>
-                <a href="#" target="_blank" class="google-link-mobile sm:hidden inline-flex items-center text-dark-accent text-[10px] uppercase font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i> Google</a>
+                <div class="flex gap-3 sm:hidden">
+                  <a href="#" target="_blank" class="google-link-mobile inline-flex items-center text-dark-accent text-[10px] uppercase font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i> Google</a>
+                  <a href="#" target="_blank" class="duckduckgo-link-mobile inline-flex items-center text-dark-muted text-[10px] uppercase font-bold" onclick="event.stopPropagation()"><i class="fa-solid fa-magnifying-glass mr-1"></i> DuckDuckGo</a>
+                </div>
               </div>
               <ul class="subtask-list space-y-2.5"></ul>
             </div>
-            <div class="flex flex-col gap-5 border-l border-dark-border pl-0 md:pl-6 md:border-l-0 border-t md:border-t-0 pt-4 md:pt-0">
+            <div class="flex flex-col gap-5 border-t md:border-t-0 md:border-l border-dark-border pt-5 md:pt-0 md:pl-6">
               <div>
-                <span class="text-[10px] font-bold text-dark-muted uppercase mb-2 block">Wiederholungen</span>
+                <span class="text-[10px] font-bold text-dark-muted uppercase mb-1 block">Wiederholungen</span>
+                <p class="text-[10px] text-dark-muted/70 mb-3 leading-tight">Empfehlung: Festige dein Wissen durch mindestens 3 Wiederholungen.</p>
                 <div class="flex gap-2">
                   <label class="cursor-pointer group/rep w-10 h-10">
                     <input type="checkbox" class="rep-check sr-only" data-idx="0" />
