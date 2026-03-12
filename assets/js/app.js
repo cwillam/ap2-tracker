@@ -148,6 +148,15 @@ const app = {
       gStats.total++;
       if (isCorrect) gStats.correct++;
 
+      // JEDE richtige Antwort (auch im freien Training) markiert die Karte als gelernt (level: 1 setzen)
+      if (isCorrect) {
+        if (!app.state.anki) app.state.anki = {};
+        const cardId = this.cards[this.currentIndex].id;
+        if (!app.state.anki[cardId]) {
+          app.state.anki[cardId] = { level: 1, nextReview: Date.now() + 86400000 };
+        }
+      }
+
       if (this.mode === 'spaced') {
         this.updateCardLevel(this.cards[this.currentIndex].id, isCorrect);
       }
@@ -220,13 +229,15 @@ const app = {
 
   ranks: [
     { min: 0, name: 'Hello World', color: '#94a3b8' },
-    { min: 5, name: 'Junior Dev', color: '#a855f7' },
-    { min: 15, name: 'Code Architect', color: '#8b5cf6' },
-    { min: 30, name: 'SQL Wizard', color: '#6366f1' },
-    { min: 50, name: 'Logic Master', color: '#10b981' },
-    { min: 75, name: 'System Overlord', color: '#f59e0b' },
-    { min: 100, name: 'Fullstack Legend', color: '#ef4444' },
-    { min: 125, name: 'IT-Gott', color: '#FFDD00' },
+    { min: 50, name: 'Junior Dev', color: '#a855f7' },
+    { min: 150, name: 'Bug Hunter', color: '#8b5cf6' },
+    { min: 300, name: 'Logic Master', color: '#6366f1' },
+    { min: 500, name: 'Code Architect', color: '#10b981' },
+    { min: 700, name: 'SQL Wizard', color: '#f59e0b' },
+    { min: 900, name: 'Fullstack Legend', color: '#ef4444' },
+    { min: 1050, name: 'System Overlord', color: '#FF00FF' },
+    { min: 1120, name: 'Deployment King', color: '#00FFFF' },
+    { min: 1140, name: 'IT-Gott (FIAE Edition)', color: '#FFDD00' },
   ],
 
   // --- INIT ---
@@ -781,28 +792,44 @@ const app = {
 
   // --- RENDER ---
   updateStats() {
-    const all = AP2_DATA.flatMap((c) => c.topics || []);
-    const total = all.length;
-    if (total === 0) return;
+    const allTopics = AP2_DATA.flatMap((c) => c.topics || []);
+    
+    // Punkte-Logik: 10 Punkte pro Unterthema (Sub-Task)
+    let doneSubTasks = 0;
+    allTopics.forEach(t => {
+      const s = this.getState(t.id);
+      if (s.subDone) {
+        doneSubTasks += s.subDone.filter(Boolean).length;
+      } else if (s.done) {
+        // Fallback falls subDone nicht existiert aber Thema erledigt ist
+        doneSubTasks += (t.sub ? t.sub.length : 1);
+      }
+    });
+    const topicPoints = doneSubTasks * 10;
 
-    const done = all.filter((t) => this.getState(t.id).done).length;
-    const pct = Math.round((done / total) * 100);
+    // Anki-Punkte: 1 Punkt pro gelernte Karte (level >= 1)
+    const learnedCards = this.state.anki ? Object.values(this.state.anki).filter(c => c.level >= 1).length : 0;
+    const cardPoints = learnedCards;
+
+    const currentPoints = topicPoints + cardPoints;
+    const maxPoints = 1140;
+    const totalPct = Math.min(100, Math.round((currentPoints / maxPoints) * 100));
 
     const totalTopEl = document.getElementById('totalPercentTop');
-    if (totalTopEl) totalTopEl.textContent = pct + '%';
+    if (totalTopEl) totalTopEl.textContent = totalPct + '%';
 
     const mainProgress = document.getElementById('mainProgressBar');
-    if (mainProgress) mainProgress.style.width = pct + '%';
+    if (mainProgress) mainProgress.style.width = totalPct + '%';
 
     const doneCountEl = document.getElementById('doneCount');
-    if (doneCountEl) doneCountEl.textContent = done;
+    if (doneCountEl) doneCountEl.textContent = learnedCards; // Zeigt nun Karten-Anzahl
 
     let currentRank = this.ranks[0];
     let nextRank = null;
     let rankPct = 0;
 
     for (let i = 0; i < this.ranks.length; i++) {
-      if (done >= this.ranks[i].min) {
+      if (currentPoints >= this.ranks[i].min) {
         currentRank = this.ranks[i];
         nextRank = this.ranks[i + 1] || null;
       }
@@ -816,8 +843,8 @@ const app = {
 
     if (nextRank) {
       const range = nextRank.min - currentRank.min;
-      const currentInRank = done - currentRank.min;
-      rankPct = (currentInRank / range) * 100;
+      const currentInRank = currentPoints - currentRank.min;
+      rankPct = Math.min(100, (currentInRank / range) * 100);
     } else {
       rankPct = 100;
     }
@@ -830,7 +857,7 @@ const app = {
 
     let best = null,
       maxScore = -1;
-    all.forEach((t) => {
+    allTopics.forEach((t) => {
       const s = this.getState(t.id);
       if (!s.done) {
         const score = t.weight * 10 + Math.random() * 5;
