@@ -1,4 +1,4 @@
-# 🚀 AP2 Tracker FIAE - Dein Lernbegleiter (v2.0 Major Update)
+# 🚀 AP2 Tracker FIAE - Dein Lernbegleiter (v2.0.1 Safety Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
@@ -17,9 +17,17 @@ Das Projekt ist einsatzbereit gehostet:
 
 ## 💡 Über das Projekt
 
-Der **AP2 Tracker FIAE** wurde entwickelt, um Anwendungsentwicklern eine strukturierte und detaillierte Übersicht über die komplexen Lerninhalte der Abschlussprüfung Teil 2 zu geben. 
+Der **AP2 Tracker FIAE** wurde entwickelt, um Anwendungsentwicklern eine strukturierte und detaillierte Übersicht über die komplexen Lerninhalte der Abschlussprüfung Teil 2 zu geben.
 
 Im Gegensatz zur AP1 liegt hier der Fokus auf tiefergehenden Themen wie Software-Architektur, fortgeschrittenen SQL-Konzepten, UML-Modellierung und fachspezifischer Wirtschaftslehre.
+
+### ✨ Highlights v2.0.1 (Safety & Firefox Fix)
+
+- **Firefox-Kompatibilität:** Lernkarten-Button jetzt in allen Browsern klickbar (Event-Capture-Phase).
+- **Storage-Schutz:** Proaktive Warnung bei 80% LocalStorage-Auslastung verhindert Datenverlust.
+- **Import-Security:** 5-stufige Validierung blockiert korrupte oder inkompatible Backups.
+- **Smart Focus 2.0:** Intelligente Themen-Empfehlung basierend auf Gewicht, Fortschritt und Wiederholungen.
+- **Error-Handling:** Notification-System ersetzt blockierende Alerts + Corrupt-Data-Protection.
 
 ### ✨ Highlights v2.0 (The Content Overhaul)
 
@@ -61,6 +69,21 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 1.  **Keine Cookies:** Es werden keine Tracking-Cookies gesetzt.
 2.  **Keine externen Requests:** Alle Bibliotheken liegen lokal auf dem Server. Es fließen keine Daten an externe CDNs.
 3.  **Local Data:** Alle User-Eingaben bleiben ausschließlich auf dem Endgerät des Nutzers.
+4.  **Storage-Security:** Proaktive Überwachung verhindert Datenverlust bei vollem Speicher.
+
+---
+
+## 📦 Updates & Changelog
+
+Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
+
+**Aktuelle Version:** v2.0.1 (24. März 2026)
+
+- 🔥 Firefox-Fix: Lernkarten-Button in allen Browsern klickbar
+- 🛡️ Storage-Überwachung: Warnung bei 80% Auslastung
+- 🔒 Import-Validierung: 5-stufige Security-Prüfung
+- 🎯 Smart Focus 2.0: Intelligente Themen-Empfehlung
+- 📝 Error-Handling: Notification-System + Corrupt-Data-Protection
 
 ---
 

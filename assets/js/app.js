@@ -26,6 +26,8 @@ const app = {
   _statsRAF: null,
   _searchTimer: null,
   _streakCells: null,
+  _quotaWarningShown: false,
+  _saveError: null,
 
   // --- ANKI / FLASHCARDS ---
   anki: {
@@ -35,9 +37,16 @@ const app = {
     mode: 'manual', // 'manual' oder 'spaced'
 
     open(topicId) {
+      // Debug-Log für Fehlersuche (Browser-Kompatibilität)
+      console.log('[AP2] 🎴 Opening Anki for topic:', topicId);
+      console.log('[AP2] 📚 Cards available:', window.ANKI_QUESTIONS?.[topicId]?.length || 0);
+      
       const allQuestions = window.ANKI_QUESTIONS || {};
       this.cards = allQuestions[topicId] || [];
-      if (this.cards.length === 0) return;
+      if (this.cards.length === 0) {
+        console.warn('[AP2] ⚠️ No cards found for topic:', topicId);
+        return;
+      }
 
       this.currentTopicId = topicId;
       
@@ -102,8 +111,13 @@ const app = {
       app.save();
       app.updateStats(); // UI sofort aktualisieren
 
-      // Karten für diese Session mischen (Shallow Copy + Shuffle)
-      this.cards = [...this.cards].sort(() => Math.random() - 0.5);
+      // Karten für diese Session mischen (Fisher-Yates Shuffle)
+      const shuffled = [...this.cards];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      this.cards = shuffled;
       
       const badge = document.getElementById('ankiModeBadge');
       badge.classList.remove('hidden');
@@ -148,8 +162,8 @@ const app = {
       gStats.total++;
       if (isCorrect) gStats.correct++;
 
-      // JEDE richtige Antwort (auch im freien Training) markiert die Karte als gelernt (level: 1 setzen)
-      if (isCorrect) {
+      // Im freien Training markieren wir neue Karten als gelernt (Stufe 1)
+      if (isCorrect && this.mode !== 'spaced') {
         if (!app.state.anki) app.state.anki = {};
         const cardId = this.cards[this.currentIndex].id;
         if (!app.state.anki[cardId]) {
@@ -260,7 +274,35 @@ const app = {
 
     try {
       const s = localStorage.getItem('ap2_tracker_state_v1');
-      if (s) this.state = JSON.parse(s);
+      if (s) {
+        try {
+          this.state = JSON.parse(s);
+          console.log('[AP2] State geladen:', this._getStateSummary());
+        } catch (parseErr) {
+          console.error('[AP2] Corrupt LocalStorage data:', parseErr);
+          // Bei korrupten Daten: User warnen und neu starten
+          const corruptData = s.substring(0, 100);
+          console.error('[AP2] Corrupt data preview:', corruptData);
+          
+          if (confirm(
+            'Deine gespeicherten Daten sind beschädigt. \n\n' +
+            'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
+            'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.'
+          )) {
+            localStorage.removeItem('ap2_tracker_state_v1');
+            location.reload();
+          } else {
+            // Debug-Modus: leeren State verwenden
+            this.state = {};
+            this.showNotification(
+              'Daten korrupt',
+              'Bitte Export machen und Support kontaktieren.',
+              'error',
+              0
+            );
+          }
+        }
+      }
 
       if (localStorage.getItem('ap2_infobox_dismissed')) {
         const infoBox = document.getElementById('infoBox');
@@ -287,20 +329,107 @@ const app = {
       this.buildDOM();
       this.applyFilter();
     } catch (err) {
-      console.error('Critical Init Error:', err);
+      console.error('[AP2] Critical Init Error:', err);
+      // Fallback: Leeren State verwenden und weitermachen
+      this.state = {};
+      this.showNotification(
+        'Initialisierungsfehler',
+        'Bitte Seite neu laden. Wenn das Problem bleibt: Support kontaktieren.',
+        'error',
+        0
+      );
     } finally {
       setTimeout(hideLoader, 600);
     }
   },
 
+  /**
+   * Gibt eine Zusammenfassung des States für Debug-Zwecke zurück
+   */
+  _getStateSummary() {
+    const summary = { keys: Object.keys(this.state).length };
+    if (this.state.activity) summary.activityDays = Object.keys(this.state.activity).length;
+    if (this.state.ankiStats) summary.ankiTopics = Object.keys(this.state.ankiStats).length;
+    return summary;
+  },
+
   // --- SAVE & STATE ---
-  save() {
+  save(silent = false) {
     try {
-      localStorage.setItem('ap2_tracker_state_v1', JSON.stringify(this.state));
+      const serialized = JSON.stringify(this.state);
+      const size = new Blob([serialized]).size;
+      
+      // Warnung bei >80% Auslastung (ca. 4 MB von 5 MB Limit)
+      if (size > 4 * 1024 * 1024 && !this._quotaWarningShown) {
+        this._quotaWarningShown = true;
+        console.warn('[AP2] LocalStorage bei 80% - bitte Export machen!');
+        if (!silent) {
+          this.showNotification(
+            'Speicher fast voll',
+            'Bitte mach einen Export, um deine Daten zu sichern.',
+            'warning'
+          );
+        }
+      }
+      
+      localStorage.setItem('ap2_tracker_state_v1', serialized);
+      this._saveError = null;
     } catch (e) {
-      console.error('Storage quota exceeded or error', e);
+      this._saveError = e;
+      console.error('[AP2] Save failed:', e.name, e.message);
+      
+      if (e.name === 'QuotaExceededError') {
+        if (!silent) {
+          this.showNotification(
+            'Speicher voll!',
+            'Bitte Export machen und alte Daten löschen.',
+            'error',
+            0 // Kein Auto-Close
+          );
+        }
+      }
     }
     this.scheduleStatsUpdate();
+  },
+
+  showNotification(title, message, type = 'info', duration = 5000) {
+    const colors = {
+      info: 'bg-dark-accent',
+      success: 'bg-dark-success',
+      warning: 'bg-dark-warning',
+      error: 'bg-dark-danger'
+    };
+    const icons = {
+      info: 'fa-info-circle',
+      success: 'fa-check-circle',
+      warning: 'fa-exclamation-triangle',
+      error: 'fa-times-circle'
+    };
+    
+    const existing = document.getElementById('appNotification');
+    if (existing) existing.remove();
+    
+    const notification = document.createElement('div');
+    notification.id = 'appNotification';
+    notification.className = `fixed top-20 right-4 z-[100] ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm animate-in fade-in slide-in-from-top-2`;
+    notification.innerHTML = `
+      <div class="flex items-start gap-3">
+        <i class="fa-solid ${icons[type]} text-lg mt-0.5"></i>
+        <div class="flex-1">
+          <p class="font-bold text-sm">${title}</p>
+          <p class="text-xs opacity-90 mt-1">${message}</p>
+        </div>
+        <button onclick="this.parentElement.parentElement.remove()" class="opacity-70 hover:opacity-100">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    if (duration > 0) {
+      setTimeout(() => notification.remove(), duration);
+    }
   },
 
   hideInfoBox() {
@@ -441,23 +570,196 @@ const app = {
       'ap2_fiae_backup_' + new Date().toISOString().slice(0, 10) + '.json'
     );
     linkElement.click();
+    this.showNotification('Export erfolgreich', 'Deine Daten wurden heruntergeladen.', 'success');
+  },
+
+  /**
+   * Validiert die Struktur eines importierten State-Objekts
+   * @param {any} data - Das zu validierende Datenobjekt
+   * @returns {{valid: boolean, error?: string, needsMigration?: boolean}}
+   */
+  validateImport(data) {
+    // 1. Typ-Check
+    if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+      return { valid: false, error: 'Ungültiges Format: Erwartet wird ein JSON-Objekt.' };
+    }
+    
+    // 2. Minimale Struktur-Checks (existierende Keys prüfen)
+    const requiredKeys = ['activity']; // activity ist immer vorhanden nach erstem Use
+    for (const key of requiredKeys) {
+      if (!(key in data)) {
+        return { valid: false, error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.` };
+      }
+    }
+    
+    // 3. Größen-Check (max 5 MB = LocalStorage Limit)
+    const size = new Blob([JSON.stringify(data)]).size;
+    if (size > 5 * 1024 * 1024) {
+      return { valid: false, error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)` };
+    }
+    
+    // 4. Versions-Erkennung für zukünftige Migrationen
+    const version = data._version || 'v1';
+    const supportedVersions = ['v1', 'v2'];
+    
+    if (!supportedVersions.includes(version)) {
+      return { 
+        valid: false, 
+        error: `Unbekannte Version: "${version}". Bitte Tracker aktualisieren.`,
+        needsMigration: true
+      };
+    }
+    
+    // 5. Plausibilitäts-Check für bekannte Felder
+    if (data.activity && typeof data.activity !== 'object') {
+      return { valid: false, error: 'Feld "activity" muss ein Objekt sein.' };
+    }
+    
+    if (data.ankiStats && typeof data.ankiStats !== 'object') {
+      return { valid: false, error: 'Feld "ankiStats" muss ein Objekt sein.' };
+    }
+    
+    return { valid: true, version };
+  },
+
+  /**
+   * Führt Migrationen zwischen verschiedenen State-Versionen durch
+   * @param {object} data - Das zu migrierende Datenobjekt
+   * @returns {object} Das migrierte Datenobjekt
+   */
+  migrateState(data) {
+    const currentVersion = data._version || 'v1';
+    let migrated = { ...data };
+    
+    // Beispiel für zukünftige Migrationen:
+    // if (currentVersion === 'v1') {
+    //   migrated = { ...migrated, newField: defaultValue };
+    //   migrated._version = 'v2';
+    // }
+    
+    // Immer aktuelle Version setzen, falls noch nicht vorhanden
+    if (!migrated._version) {
+      migrated._version = 'v1';
+    }
+    
+    console.log(`[AP2] Migration: ${currentVersion} -> ${migrated._version}`);
+    return migrated;
   },
 
   importData(input) {
     const file = input.files[0];
     if (!file) return;
+    
+    // Reset input damit gleiche Datei erneut gewählt werden kann
+    input.value = '';
+    
+    // Größen-Check vor dem Lesen (max 10 MB Raw-Datei)
+    if (file.size > 10 * 1024 * 1024) {
+      this.showNotification(
+        'Datei zu groß',
+        `Maximale Größe: 10 MB. Deine Datei: ${(file.size / 1024 / 1024).toFixed(2)} MB`,
+        'error'
+      );
+      return;
+    }
+    
     const reader = new FileReader();
+    
+    reader.onerror = () => {
+      console.error('[AP2] File read error:', reader.error);
+      this.showNotification('Lesefehler', 'Die Datei konnte nicht gelesen werden.', 'error');
+    };
+    
     reader.onload = (e) => {
+      const content = e.target.result;
+      
+      // 1. JSON parsen
+      let parsed;
       try {
-        this.state = JSON.parse(e.target.result);
-        this.save();
-        alert('Backup erfolgreich geladen!');
-        location.reload();
+        parsed = JSON.parse(content);
       } catch (err) {
-        alert('Fehler beim Laden der Datei. Format ungültig.');
+        console.error('[AP2] JSON parse error:', err);
+        this.showNotification(
+          'Ungültiges JSON',
+          'Die Datei ist kein gültiges JSON-Format.',
+          'error'
+        );
+        return;
+      }
+      
+      // 2. Struktur validieren
+      const validation = this.validateImport(parsed);
+      if (!validation.valid) {
+        console.error('[AP2] Validation failed:', validation.error);
+        this.showNotification('Import fehlgeschlagen', validation.error, 'error', 0);
+        return;
+      }
+      
+      // 3. Migration durchführen (falls nötig)
+      const migrated = this.migrateState(parsed);
+      
+      // 4. State ersetzen und speichern
+      const oldState = this.state;
+      this.state = migrated;
+      
+      try {
+        this.save();
+        
+        // 5. Erfolg melden
+        const stats = this.getImportStats(migrated);
+        this.showNotification(
+          'Import erfolgreich',
+          `Lade Fortschritt: ${stats.topics} Themen, ${stats.cards} Karten${stats.days ? `, ${stats.days} Tage Aktivität` : ''}`,
+          'success'
+        );
+        
+        // 6. Reload nach kurzer Verzögerung
+        setTimeout(() => location.reload(), 1500);
+      } catch (err) {
+        console.error('[AP2] Import save failed:', err);
+        // Rollback bei Save-Fehler
+        this.state = oldState;
+        this.showNotification(
+          'Speicherfehler',
+          'Import erfolgreich validiert, aber Speicher voll. Bitte erst Export machen.',
+          'error',
+          0
+        );
       }
     };
+    
     reader.readAsText(file);
+  },
+
+  /**
+   * Extrahiert Statistik-Infos aus importiertem State für User-Feedback
+   */
+  getImportStats(state) {
+    const stats = { topics: 0, cards: 0, days: 0 };
+    
+    // Gezählte Topics
+    if (state) {
+      Object.keys(state).forEach(key => {
+        if (/^\d+\.\d+$/.test(key)) { // Topic-ID Pattern (z.B. "1.1", "2.3")
+          stats.topics++;
+          if (state[key].done) stats.cards++;
+        }
+      });
+    }
+    
+    // Anki-Karten
+    if (state.ankiStats) {
+      Object.values(state.ankiStats).forEach(s => {
+        stats.cards += (s.correct || 0);
+      });
+    }
+    
+    // Aktivitätstage
+    if (state.activity) {
+      stats.days = Object.keys(state.activity).filter(d => state.activity[d] > 0).length;
+    }
+    
+    return stats;
   },
 
   resetData() {
@@ -796,6 +1098,7 @@ const app = {
     
     // Punkte-Logik: 10 Punkte pro Unterthema (Sub-Task)
     let doneSubTasks = 0;
+    let totalSubTasks = 0;
     allTopics.forEach(t => {
       const s = this.getState(t.id);
       if (s.subDone) {
@@ -804,6 +1107,7 @@ const app = {
         // Fallback falls subDone nicht existiert aber Thema erledigt ist
         doneSubTasks += (t.sub ? t.sub.length : 1);
       }
+      totalSubTasks += (t.sub ? t.sub.length : 1);
     });
     const topicPoints = doneSubTasks * 10;
 
@@ -811,8 +1115,11 @@ const app = {
     const learnedCards = this.state.anki ? Object.values(this.state.anki).filter(c => c.level >= 1).length : 0;
     const cardPoints = learnedCards;
 
+    // Max Points dynamisch berechnen
+    const allAnkiCards = window.ANKI_QUESTIONS ? Object.values(window.ANKI_QUESTIONS).flat().length : 0;
+    const maxPoints = (totalSubTasks * 10) + allAnkiCards;
+
     const currentPoints = topicPoints + cardPoints;
-    const maxPoints = 1140;
     const totalPct = Math.min(100, Math.round((currentPoints / maxPoints) * 100));
 
     const totalTopEl = document.getElementById('totalPercentTop');
@@ -857,24 +1164,52 @@ const app = {
 
     let best = null,
       maxScore = -1;
+    
+    // Smart Focus: Berechnet das nächste beste Thema basierend auf:
+    // 1. Gewichtung (weight) - höhere Priorität = wichtiger
+    // 2. Fortschritt (subDone) - weniger erledigt = dringender
+    // 3. Wiederholungen (reps) - weniger wiederholt = dringender
+    // 4. Leichter Zufall (für Varianz bei gleichen Scores)
+    
     allTopics.forEach((t) => {
       const s = this.getState(t.id);
       if (!s.done) {
-        const score = t.weight * 10 + Math.random() * 5;
+        // Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
+        const weightScore = t.weight * 10;
+        
+        // Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
+        const totalSub = t.sub ? t.sub.length : 1;
+        const doneSub = s.subDone ? s.subDone.filter(Boolean).length : (s.done ? totalSub : 0);
+        const progressScore = ((totalSub - doneSub) / totalSub) * 20;
+        
+        // Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
+        const totalReps = 3;
+        const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
+        const repScore = ((totalReps - doneReps) / totalReps) * 15;
+        
+        // Leichter Zufall für Varianz (max 5 Punkte)
+        const randomScore = Math.random() * 5;
+        
+        // Gesamt-Score
+        const score = weightScore + progressScore + repScore + randomScore;
+        
         if (score > maxScore) {
           maxScore = score;
           best = t;
         }
       }
     });
+    
     const recShort = document.getElementById('recShort');
     if (recShort) {
       if (best) {
         this.recId = best.id;
         recShort.textContent = `${best.title}`;
+        console.log('[AP2] 🎯 Smart Focus:', best.title, `(Score: ${maxScore.toFixed(1)})`);
       } else {
         this.recId = null;
         recShort.textContent = 'Bereit für die AP2!';
+        console.log('[AP2] ✅ Alle Themen erledigt!');
       }
     }
   },
@@ -901,7 +1236,7 @@ const app = {
         let matchesSearch = true;
         let subMatch = false;
         if (this.searchQuery) {
-          subMatch = t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery));
+          subMatch = t.sub && t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery));
           matchesSearch =
             t.title.toLowerCase().includes(this.searchQuery) || subMatch;
         }
@@ -1020,13 +1355,13 @@ const app = {
         const ankiBtn = node.querySelector('.anki-btn');
         const ankiBadge = node.querySelector('.anki-badge');
         const hasQuestions = window.ANKI_QUESTIONS && window.ANKI_QUESTIONS[t.id];
-        
+
         if (ankiBtn && hasQuestions) {
           ankiBtn.classList.remove('hidden');
           ankiBtn.classList.add('flex');
-          
+
           const hasSessions = this.state.ankiStats && this.state.ankiStats[t.id] && this.state.ankiStats[t.id].sessions > 0;
-          
+
           if (ankiBadge) {
             ankiBadge.classList.remove('hidden');
             ankiBadge.textContent = "NEU";
@@ -1034,10 +1369,14 @@ const app = {
             ankiBadge.title = "Neu verfügbar";
           }
 
-          ankiBtn.onclick = (e) => {
+          // FIX: addEventListener mit capture:true für Firefox-Kompatibilität
+          // Verhindert dass Parent-Element (Accordion) den Klick abfängt
+          ankiBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
+            console.log('[AP2] 🎴 Anki Button clicked for topic:', t.id);
             this.anki.open(t.id);
-          };
+          }, { once: false, capture: true });
         }
 
         const googleLinks = node.querySelectorAll('.google-link, .google-link-mobile');
