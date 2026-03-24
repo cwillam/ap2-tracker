@@ -1,81 +1,108 @@
 /**
  * LERNKARTEN-DATENBANK (ANKI-STYLE)
- * 
+ *
  * Struktur: topicId -> Array von Cards
  * Jedes Card-Objekt: { id, q, a }
+ *
+ * OPTIMIERT FÜR AP2-FIAE (24. März 2026)
+ * - Listen-Fragen aufgeteilt (1 Item = 1 Karte)
+ * - Pseudocode hinzugefügt wo sinnvoll
+ * - "Warum"-Fragen für Verständnis ergänzt
  */
 
 window.ANKI_QUESTIONS = {
   // --- MODUL 1: PLANEN ---
 
-  // Topic 1.1: Vorgehensmodelle & Analyse (50 Karten)
+  // Topic 1.1: Vorgehensmodelle & Analyse (~75 Karten optimiert)
   '1.1': [
-    // --- Unterpunkt 1: Scrum (10 Karten) ---
-    { id: '1.1_1', q: 'Nenne die drei Rollen in einem Scrum-Team.', a: '1. Product Owner (PO), 2. Scrum Master (SM), 3. Developer (Entwickler-Team).' },
-    { id: '1.1_2', q: 'Welche 5 Events (Ereignisse) gibt es in Scrum?', a: '1. Der Sprint, 2. Sprint Planning, 3. Daily Scrum, 4. Sprint Review, 5. Sprint Retrospektive.' },
-    { id: '1.1_3', q: 'Was sind die drei Artefakte in Scrum?', a: '1. Product Backlog, 2. Sprint Backlog, 3. Inkrement (Produkt-Zuwachs).' },
-    { id: '1.1_4', q: 'Was versteht man unter der "Definition of Done" (DoD)?', a: 'Eine formale Checkliste von Qualitätskriterien, die ein Inkrement erfüllen muss, um als fertig und auslieferbar zu gelten.' },
-    { id: '1.1_5', q: 'Was ist das Ziel des "Sprint Review" am Ende des Sprints?', a: 'Überprüfung des Inkrements (Was wurde geschafft?) und Einholen von Feedback der Stakeholder zur Anpassung des Backlogs.' },
-    { id: '1.1_6', q: 'Was ist der Hauptzweck der "Sprint Retrospektive"?', a: 'Analyse der Zusammenarbeit im Team (Prozesse, Tools, Menschen) und Planung von Verbesserungen für den nächsten Sprint.' },
-    { id: '1.1_7', q: 'Wer ist in Scrum für die Maximierung des Produktwerts verantwortlich?', a: 'Der Product Owner (PO).' },
-    { id: '1.1_8', q: 'Nenne die 3 Säulen von Scrum (empirische Prozesssteuerung).', a: '1. Transparenz (Transparency), 2. Überprüfung (Inspection), 3. Anpassung (Adaptation).' },
-    { id: '1.1_9', q: 'Nenne die 5 Scrum-Werte.', a: 'Mut (Courage), Fokus, Commitment, Respekt, Offenheit (Openness).' },
-    { id: '1.1_10', q: 'Was ist das Sprint-Ziel (Sprint Goal) und wer legt es fest?', a: 'Es beschreibt den Zweck des Sprints und wird im Planning gemeinsam vom Team festgelegt.' },
+    // --- Unterpunkt 1: Scrum (15 Karten) ---
+    { id: '1.1_1', q: 'Wer vertritt die Stakeholder und maximiert den Produktwert in Scrum?', a: 'Product Owner (PO)' },
+    { id: '1.1_2', q: 'Wer entfernt Hindernisse und achtet auf Scrum-Prozesse?', a: 'Scrum Master (SM)' },
+    { id: '1.1_3', q: 'Wer entwickelt das Produkt in Scrum?', a: 'Developer-Team' },
+    { id: '1.1_4', q: 'Welches Scrum-Event plant die Arbeit des kommenden Sprints?', a: 'Sprint Planning' },
+    { id: '1.1_5', q: 'Welches Scrum-Event dient dem täglichen Austausch im Team (max. 15 Min)?', a: 'Daily Scrum' },
+    { id: '1.1_6', q: 'Welches Scrum-Event präsentiert das Inkrement den Stakeholdern?', a: 'Sprint Review' },
+    { id: '1.1_7', q: 'Welches Scrum-Event analysiert die Zusammenarbeit und plant Verbesserungen?', a: 'Sprint Retrospektive' },
+    { id: '1.1_8', q: 'Was ist das Ziel des "Sprint Review"?', a: 'Überprüfung des Inkrements und Einholen von Feedback zur Anpassung des Backlogs.' },
+    { id: '1.1_9', q: 'Was ist der Hauptzweck der "Sprint Retrospektive"?', a: 'Analyse der Zusammenarbeit (Prozesse, Tools, Menschen) und Planung von Verbesserungen.' },
+    { id: '1.1_10', q: 'Was versteht man unter der "Definition of Done" (DoD)?', a: 'Eine formale Checkliste von Qualitätskriterien, die ein Inkrement erfüllen muss, um als fertig zu gelten.' },
+    { id: '1.1_11', q: 'Was ist das Sprint-Ziel (Sprint Goal)?', a: 'Es beschreibt den Zweck des Sprints und wird im Planning gemeinsam vom Team festgelegt.' },
+    { id: '1.1_12', q: 'Was ist das Product Backlog?', a: 'Die priorisierte Liste aller Anforderungen und Features am Produkt.' },
+    { id: '1.1_13', q: 'Was ist das Sprint Backlog?', a: 'Die ausgewählten Product-Backlog-Einträge plus Plan für deren Umsetzung im Sprint.' },
+    { id: '1.1_14', q: 'Was ist ein Inkrement in Scrum?', a: 'Die Summe aller abgeschlossenen Backlog-Einträge am Ende eines Sprints (potenziell auslieferbar).' },
+    { id: '1.1_15', q: 'Warum ist Scrum iterativ-inkrementell?', a: 'Jeder Sprint liefert ein fertiges Teilstück → frühes Feedback, geringeres Risiko.' },
 
-    // --- Unterpunkt 2: Klassische Modelle (10 Karten) ---
-    { id: '1.1_11', q: 'Was ist das Hauptmerkmal des Wasserfallmodells?', a: 'Linearer, sequenzieller Ablauf in festen Phasen. Eine Phase muss beendet sein, bevor die nächste beginnt.' },
-    { id: '1.1_12', q: 'Wofür stehen die beiden Schenkel des V-Modells?', a: 'Links: Spezifikation (Entwurf), Rechts: Verifikation (Teststufen), Mitte: Realisierung.' },
-    { id: '1.1_13', q: 'Was ist der Fokus des Spiralmodells nach Boehm?', a: 'Risikomanagement. Das Projekt wird in Zyklen durchlaufen, wobei nach jedem Schritt die Risiken bewertet werden.' },
-    { id: '1.1_14', q: 'Nenne einen Vorteil und einen Nachteil des Wasserfallmodells.', a: 'Vorteil: Gute Planung und Dokumentation. Nachteil: Sehr unflexibel bei Änderungen während der Entwicklung.' },
-    { id: '1.1_15', q: 'Was ist der Unterschied zwischen Verifikation und Validierung?', a: 'Verifikation: "Bauen wir das Produkt richtig?" (Code-Prüfung). Validierung: "Bauen wir das richtige Produkt?" (Erfüllt es den Kundennutzen?).' },
-    { id: '1.1_16', q: 'Was versteht man unter inkrementeller Entwicklung?', a: 'Das Produkt wird in kleinen, funktionsfähigen Teilen nacheinander aufgebaut und erweitert.' },
-    { id: '1.1_17', q: 'Was ist die Meilenstein-Trendanalyse (MTA)?', a: 'Ein Tool zur Terminüberwachung. Meilenstein-Termine werden regelmäßig geschätzt und in einer Grafik auf Zeitverzögerungen geprüft.' },
-    { id: '1.1_18', q: 'Was ist der "Kritische Pfad" in einem Netzplan?', a: 'Die Kette von Vorgängen, bei denen es keinen Puffer gibt. Verzögert sich ein Vorgang hier, verzögert sich das gesamte Projekt.' },
-    { id: '1.1_19', q: 'Was beschreibt das "Magische Dreieck" des Projektmanagements?', a: 'Die Zielgrößen Zeit, Kosten und Qualität/Leistung, die in gegenseitiger Abhängigkeit stehen.' },
-    { id: '1.1_20', q: 'Was ist der Unterschied zwischen einem Arbeitspaket und einem Meilenstein?', a: 'Arbeitspaket: Tätigkeit mit Zeitaufwand und Ergebnis. Meilenstein: Ein Zeitpunkt oder Ereignis von besonderer Bedeutung (Dauer = 0).' },
+    // --- Unterpunkt 2: Klassische Modelle (14 Karten) ---
+    { id: '1.1_16', q: 'Was ist das Hauptmerkmal des Wasserfallmodells?', a: 'Linearer, sequenzieller Ablauf in festen Phasen. Eine Phase muss beendet sein, bevor die nächste beginnt.' },
+    { id: '1.1_17', q: 'Wofür stehen die beiden Schenkel des V-Modells?', a: 'Links: Spezifikation (Entwurf), Rechts: Verifikation (Teststufen), Mitte: Realisierung.' },
+    { id: '1.1_18', q: 'Was ist der Fokus des Spiralmodells nach Boehm?', a: 'Risikomanagement. Das Projekt wird in Zyklen durchlaufen, wobei nach jedem Schritt die Risiken bewertet werden.' },
+    { id: '1.1_19', q: 'Was ist ein Vorteil des Wasserfallmodells?', a: 'Gute Planung und Dokumentation durch feste Phasen.' },
+    { id: '1.1_20', q: 'Was ist ein Nachteil des Wasserfallmodells?', a: 'Sehr unflexibel bei Änderungen während der Entwicklung.' },
+    { id: '1.1_21', q: 'Verifikation = ? (Spruch)', a: '"Bauen wir das Produkt RICHTIG?" → Code-Prüfung' },
+    { id: '1.1_22', q: 'Validierung = ? (Spruch)', a: '"Bauen wir das RICHTIGE Produkt?" → Kundennutzen' },
+    { id: '1.1_23', q: 'Was versteht man unter inkrementeller Entwicklung?', a: 'Das Produkt wird in kleinen, funktionsfähigen Teilen nacheinander aufgebaut und erweitert.' },
+    { id: '1.1_24', q: 'Was ist die Meilenstein-Trendanalyse (MTA)?', a: 'Ein Tool zur Terminüberwachung. Meilenstein-Termine werden regelmäßig geschätzt und auf Zeitverzögerungen geprüft.' },
+    { id: '1.1_25', q: 'Was ist der "Kritische Pfad" in einem Netzplan?', a: 'Die Kette von Vorgängen ohne Puffer. Verzögert sich einer hier, verzögert sich das gesamte Projekt.' },
+    { id: '1.1_26', q: 'Was beschreibt das "Magische Dreieck" des Projektmanagements?', a: 'Die Zielgrößen Zeit, Kosten und Qualität/Leistung, die in gegenseitiger Abhängigkeit stehen.' },
+    { id: '1.1_27', q: 'Warum ist der kritische Pfad wichtig?', a: 'Er zeigt die minimum Projektdauer und wo Verzögerungen fatal sind.' },
+    { id: '1.1_28', q: 'Was ist ein Arbeitspaket?', a: 'Eine Tätigkeit mit Zeitaufwand und Ergebnis.' },
+    { id: '1.1_29', q: 'Was ist ein Meilenstein?', a: 'Ein Zeitpunkt oder Ereignis von besonderer Bedeutung (Dauer = 0).' },
 
-    // --- Unterpunkt 3: Anforderungsmanagement (10 Karten) ---
-    { id: '1.1_21', q: 'Unterschied Lastenheft vs. Pflichtenheft.', a: 'Lastenheft (vom Auftraggeber): "Was" soll gemacht werden? Pflichtenheft (vom Auftragnehmer): "Wie" wird es umgesetzt?' },
-    { id: '1.1_22', q: 'Was sind Funktionale Anforderungen?', a: 'Sie beschreiben konkrete Funktionen des Systems (z.B. "Nutzer kann Passwort zurücksetzen").' },
-    { id: '1.1_23', q: 'Was sind Nicht-funktionale Anforderungen (NFA)?', a: 'Sie beschreiben Rahmenbedingungen wie Performance, Sicherheit, Usability oder Verfügbarkeit.' },
-    { id: '1.1_24', q: 'Wofür steht INVEST bei User Stories?', a: 'Independent, Negotiable, Valuable, Estimable, Small, Testable.' },
-    { id: '1.1_25', q: 'Was beschreibt ein Use Case (Anwendungsfall)?', a: 'Die Interaktion zwischen einem Akteur und dem System zur Erreichung eines fachlichen Ziels.' },
-    { id: '1.1_26', q: 'Was ist die MoSCoW-Methode zur Priorisierung?', a: 'Must have, Should have, Could have, Won\'t have (this time).' },
-    { id: '1.1_27', q: 'Nenne drei Methoden zur Anforderungserhebung.', a: 'Interview, Fragebogen, Workshop, Beobachtung, Berichtsanalyse.' },
-    { id: '1.1_28', q: 'Was ist ein "Change Request"?', a: 'Ein formaler Antrag auf Änderung einer bereits abgestimmten Anforderung während der Projektlaufzeit.' },
-    { id: '1.1_29', q: 'Was versteht man unter "Scope Creep"?', a: 'Die schleichende, unkontrollierte Ausweitung des Projektumfangs ohne Anpassung von Zeit oder Budget.' },
-    { id: '1.1_30', q: 'Nenne die 3 C\'s einer User Story.', a: 'Card (Kurze Beschreibung), Conversation (Dialog über Details), Confirmation (Akzeptanzkriterien).' },
+    // --- Unterpunkt 3: Anforderungsmanagement (14 Karten) ---
+    { id: '1.1_30', q: 'Was ist ein Lastenheft?', a: 'Vom Auftraggeber: "Was" soll gemacht werden?' },
+    { id: '1.1_31', q: 'Was ist ein Pflichtenheft?', a: 'Vom Auftragnehmer: "Wie" wird es umgesetzt?' },
+    { id: '1.1_32', q: 'Was sind Funktionale Anforderungen?', a: 'Sie beschreiben konkrete Funktionen des Systems (z.B. "Nutzer kann Passwort zurücksetzen").' },
+    { id: '1.1_33', q: 'Was sind Nicht-funktionale Anforderungen (NFA)?', a: 'Sie beschreiben Rahmenbedingungen wie Performance, Sicherheit, Usability oder Verfügbarkeit.' },
+    { id: '1.1_34', q: 'Wofür steht INVEST bei User Stories?', a: 'Independent, Negotiable, Valuable, Estimable, Small, Testable.' },
+    { id: '1.1_35', q: 'Was beschreibt ein Use Case (Anwendungsfall)?', a: 'Die Interaktion zwischen einem Akteur und dem System zur Erreichung eines fachlichen Ziels.' },
+    { id: '1.1_36', q: 'Was bedeutet "M" in MoSCoW?', a: 'Must have (unverzichtbar)' },
+    { id: '1.1_37', q: 'Was bedeutet "S" in MoSCoW?', a: 'Should have (sollte vorhanden sein)' },
+    { id: '1.1_38', q: 'Was bedeutet "C" in MoSCoW?', a: 'Could have (könnte vorhanden sein)' },
+    { id: '1.1_39', q: 'Was bedeutet "W" in MoSCoW?', a: 'Won\'t have (this time) (dieses Mal nicht)' },
+    { id: '1.1_40', q: 'Was ist ein "Change Request"?', a: 'Ein formaler Antrag auf Änderung einer bereits abgestimmten Anforderung während der Projektlaufzeit.' },
+    { id: '1.1_41', q: 'Was versteht man unter "Scope Creep"?', a: 'Die schleichende, unkontrollierte Ausweitung des Projektumfangs ohne Anpassung von Zeit oder Budget.' },
+    { id: '1.1_42', q: 'Was ist die "Card" einer User Story?', a: 'Kurze Beschreibung (meist auf Karteikarte).' },
+    { id: '1.1_43', q: 'Was ist die "Conversation" einer User Story?', a: 'Dialog über Details zwischen Team und PO.' },
+    { id: '1.1_44', q: 'Was ist die "Confirmation" einer User Story?', a: 'Akzeptanzkriterien, wann die Story erfüllt ist.' },
 
-    // --- Unterpunkt 4: Wirtschaftlichkeit (10 Karten) ---
-    { id: '1.1_31', q: 'Was ist das Ziel einer Nutzwertanalyse (NWA)?', a: 'Die rationale Entscheidung zwischen Alternativen anhand gewichteter, nicht-monetärer Kriterien.' },
-    { id: '1.1_32', q: 'Wie berechnet man die Amortisationsdauer?', a: 'Investitionskosten / Jährlicher Rückfluss (Gewinn + Abschreibung).' },
-    { id: '1.1_33', q: 'Was bedeutet TCO (Total Cost of Ownership)?', a: 'Gesamtkosten eines Produkts über den gesamten Lebenszyklus (Anschaffung + Betrieb + Wartung + Entsorgung).' },
-    { id: '1.1_34', q: 'Was ist der Return on Investment (ROI)?', a: 'Das Verhältnis von Gewinn zu eingesetztem Kapital. Zeigt die Rentabilität an.' },
-    { id: '1.1_35', q: 'Unterschied Fixe vs. Variable Kosten.', a: 'Fixkosten: Unabhängig von der Produktionsmenge (z.B. Miete). Variable Kosten: Abhängig von der Menge (z.B. Rohstoffe, Lizenzen).' },
-    { id: '1.1_36', q: 'Was ist der Break-Even-Point?', a: 'Die Gewinnschwelle. Der Punkt, an dem Erlöse und Gesamtkosten gleich hoch sind.' },
-    { id: '1.1_37', q: 'Was prüft eine Machbarkeitsstudie?', a: 'Ob ein Projekt technisch, wirtschaftlich, zeitlich, rechtlich und organisatorisch umsetzbar ist.' },
-    { id: '1.1_38', q: 'Was ist eine Make-or-Buy Entscheidung?', a: 'Die Abwägung, ob eine Software/Komponente selbst entwickelt oder fertig gekauft werden soll.' },
-    { id: '1.1_39', q: 'Was ist der Unterschied zwischen Abschreibung (AfA) und Investition?', a: 'Investition: Einmalige Auszahlung für ein Gut. Abschreibung: Verteilung dieser Kosten über die Jahre der Nutzung als Aufwand.' },
-    { id: '1.1_40', q: 'Was beschreibt der "Deckungsbeitrag"?', a: 'Der Erlös abzüglich der variablen Kosten. Er dient dazu, die Fixkosten des Unternehmens zu decken.' },
+    // --- Unterpunkt 4: Wirtschaftlichkeit (14 Karten) ---
+    { id: '1.1_45', q: 'Was ist das Ziel einer Nutzwertanalyse (NWA)?', a: 'Die rationale Entscheidung zwischen Alternativen anhand gewichteter, nicht-monetärer Kriterien.' },
+    { id: '1.1_46', q: 'Wie berechnet man die Amortisationsdauer?', a: 'Investitionskosten / Jährlicher Rückfluss (Gewinn + Abschreibung).' },
+    { id: '1.1_47', q: 'Was bedeutet TCO (Total Cost of Ownership)?', a: 'Gesamtkosten über den gesamten Lebenszyklus (Anschaffung + Betrieb + Wartung + Entsorgung).' },
+    { id: '1.1_48', q: 'Was ist der Return on Investment (ROI)?', a: 'Das Verhältnis von Gewinn zu eingesetztem Kapital. Zeigt die Rentabilität an.' },
+    { id: '1.1_49', q: 'Was sind Fixkosten?', a: 'Unabhängig von der Produktionsmenge (z.B. Miete, Gehälter).' },
+    { id: '1.1_50', q: 'Was sind variable Kosten?', a: 'Abhängig von der Menge (z.B. Rohstoffe, Lizenzen).' },
+    { id: '1.1_51', q: 'Was ist der Break-Even-Point?', a: 'Die Gewinnschwelle. Der Punkt, an dem Erlöse und Gesamtkosten gleich hoch sind.' },
+    { id: '1.1_52', q: 'Was prüft eine Machbarkeitsstudie?', a: 'Ob ein Projekt technisch, wirtschaftlich, zeitlich, rechtlich und organisatorisch umsetzbar ist.' },
+    { id: '1.1_53', q: 'Was ist eine Make-or-Buy Entscheidung?', a: 'Die Abwägung, ob eine Software/Komponente selbst entwickelt oder fertig gekauft werden soll.' },
+    { id: '1.1_54', q: 'Was ist eine Investition?', a: 'Einmalige Auszahlung für ein Gut.' },
+    { id: '1.1_55', q: 'Was ist eine Abschreibung (AfA)?', a: 'Verteilung der Investitionskosten über die Jahre der Nutzung als Aufwand.' },
+    { id: '1.1_56', q: 'Was beschreibt der "Deckungsbeitrag"?', a: 'Der Erlös abzüglich der variablen Kosten. Dient dazu, die Fixkosten zu decken.' },
+    { id: '1.1_57', q: 'Warum ist TCO wichtig?', a: 'Zeigt die wahren Kosten – oft ist Betrieb teurer als Anschaffung.' },
+    { id: '1.1_58', q: 'Wann lohnt sich ein Projekt wirtschaftlich?', a: 'Wenn der Deckungsbeitrag die Fixkosten übersteigt.' },
 
-    // --- Unterpunkt 5: Stakeholder & Umfeld (10 Karten) ---
-    { id: '1.1_41', q: 'Wer ist ein Stakeholder?', a: 'Alle Personen oder Gruppen, die ein berechtigtes Interesse am Projekt haben oder davon betroffen sind.' },
-    { id: '1.1_42', q: 'Wie klassifiziert man Stakeholder in einer Matrix?', a: 'Nach "Einfluss/Macht" und "Interesse" am Projekt.' },
-    { id: '1.1_43', q: 'Wofür steht die PESTEL-Analyse beim Projektumfeld?', a: 'Political, Economic, Social, Technological, Environmental, Legal.' },
-    { id: '1.1_44', q: 'Was ist eine SWOT-Analyse?', a: 'Analyse von Stärken (Strengths), Schwächen (Weaknesses), Chancen (Opportunities) und Risiken (Threats).' },
-    { id: '1.1_45', q: 'Nenne drei Strategien im Stakeholder-Management.', a: 'Partizipativ (Einbeziehen), Diskursiv (Dialog), Restriktiv (Nur Info).' },
-    { id: '1.1_46', q: 'Was wird in einer Risikomatrix bewertet?', a: 'Eintrittswahrscheinlichkeit und Schadensausmaß eines Risikos.' },
-    { id: '1.1_47', q: 'Was ist eine Matrix-Projektorganisation?', a: 'Mitarbeiter bleiben in ihren Fachabteilungen, arbeiten aber für das Projekt. Es gibt zwei Vorgesetzte.' },
-    { id: '1.1_48', q: 'Nenne drei Bestandteile eines Projektauftrags.', a: 'Projektziel, Budget, Zeitrahmen, Meilensteine, Verantwortlichkeiten.' },
-    { id: '1.1_49', q: 'Was ist der Unterschied zwischen internen und externen Stakeholdern?', a: 'Intern: Aus dem eigenen Unternehmen (Mitarbeiter, Manager). Extern: Von außerhalb (Kunden, Lieferanten, Behörden).' },
-    { id: '1.1_50', q: 'Was ist die Akzeptanzanalyse?', a: 'Die Untersuchung, wie positiv oder negativ Stakeholder der geplanten Veränderung gegenüberstehen.' }
+    // --- Unterpunkt 5: Stakeholder & Umfeld (14 Karten) ---
+    { id: '1.1_59', q: 'Wer ist ein Stakeholder?', a: 'Alle Personen oder Gruppen, die ein berechtigtes Interesse am Projekt haben oder davon betroffen sind.' },
+    { id: '1.1_60', q: 'Nach welchen Kriterien klassifiziert man Stakeholder in einer Matrix?', a: 'Nach "Einfluss/Macht" und "Interesse" am Projekt.' },
+    { id: '1.1_61', q: 'Wofür steht "P" in PESTEL?', a: 'Political (politisch)' },
+    { id: '1.1_62', q: 'Wofür steht "E" in PESTEL?', a: 'Economic (wirtschaftlich)' },
+    { id: '1.1_63', q: 'Wofür steht "S" in PESTEL?', a: 'Social (sozial)' },
+    { id: '1.1_64', q: 'Wofür steht "T" in PESTEL?', a: 'Technological (technologisch)' },
+    { id: '1.1_65', q: 'Wofür steht "E" in PESTEL (zweites E)?', a: 'Environmental (ökologisch)' },
+    { id: '1.1_66', q: 'Wofür steht "L" in PESTEL?', a: 'Legal (rechtlich)' },
+    { id: '1.1_67', q: 'Was ist eine SWOT-Analyse?', a: 'Analyse von Stärken (Strengths), Schwächen (Weaknesses), Chancen (Opportunities) und Risiken (Threats).' },
+    { id: '1.1_68', q: 'Was ist eine partizipative Stakeholder-Strategie?', a: 'Einbeziehen der Stakeholder in Entscheidungen.' },
+    { id: '1.1_69', q: 'Was ist eine restriktive Stakeholder-Strategie?', a: 'Nur Information, keine Mitbestimmung.' },
+    { id: '1.1_70', q: 'Was wird in einer Risikomatrix bewertet?', a: 'Eintrittswahrscheinlichkeit und Schadensausmaß eines Risikos.' },
+    { id: '1.1_71', q: 'Was ist eine Matrix-Projektorganisation?', a: 'Mitarbeiter bleiben in ihren Fachabteilungen, arbeiten aber für das Projekt. Es gibt zwei Vorgesetzte.' },
+    { id: '1.1_72', q: 'Nenne vier Bestandteile eines Projektauftrags.', a: 'Projektziel, Budget, Zeitrahmen, Meilensteine, Verantwortlichkeiten.' }
   ],
 
-  // Topic 1.2: Objektorientierung & Design Patterns (50 Karten)
+  // Topic 1.2: Objektorientierung & Design Patterns (~65 Karten optimiert)
   '1.2': [
-    // --- Unterpunkt 1: OO-Prinzipien (10 Karten) ---
+    // --- Unterpunkt 1: OO-Prinzipien (14 Karten) ---
     { id: '1.2_1', q: 'Was beschreibt das Prinzip der "Abstraktion"?', a: 'Die Reduktion komplexer Realitäten auf die für das System wesentlichen Merkmale.' },
-    { id: '1.2_2', q: 'Was ist "Kapselung" (Encapsulation)?', a: 'Das Verbergen von Daten vor direktem Zugriff. Kommunikation erfolgt nur über Methoden (Getter/Setter).' },
+    { id: '1.2_2', q: 'Was ist "Kapselung" (Encapsulation)? (Beispiel)', a: 'Daten privat, Zugriff nur über Methoden: private name; FUNCTION getName() RETURN name' },
     { id: '1.2_3', q: 'Erkläre den Begriff "Polymorphie" (Vielgestaltigkeit).', a: 'Verschiedene Klassen können die gleiche Methode unterschiedlich implementieren. Ein Aufrufer muss den genauen Typ nicht kennen.' },
     { id: '1.2_4', q: 'Was ist der Unterschied zwischen Überschreiben (Override) und Überladen (Overload)?', a: 'Überschreiben: Gleiche Signatur in Subklasse. Überladen: Gleicher Name, aber unterschiedliche Parameter in der gleichen Klasse.' },
     { id: '1.2_5', q: 'Was ist eine abstrakte Klasse?', a: 'Eine Klasse, von der keine Instanz erzeugt werden kann. Sie dient als Bauplan für Subklassen.' },
@@ -84,8 +111,12 @@ window.ANKI_QUESTIONS = {
     { id: '1.2_8', q: 'Was ist ein Konstruktor?', a: 'Eine spezielle Methode, die beim Erzeugen eines Objekts aufgerufen wird, um es zu initialisieren.' },
     { id: '1.2_9', q: 'Was bedeutet Sichtbarkeit "protected"?', a: 'Zugriff ist nur innerhalb der eigenen Klasse und deren Subklassen möglich.' },
     { id: '1.2_10', q: 'Was ist der Unterschied zwischen Klasse und Objekt?', a: 'Die Klasse ist der Bauplan (statisch), das Objekt ist die konkrete Instanz während der Laufzeit (dynamisch).' },
+    { id: '1.2_10a', q: 'Warum ist Kapselung wichtig?', a: 'Schützt Daten vor unbeabsichtigter Manipulation, ermöglicht kontrollierten Zugriff.' },
+    { id: '1.2_10b', q: 'Warum ist Vererbung nützlich?', a: 'Wiederverwendung von Code, Vermeidung von Redundanz, ermöglicht Polymorphie.' },
+    { id: '1.2_10c', q: 'Warum Interfaces statt konkreter Klassen?', a: 'Lose Kopplung, einfachere Tests, Austauschbarkeit der Implementierung.' },
+    { id: '1.2_10d', q: 'Pseudocode: Wie sieht eine Klasse "Person" aus?', a: 'CLASS Person HAS name, age; FUNCTION getName() RETURN name; FUNCTION getAge() RETURN age' },
 
-    // --- Unterpunkt 2: SOLID-Prinzipien (10 Karten) ---
+    // --- Unterpunkt 2: SOLID-Prinzipien (14 Karten) ---
     { id: '1.2_11', q: 'Wofür steht das "S" in SOLID?', a: 'Single Responsibility Principle (SRP): Eine Klasse sollte nur genau einen Grund zur Änderung haben.' },
     { id: '1.2_12', q: 'Wofür steht das "O" in SOLID?', a: 'Open/Closed Principle: Software-Einheiten sollten offen für Erweiterungen, aber geschlossen für Modifikationen sein.' },
     { id: '1.2_13', q: 'Wofür steht das "L" in SOLID?', a: 'Liskov Substitution Principle: Subtypen müssen sich so verhalten wie ihre Basistypen (austauschbar sein).' },
@@ -96,8 +127,12 @@ window.ANKI_QUESTIONS = {
     { id: '1.2_18', q: 'Welches Prinzip wird durch "Dependency Injection" oft umgesetzt?', a: 'Das Dependency Inversion Principle (DIP).' },
     { id: '1.2_19', q: 'Warum ist das Open/Closed Principle wichtig?', a: 'Damit man neue Funktionen hinzufügen kann, ohne bestehenden (und getesteten) Code ändern zu müssen.' },
     { id: '1.2_20', q: 'Was ist das Ziel des Interface Segregation Principle?', a: 'Vermeidung von "fetten" Interfaces. Lieber viele kleine, spezifische Schnittstellen.' },
+    { id: '1.2_20a', q: 'Warum ist SRP wichtig?', a: 'Vermeidet "Gott-Objekte", erleichtert Wartung und Tests.' },
+    { id: '1.2_20b', q: 'Was passiert bei Verletzung von SRP?', a: 'Eine Klasse hat mehrere Gründe zur Änderung → instabil.' },
+    { id: '1.2_20c', q: 'Warum Dependency Inversion?', a: 'Reduziert Kopplung, ermöglicht einfachen Austausch von Implementierungen.' },
+    { id: '1.2_20d', q: 'Pseudocode: Wie sieht Dependency Injection aus?', a: 'CLASS UserService HAS database; FUNCTION UserService(database) { this.database = database }' },
 
-    // --- Unterpunkt 3: Erzeugungsmuster / Creational (10 Karten) ---
+    // --- Unterpunkt 3: Erzeugungsmuster / Creational (12 Karten) ---
     { id: '1.2_21', q: 'Was ist der Zweck des Singleton-Patterns?', a: 'Sicherstellen, dass von einer Klasse nur genau eine Instanz existiert.' },
     { id: '1.2_22', q: 'Wie verhindert man beim Singleton das Erzeugen neuer Instanzen?', a: 'Indem man den Konstruktor auf "private" setzt.' },
     { id: '1.2_23', q: 'Was macht die "Factory Method"?', a: 'Sie definiert ein Interface zur Erstellung eines Objekts, lässt aber die Subklassen entscheiden, welche Klasse instanziiert wird.' },
@@ -108,8 +143,10 @@ window.ANKI_QUESTIONS = {
     { id: '1.2_28', q: 'Unterschied Factory vs. Builder.', a: 'Factory erzeugt ein Objekt in einem Schritt. Builder baut es Schritt für Schritt zusammen.' },
     { id: '1.2_29', q: 'Was bedeutet "Lazy Initialization" beim Singleton?', a: 'Die Instanz wird erst in dem Moment erzeugt, in dem sie zum ersten Mal angefordert wird.' },
     { id: '1.2_30', q: 'Wann ist das Prototype-Pattern sinnvoll?', a: 'Wenn die Instanziierung einer Klasse sehr teuer oder komplex ist (z.B. Datenbank-Abfragen nötig).' },
+    { id: '1.2_30a', q: 'Warum Singleton statt globaler Variable?', a: 'Kontrollierter Zugriff, verzögerte Initialisierung möglich, Testbarkeit.' },
+    { id: '1.2_30b', q: 'Pseudocode: Wie sieht ein Singleton aus?', a: 'CLASS Logger { PRIVATE static instance; FUNCTION getInstance() { IF instance == null { instance = new Logger() } RETURN instance } }' },
 
-    // --- Unterpunkt 4: Strukturmuster / Structural (10 Karten) ---
+    // --- Unterpunkt 4: Strukturmuster / Structural (12 Karten) ---
     { id: '1.2_31', q: 'Was macht ein Adapter-Pattern?', a: 'Es passt die Schnittstelle einer Klasse an eine andere Schnittstelle an, die der Client erwartet.' },
     { id: '1.2_32', q: 'Was ist der Zweck des Facade-Patterns?', a: 'Bereitstellung einer vereinfachten Schnittstelle zu einer komplexen Menge von Klassen (Subsystem).' },
     { id: '1.2_33', q: 'Was macht ein Decorator?', a: 'Er fügt einem Objekt dynamisch neue Funktionalitäten hinzu, ohne dessen Klasse zu ändern.' },
@@ -120,8 +157,10 @@ window.ANKI_QUESTIONS = {
     { id: '1.2_38', q: 'Wann nutzt man das Facade-Pattern?', a: 'Um die Kopplung zwischen einem Client und einem komplexen Subsystem zu minimieren.' },
     { id: '1.2_39', q: 'Was ist ein typisches Beispiel für den Decorator?', a: 'Java I/O Streams (z.B. BufferedInputStream(FileInputStream)).' },
     { id: '1.2_40', q: 'Was macht das Flyweight-Pattern?', a: 'Es teilt Objekte, um Speicherplatz zu sparen, wenn viele ähnliche Objekte benötigt werden.' },
+    { id: '1.2_40a', q: 'Warum Adapter-Pattern?', a: 'Ermöglicht Zusammenarbeit inkompatibler Schnittstellen ohne Code-Änderung.' },
+    { id: '1.2_40b', q: 'Warum Facade-Pattern?', a: 'Vereinfacht API-Nutzung, reduziert Abhängigkeiten zum Subsystem.' },
 
-    // --- Unterpunkt 5: Verhaltensmuster / Behavioral (10 Karten) ---
+    // --- Unterpunkt 5: Verhaltensmuster / Behavioral (13 Karten) ---
     { id: '1.2_41', q: 'Was ist das Observer-Pattern?', a: 'Eine 1-zu-n-Abhängigkeit. Wenn sich ein Objekt ändert, werden alle abhängigen Objekte (Beobachter) benachrichtigt.' },
     { id: '1.2_42', q: 'Was macht das Strategy-Pattern?', a: 'Es definiert eine Familie von Algorithmen, kapselt sie und macht sie austauschbar.' },
     { id: '1.2_43', q: 'Was ist das Ziel des MVC-Musters?', a: 'Trennung von Daten (Model), Darstellung (View) und Steuerung (Controller).' },
@@ -131,7 +170,10 @@ window.ANKI_QUESTIONS = {
     { id: '1.2_47', q: 'Was macht ein Iterator?', a: 'Er erlaubt den sequenziellen Zugriff auf Elemente einer Sammlung, ohne deren Struktur offenzulegen.' },
     { id: '1.2_48', q: 'Unterschied Strategy vs. State.', a: 'Strategy wird meist vom Client gewählt. State ändert sich oft automatisch durch Aktionen des Objekts.' },
     { id: '1.2_49', q: 'Wofür ist der Controller im MVC verantwortlich?', a: 'Er nimmt Benutzereingaben entgegen, verarbeitet sie und aktualisiert Model oder View.' },
-    { id: '1.2_50', q: 'Was macht die Chain of Responsibility?', a: 'Sie gibt eine Anfrage entlang einer Kette von Empfängern weiter, bis einer sie bearbeitet.' }
+    { id: '1.2_50', q: 'Was macht die Chain of Responsibility?', a: 'Sie gibt eine Anfrage entlang einer Kette von Empfängern weiter, bis einer sie bearbeitet.' },
+    { id: '1.2_50a', q: 'Warum Observer-Pattern?', a: 'Lose Kopplung zwischen Subject und Observer, automatische Benachrichtigung bei Änderungen.' },
+    { id: '1.2_50b', q: 'Warum Strategy-Pattern?', a: 'Algorithmen austauschbar ohne Client-Code zu ändern, vermeidet viele If-Bedingungen.' },
+    { id: '1.2_50c', q: 'Warum Command-Pattern?', a: 'Ermöglicht Undo/Redo, Befehle in Queue speichern, Befehle protokollieren.' }
   ],
 
   // Topic 1.3: UML-Modellierung (50 Karten)
@@ -302,9 +344,9 @@ window.ANKI_QUESTIONS = {
     { id: '1.5_40', q: 'Was ist "Whitespace" (Negativraum)?', a: 'Leere Flächen zwischen UI-Elementen; sie helfen, Inhalte zu strukturieren und den Fokus zu lenken.' }
   ],
 
-  // Topic 2.1: Algorithmen & Programmierung (70 Karten)
+  // Topic 2.1: Algorithmen & Programmierung (~85 Karten optimiert)
   '2.1': [
-    // --- Unterpunkt 1: Pseudocode & Struktogramme (10 Karten) ---
+    // --- Unterpunkt 1: Pseudocode & Struktogramme (14 Karten) ---
     { id: '2.1_1', q: 'Was ist das Hauptziel von Pseudocode?', a: 'Logik unabhängig von einer konkreten Programmiersprache verständlich darzustellen.' },
     { id: '2.1_2', q: 'Wie wird eine "Alternative" (If-Else) im Struktogramm dargestellt?', a: 'Durch ein Rechteck, das durch ein "V" in zwei oder drei Teilbereiche (Bedingung, Ja-Zweig, Nein-Zweig) getrennt ist.' },
     { id: '2.1_3', q: 'Wofür steht die Abkürzung "DIN 66261" im Kontext der Programmierung?', a: 'Es ist die Norm für Sinnbilder von Struktogrammen (Nassi-Shneiderman-Diagramme).' },
@@ -315,6 +357,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_8', q: 'Warum sind Struktogramme besser als Flussdiagramme (Flowcharts)?', a: 'Sie erzwingen eine strukturierte Programmierung (kein GOTO möglich) und sind kompakter.' },
     { id: '2.1_9', q: 'Was bedeutet "Einrücken" im Pseudocode?', a: 'Es kennzeichnet die Zugehörigkeit von Codeblöcken zu Schleifen oder Bedingungen.' },
     { id: '2.1_10', q: 'Darf Pseudocode mathematische Symbole verwenden?', a: 'Ja, Pseudocode ist informell und darf Mathematik, natürliche Sprache und Logik mischen.' },
+    { id: '2.1_10a', q: 'Pseudocode: Wie sieht eine IF-ELSE Bedingung aus?', a: 'IF condition THEN action1 ELSE action2' },
+    { id: '2.1_10b', q: 'Pseudocode: Wie sieht eine FOR-Schleife aus?', a: 'FOR i FROM 1 TO 10 DO action' },
+    { id: '2.1_10c', q: 'Pseudocode: Wie sieht eine WHILE-Schleife aus?', a: 'WHILE condition DO action' },
+    { id: '2.1_10d', q: 'Pseudocode: Wie sieht eine Funktion aus?', a: 'FUNCTION name(parameter) RETURN result' },
 
     // --- Unterpunkt 2: Aktivitätsdiagramm (10 Karten) ---
     { id: '2.1_11', q: 'Was ist ein "Startknoten" im Aktivitätsdiagramm?', a: 'Ein ausgefüllter schwarzer Kreis, der den Beginn des Ablaufs markiert.' },
@@ -340,7 +386,7 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_29', q: 'Können Schreibtischtests Endlosschleifen finden?', a: 'Ja, wenn man feststellt, dass die Abbruchbedingung niemals erreicht werden kann.' },
     { id: '2.1_30', q: 'Was ist ein "Input-Output-Check" beim Schreibtischtest?', a: 'Vergleich des manuell ermittelten Endergebnisses mit dem fachlich erwarteten Soll-Wert.' },
 
-    // --- Unterpunkt 4: Rekursion vs. Iteration (10 Karten) ---
+    // --- Unterpunkt 4: Rekursion vs. Iteration (12 Karten) ---
     { id: '2.1_31', q: 'Definition von Rekursion?', a: 'Eine Funktion, die sich selbst aufruft, um ein Problem in kleinere Teilprobleme zu zerlegen.' },
     { id: '2.1_32', q: 'Was ist die wichtigste Bedingung für eine Rekursion?', a: 'Die Abbruchbedingung (Basisfall), damit keine Endlosschleife entsteht.' },
     { id: '2.1_33', q: 'Definition von Iteration?', a: 'Wiederholtes Ausführen von Anweisungen mittels Schleifen (For, While).' },
@@ -351,8 +397,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_38', q: 'Was ist "Endrekursion" (Tail Recursion)?', a: 'Eine Rekursion, bei der der Selbstaufruf die absolut letzte Aktion der Funktion ist (optimierbar durch Compiler).' },
     { id: '2.1_39', q: 'Nenne ein typisches Beispiel für Rekursion.', a: 'Fakultätsberechnung, Fibonacci-Zahlen, Verzeichnisstrukturen lesen.' },
     { id: '2.1_40', q: 'Welche Methode ist meist performanter?', a: 'Iteration ist meist schneller und speichereffizienter, da der Overhead der Funktionsaufrufe entfällt.' },
+    { id: '2.1_40a', q: 'Pseudocode: Fakultät rekursiv', a: 'FUNCTION fakultaet(n) IF n <= 1 RETURN 1 ELSE RETURN n * fakultaet(n-1)' },
+    { id: '2.1_40b', q: 'Pseudocode: Fakultät iterativ', a: 'FUNCTION fakultaet(n) result = 1 FOR i FROM 2 TO n DO result = result * i RETURN result' },
 
-    // --- Unterpunkt 5: Such- & Sortieralgorithmen (10 Karten) ---
+    // --- Unterpunkt 5: Such- & Sortieralgorithmen (14 Karten) ---
     { id: '2.1_41', q: 'Wie funktioniert Bubble-Sort?', a: 'Benachbarte Elemente werden verglichen und bei falscher Sortierung vertauscht. Das größte Element "steigt auf" wie eine Blase.' },
     { id: '2.1_42', q: 'Kernprinzip von Selection-Sort?', a: 'Es wird das kleinste Element gesucht und an die erste Position getauscht, dann das zweitkleinste usw.' },
     { id: '2.1_43', q: 'Kernprinzip von Insertion-Sort?', a: 'Elemente werden nacheinander an die bereits sortierte Teilmenge an der richtigen Stelle "eingefügt".' },
@@ -363,8 +411,12 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_48', q: 'Was ist der Unterschied zwischen In-Place und Out-of-Place?', a: 'In-Place benötigt kaum extra Speicher (sortiert im Original-Array). Out-of-Place benötigt Kopien.' },
     { id: '2.1_49', q: 'Wie viele Vergleiche benötigt die Lineare Suche im Worst Case?', a: 'n Vergleiche (jedes Element muss einmal angeschaut werden).' },
     { id: '2.1_50', q: 'Welcher Sortieralgorithmus ist für sehr kleine Listen oft am schnellsten?', a: 'Insertion-Sort (geringer Overhead).' },
+    { id: '2.1_50a', q: 'Pseudocode: Lineare Suche', a: 'FUNCTION linearSearch(array, target) FOR i FROM 0 TO length(array) DO IF array[i] == target RETURN i RETURN -1' },
+    { id: '2.1_50b', q: 'Pseudocode: Binäre Suche', a: 'FUNCTION binarySearch(array, target) left = 0, right = length(array) - 1 WHILE left <= right DO mid = (left + right) / 2 IF array[mid] == target RETURN mid ELSE IF array[mid] < target left = mid + 1 ELSE right = mid - 1 RETURN -1' },
+    { id: '2.1_50c', q: 'Pseudocode: Bubble-Sort', a: 'FUNCTION bubbleSort(array) FOR i FROM 0 TO length(array) DO FOR j FROM 0 TO length(array) - i - 1 DO IF array[j] > array[j+1] SWAP(array[j], array[j+1])' },
+    { id: '2.1_50d', q: 'Warum ist Binäre Suche schneller als Lineare?', a: 'Halbiert bei jedem Schritt den Suchraum → O(log n) statt O(n).' },
 
-    // --- Unterpunkt 6: Komplexität (O-Notation) (10 Karten) ---
+    // --- Unterpunkt 6: Komplexität (O-Notation) (12 Karten) ---
     { id: '2.1_51', q: 'Was beschreibt die O-Notation (Landau-Symbole)?', a: 'Das asymptotische Zeit- oder Platzverhalten eines Algorithmus bei wachsender Eingabemenge.' },
     { id: '2.1_52', q: 'Was bedeutet O(1)?', a: 'Konstante Laufzeit. Unabhängig von der Eingabemenge (z.B. Zugriff auf Array-Index).' },
     { id: '2.1_53', q: 'Was bedeutet O(n)?', a: 'Lineare Laufzeit. Zeit wächst proportional zur Menge (z.B. eine einfache Schleife).' },
@@ -375,8 +427,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_58', q: 'Was ist der "Best Case"?', a: 'Das Szenario, in dem der Algorithmus am schnellsten fertig ist (z.B. Liste ist bereits sortiert).' },
     { id: '2.1_59', q: 'Was bedeutet "Platzkomplexität"?', a: 'Wie viel zusätzlicher Speicher (RAM) ein Algorithmus im Verhältnis zur Eingabegröße benötigt.' },
     { id: '2.1_60', q: 'Warum ignoriert man konstante Faktoren (z.B. 2n -> O(n))?', a: 'Weil bei sehr großen Eingabemengen das Wachstumsverhalten (linear, quadratisch etc.) entscheidend ist, nicht das Detail.' },
+    { id: '2.1_60a', q: 'Welche Komplexität hat eine einfache Schleife über n Elemente?', a: 'O(n) – linear' },
+    { id: '2.1_60b', q: 'Welche Komplexität haben zwei verschachtelte Schleifen über n Elemente?', a: 'O(n²) – quadratisch' },
 
-    // --- Unterpunkt 7: Fehlerbehandlung (10 Karten) ---
+    // --- Unterpunkt 7: Fehlerbehandlung (13 Karten) ---
     { id: '2.1_61', q: 'Was ist ein "Syntaxfehler"?', a: 'Ein Fehler gegen die Grammatikregeln der Programmiersprache (Code lässt sich nicht kompilieren).' },
     { id: '2.1_62', q: 'Was ist ein "Laufzeitfehler" (Runtime Error)?', a: 'Ein Fehler, der erst während der Ausführung auftritt (z.B. Division durch Null).' },
     { id: '2.1_63', q: 'Was ist ein "Logikfehler"?', a: 'Das Programm läuft fehlerfrei durch, liefert aber ein falsches Ergebnis.' },
@@ -386,7 +440,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_67', q: 'Was bedeutet "Throw" (oder Raise)?', a: 'Das explizite Auslösen einer Fehlermeldung/Exception im Programmcode.' },
     { id: '2.1_68', q: 'Was ist eine "NullPointerException"?', a: 'Zugriff auf ein Objekt oder eine Variable, die noch nicht instanziiert wurde (auf "null" zeigt).' },
     { id: '2.1_69', q: 'Was bedeutet "Error Propagation"?', a: 'Ein Fehler wird nicht in der aktuellen Funktion behandelt, sondern an die aufrufende Ebene weitergegeben.' },
-    { id: '2.1_70', q: 'Was versteht man unter defensiver Programmierung?', a: 'Code so schreiben, dass er mit unvorhergesehenen Inputs oder Zuständen sicher umgehen kann.' }
+    { id: '2.1_70', q: 'Was versteht man unter defensiver Programmierung?', a: 'Code so schreiben, dass er mit unvorhergesehenen Inputs oder Zuständen sicher umgehen kann.' },
+    { id: '2.1_70a', q: 'Pseudocode: Try-Catch-Finally', a: 'TRY { riskyOperation() } CATCH (Exception e) { handleError(e) } FINALLY { cleanup() }' },
+    { id: '2.1_70b', q: 'Warum ist defensive Programmierung wichtig?', a: 'Vermeidet Laufzeitfehler, verbessert Stabilität, fängt ungültige Eingaben früh ab.' },
+    { id: '2.1_70c', q: 'Was ist eine "Assertion"?', a: 'Eine Laufzeitprüfung, die eine Bedingung als wahr sicherstellt (z.B. "x > 0"). Dient dem Debugging.' }
   ],
 
   // Topic 2.2: Datenbank-Design & Normalisierung (50 Karten)
@@ -452,9 +509,9 @@ window.ANKI_QUESTIONS = {
     { id: '2.2_50', q: 'Wann sollte man NoSQL statt einer relationalen DB wählen?', a: 'Bei unstrukturierten Daten, extrem hohen Schreiblasten oder wenn horizontale Skalierbarkeit zwingend ist.' }
   ],
 
-  // Topic 2.3: Fortgeschrittenes SQL (80 Karten)
+  // Topic 2.3: Fortgeschrittenes SQL (~95 Karten optimiert)
   '2.3': [
-    // --- Unterpunkt 1: DQL (Komplexe JOINs & Subqueries) (10 Karten) ---
+    // --- Unterpunkt 1: DQL (Komplexe JOINs & Subqueries) (14 Karten) ---
     { id: '2.3_1', q: 'Was ist ein INNER JOIN?', a: 'Gibt nur die Datensätze zurück, die in beiden Tabellen eine Übereinstimmung haben.' },
     { id: '2.3_2', q: 'Was ist ein LEFT (OUTER) JOIN?', a: 'Gibt alle Datensätze der linken Tabelle zurück und die passenden der rechten. Fehlende Werte rechts werden NULL.' },
     { id: '2.3_3', q: 'Wofür nutzt man einen SELF JOIN?', a: 'Um eine Tabelle mit sich selbst zu verknüpfen (z.B. bei hierarchischen Daten wie Mitarbeiter-Vorgesetzter).' },
@@ -465,8 +522,12 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_8', q: 'Was ist eine "korrelierte Unterabfrage"?', a: 'Eine Subquery, die Werte aus der äußeren Abfrage verwendet und für jede Zeile der äußeren Abfrage neu ausgeführt wird.' },
     { id: '2.3_9', q: 'Was bewirkt der Operator LIKE mit dem Platzhalter %?', a: 'Sucht nach Mustern; % steht für beliebig viele Zeichen (auch Null).' },
     { id: '2.3_10', q: 'Was bewirkt DISTINCT in einem SELECT?', a: 'Entfernt doppelte Zeilen aus der Ergebnismenge.' },
+    { id: '2.3_10a', q: 'SQL: INNER JOIN Syntax', a: 'SELECT * FROM table1 INNER JOIN table2 ON table1.id = table2.fk' },
+    { id: '2.3_10b', q: 'SQL: LEFT JOIN Syntax', a: 'SELECT * FROM table1 LEFT JOIN table2 ON table1.id = table2.fk' },
+    { id: '2.3_10c', q: 'SQL: WHERE vs HAVING', a: 'SELECT department, AVG(salary) FROM employees WHERE active = 1 GROUP BY department HAVING AVG(salary) > 50000' },
+    { id: '2.3_10d', q: 'SQL: UNION Syntax', a: 'SELECT column FROM table1 UNION SELECT column FROM table2' },
 
-    // --- Unterpunkt 2: Aggregat-Funktionen (10 Karten) ---
+    // --- Unterpunkt 2: Aggregat-Funktionen (12 Karten) ---
     { id: '2.3_11', q: 'Nenne die 5 wichtigsten SQL-Aggregatfunktionen.', a: 'COUNT, SUM, AVG, MIN, MAX.' },
     { id: '2.3_12', q: 'Was passiert mit NULL-Werten bei Aggregatfunktionen wie SUM oder AVG?', a: 'Sie werden ignoriert (nicht mitgezählt/berechnet).' },
     { id: '2.3_13', q: 'Warum muss jede Spalte im SELECT, die keine Aggregatfunktion ist, im GROUP BY stehen?', a: 'Weil die Datenbank sonst nicht weiß, wie sie die unterschiedlichen Werte der Spalte zu einem Ergebniswert zusammenfassen soll.' },
@@ -477,8 +538,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_18', q: 'Was macht die Funktion RANK()?', a: 'Vergibt Rangfolgenummern. Bei Gleichstand wird dieselbe Nummer vergeben und die nächste Nummer übersprungen.' },
     { id: '2.3_19', q: 'Was macht DENSE_RANK()?', a: 'Wie RANK(), aber ohne Lücken in der Nummerierung bei Gleichstand.' },
     { id: '2.3_20', q: 'Was bewirkt die Funktion COALESCE(val1, val2, ...)?', a: 'Gibt den ersten Wert der Liste zurück, der NICHT NULL ist.' },
+    { id: '2.3_20a', q: 'SQL: GROUP BY mit Aggregat', a: 'SELECT department, COUNT(*) as emp_count FROM employees GROUP BY department' },
+    { id: '2.3_20b', q: 'SQL: HAVING Klausel', a: 'SELECT department, AVG(salary) FROM employees GROUP BY department HAVING AVG(salary) > 50000' },
 
-    // --- Unterpunkt 3: DML (Insert, Update, Delete) (10 Karten) ---
+    // --- Unterpunkt 3: DML (Insert, Update, Delete) (12 Karten) ---
     { id: '2.3_21', q: 'Wie kopiert man Daten von einer Tabelle in eine andere (INSERT INTO SELECT)?', a: 'INSERT INTO ZielTabelle (spalten) SELECT spalten FROM QuellTabelle WHERE ...' },
     { id: '2.3_22', q: 'Was passiert bei einem UPDATE ohne WHERE-Klausel?', a: 'Es werden ALLE Datensätze der Tabelle mit dem neuen Wert überschrieben.' },
     { id: '2.3_23', q: 'Was ist der Unterschied zwischen DELETE und TRUNCATE?', a: 'DELETE löscht Zeilen einzeln (logbar, Trigger feuern). TRUNCATE leert die Tabelle komplett (schneller, kein Logging der Einzelzeilen).' },
@@ -489,8 +552,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_28', q: 'Können DELETE-Statements Subqueries enthalten?', a: 'Ja, um z.B. alle Kunden zu löschen, die keine Bestellungen haben: DELETE FROM Kunden WHERE NOT EXISTS (...).' },
     { id: '2.3_29', q: 'Warum ist es riskant, IDs manuell per UPDATE zu ändern?', a: 'Gefahr von Verletzungen der referenziellen Integrität (Fremdschlüssel-Konflikte).' },
     { id: '2.3_30', q: 'Was ist "Mass Data Loading"?', a: 'Das hocheffiziente Einfügen sehr großer Datenmengen (oft über spezielle Tools wie COPY oder Bulk Insert).' },
+    { id: '2.3_30a', q: 'SQL: INSERT INTO Syntax', a: 'INSERT INTO users (name, email) VALUES (\'Max\', \'max@example.com\')' },
+    { id: '2.3_30b', q: 'SQL: UPDATE Syntax', a: 'UPDATE users SET email = \'new@example.com\' WHERE id = 1' },
 
-    // --- Unterpunkt 4: DDL (Create, Alter, Drop) (10 Karten) ---
+    // --- Unterpunkt 4: DDL (Create, Alter, Drop) (12 Karten) ---
     { id: '2.3_31', q: 'Was bewirkt der Constraint DEFAULT?', a: 'Setzt einen festen Wert, falls beim INSERT kein Wert für diese Spalte angegeben wird.' },
     { id: '2.3_32', q: 'Zweck des CHECK-Constraints?', a: 'Stellt sicher, dass alle Werte in einer Spalte eine bestimmte Bedingung erfüllen (z.B. Alter >= 18).' },
     { id: '2.3_33', q: 'Wie fügt man einer bestehenden Tabelle eine Spalte hinzu?', a: 'ALTER TABLE tabellenname ADD spaltenname datentyp;' },
@@ -501,6 +566,8 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_38', q: 'Wie benennt man eine Tabelle um?', a: 'ALTER TABLE alter_name RENAME TO neuer_name;' },
     { id: '2.3_39', q: 'Was bewirkt AUTO_INCREMENT (oder SERIAL/IDENTITY)?', a: 'Erzeugt automatisch eine fortlaufende Nummer für neue Datensätze (meist für PK).' },
     { id: '2.3_40', q: 'Können Constraints nachträglich hinzugefügt werden?', a: 'Ja, über ALTER TABLE ADD CONSTRAINT ...' },
+    { id: '2.3_40a', q: 'SQL: CREATE TABLE mit PK', a: 'CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) UNIQUE)' },
+    { id: '2.3_40b', q: 'SQL: CREATE TABLE mit FK', a: 'CREATE TABLE orders (id INT PRIMARY KEY, user_id INT, FOREIGN KEY (user_id) REFERENCES users(id))' },
 
     // --- Unterpunkt 5: Views, Indizes & Performance (10 Karten) ---
     { id: '2.3_41', q: 'Was ist eine View (Sicht)?', a: 'Eine gespeicherte SELECT-Abfrage, die wie eine virtuelle Tabelle verwendet werden kann.' },
@@ -514,7 +581,7 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_49', q: 'Zweck der Datenbank-Denormalisierung?', a: 'Gezielte Redundanz einbauen, um die Lese-Performance (weniger Joins) zu erhöhen.' },
     { id: '2.3_50', q: 'Was bewirkt ein Clustered Index?', a: 'Bestimmt die physische Reihenfolge der Datensätze auf der Festplatte (meist der PK).' },
 
-    // --- Unterpunkt 6: Transaktionen & ACID (10 Karten) ---
+    // --- Unterpunkt 6: Transaktionen & ACID (12 Karten) ---
     { id: '2.3_51', q: 'Wofür steht das A in ACID?', a: 'Atomicity (Atomarität): Eine Transaktion wird ganz oder gar nicht ausgeführt.' },
     { id: '2.3_52', q: 'Wofür steht das C in ACID?', a: 'Consistency (Konsistenz): Die Datenbank ist vor und nach der Transaktion in einem validen Zustand.' },
     { id: '2.3_53', q: 'Wofür steht das I in ACID?', a: 'Isolation: Parallel laufende Transaktionen beeinflussen sich nicht gegenseitig.' },
@@ -525,8 +592,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_58', q: 'Was ist ein "Dirty Read"?', a: 'Eine Transaktion liest Daten, die von einer anderen Transaktion geändert, aber noch nicht committet wurden.' },
     { id: '2.3_59', q: 'Was ist das "Transaction Log"?', a: 'Eine Datei, in der alle Änderungen protokolliert werden, um Wiederherstellungen nach Abstürzen zu ermöglichen.' },
     { id: '2.3_60', q: 'Was bewirkt ein SAVEPOINT?', a: 'Setzt eine Markierung innerhalb einer Transaktion, zu der man per Rollback zurückkehren kann, ohne alles abzubrechen.' },
+    { id: '2.3_60a', q: 'SQL: Transaktion starten und committen', a: 'BEGIN TRANSACTION; UPDATE ...; INSERT ...; COMMIT;' },
+    { id: '2.3_60b', q: 'SQL: Transaktion mit ROLLBACK', a: 'BEGIN TRANSACTION; UPDATE ...; IF error ROLLBACK ELSE COMMIT;' },
 
-    // --- Unterpunkt 7: Stored Procedures, Trigger & Functions (10 Karten) ---
+    // --- Unterpunkt 7: Stored Procedures, Trigger & Functions (12 Karten) ---
     { id: '2.3_61', q: 'Was ist eine Stored Procedure?', a: 'Ein im Datenbanksystem gespeichertes Programm (SQL-Skript), das Parameter annehmen kann.' },
     { id: '2.3_62', q: 'Was ist ein Datenbank-Trigger?', a: 'Code, der automatisch bei bestimmten Ereignissen (INSERT, UPDATE, DELETE) ausgeführt wird.' },
     { id: '2.3_63', q: 'Unterschied zwischen Stored Procedure und Function?', a: 'Functions müssen einen Wert zurückgeben und können in SELECTs genutzt werden. Procedures geben meist nichts zurück.' },
@@ -537,8 +606,10 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_68', q: 'Was ist PL/SQL oder T-SQL?', a: 'Proprietäre Erweiterungen von SQL um prozedurale Elemente (Schleifen, Variablen) von Oracle bzw. Microsoft.' },
     { id: '2.3_69', q: 'Kann ein Trigger ein ROLLBACK auslösen?', a: 'Ja, um eine Operation zu verhindern, die gegen komplexe Geschäftsregeln verstößt.' },
     { id: '2.3_70', q: 'Nenne eine Gefahr bei Triggern.', a: 'Kettenreaktionen (Trigger löst Trigger aus) können die Performance extrem verschlechtern und die Fehlersuche erschweren.' },
+    { id: '2.3_70a', q: 'SQL: Stored Procedure erstellen', a: 'CREATE PROCEDURE GetUser(IN id INT) BEGIN SELECT * FROM users WHERE id = id; END;' },
+    { id: '2.3_70b', q: 'SQL: Trigger erstellen', a: 'CREATE TRIGGER before_insert BEFORE INSERT ON users FOR EACH ROW BEGIN SET NEW.created_at = NOW(); END;' },
 
-    // --- Unterpunkt 8: DCL (Rechteverwaltung) (10 Karten) ---
+    // --- Unterpunkt 8: DCL (Rechteverwaltung) (11 Karten) ---
     { id: '2.3_71', q: 'Was bewirkt der Befehl GRANT?', a: 'Erteilt einem Benutzer oder einer Rolle bestimmte Berechtigungen (z.B. SELECT, INSERT).' },
     { id: '2.3_72', q: 'Was bewirkt der Befehl REVOKE?', a: 'Entzieht einem Benutzer oder einer Rolle zuvor erteilte Berechtigungen.' },
     { id: '2.3_73', q: 'Was ist eine "Rolle" in der Rechteverwaltung?', a: 'Eine Sammlung von Berechtigungen, die man mehreren Benutzern gleichzeitig zuweisen kann.' },
@@ -548,7 +619,8 @@ window.ANKI_QUESTIONS = {
     { id: '2.3_77', q: 'Kann man Berechtigungen auf Spaltenebene vergeben?', a: 'Ja, in vielen DB-Systemen kann man z.B. SELECT nur für bestimmte Spalten erlauben.' },
     { id: '2.3_78', q: 'Was ist der User "public" (in manchen Systemen)?', a: 'Eine Standardrolle, die alle registrierten Datenbankbenutzer umfasst.' },
     { id: '2.3_79', q: 'Was bewirkt DENY (in SQL Server)?', a: 'Explizites Verbieten eines Rechts, das Vorrang vor erlaubten Rechten hat.' },
-    { id: '2.3_80', q: 'Wo werden die Benutzerinformationen in der DB gespeichert?', a: 'In systemeigenen Metadaten-Tabellen (Data Dictionary).' }
+    { id: '2.3_80', q: 'Wo werden die Benutzerinformationen in der DB gespeichert?', a: 'In systemeigenen Metadaten-Tabellen (Data Dictionary).' },
+    { id: '2.3_80a', q: 'SQL: GRANT Syntax', a: 'GRANT SELECT, INSERT ON users TO app_user;' }
   ],
 
   // Topic 3.1: Netzwerktechnik & Cloud (50 Karten)
