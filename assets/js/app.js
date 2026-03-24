@@ -283,7 +283,7 @@ const app = {
           // Bei korrupten Daten: User warnen und neu starten
           const corruptData = s.substring(0, 100);
           console.error('[AP2] Corrupt data preview:', corruptData);
-          
+
           if (confirm(
             'Deine gespeicherten Daten sind beschädigt. \n\n' +
             'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
@@ -318,6 +318,9 @@ const app = {
           }
         }, 800);
       }
+
+      // --- UPDATE NOTIFICATION ---
+      this.checkForUpdate();
 
       const quoteEl = document.getElementById('motivationQuote');
       if (quoteEl)
@@ -405,10 +408,10 @@ const app = {
       warning: 'fa-exclamation-triangle',
       error: 'fa-times-circle'
     };
-    
+
     const existing = document.getElementById('appNotification');
     if (existing) existing.remove();
-    
+
     const notification = document.createElement('div');
     notification.id = 'appNotification';
     notification.className = `fixed top-20 right-4 z-[100] ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm animate-in fade-in slide-in-from-top-2`;
@@ -424,12 +427,150 @@ const app = {
         </button>
       </div>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     if (duration > 0) {
       setTimeout(() => notification.remove(), duration);
     }
+  },
+
+  // --- UPDATE NOTIFICATION ---
+  checkForUpdate() {
+    // Modal wird JEDEM angezeigt (beim Seitenladen)
+    // Prüfe nur ob User "Nie wieder anzeigen" gewählt hat
+    if (!localStorage.getItem('ap2_update_never_again')) {
+      const update = {
+        title: '🎴 Lernkarten-Update (v2.0.2)',
+        message: '67 neue optimierte Karten hinzugefügt! Pseudocode, SQL-Beispiele und Warum-Fragen für besseres Lernen.',
+        icon: 'fa-layer-group'
+      };
+      
+      this.showUpdateModal(update.title, update.message, update.icon);
+    }
+  },
+
+  showUpdateModal(title, message, iconClass) {
+    const modal = document.createElement('div');
+    modal.id = 'updateNotificationModal';
+    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto';
+    modal.innerHTML = `
+      <div class="bg-dark-card border border-dark-success/50 rounded-2xl p-5 sm:p-6 md:p-8 max-w-lg w-full shadow-2xl relative animate-in fade-in zoom-in duration-300 my-auto">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
+        
+        <!-- HEADER -->
+        <div class="flex items-center gap-3 sm:gap-4 mb-5 shrink-0">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-dark-success/20 border-2 border-dark-success flex items-center justify-center shrink-0">
+            <i class="fa-solid ${iconClass} text-dark-success text-xl sm:text-2xl"></i>
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg sm:text-xl font-bold text-white truncate">Neues Update!</h3>
+            <p class="text-[10px] sm:text-xs text-dark-muted">Verbesserungen für dein Lernen</p>
+          </div>
+        </div>
+        
+        <!-- TITLE & MESSAGE -->
+        <div class="mb-5 shrink-0">
+          <h4 class="font-bold text-white mb-2 text-sm sm:text-base">${title}</h4>
+          <p class="text-xs sm:text-sm text-dark-muted leading-relaxed">${message}</p>
+        </div>
+        
+        <!-- PROBLEME HINWEIS (NACH OBEN VERSCHOBEN) -->
+        <div class="bg-dark-warning/10 border border-dark-warning/30 rounded-xl p-2.5 sm:p-3 mb-5 shrink-0">
+          <p class="text-[10px] sm:text-xs text-dark-warning flex items-start gap-2">
+            <i class="fa-solid fa-triangle-exclamation mt-0.5 shrink-0"></i>
+            <span><b>Probleme?</b> Drücke <kbd class="bg-dark-warning/20 px-1 py-0.5 rounded text-[9px] sm:text-[10px]">Strg</kbd> + <kbd class="bg-dark-warning/20 px-1 py-0.5 rounded text-[9px] sm:text-[10px]">F5</kbd> für Cache-Refresh.</span>
+          </p>
+        </div>
+        
+        <!-- NEU IN DIESER VERSION (BLAUE BOX WIE VORHER) -->
+        <div class="bg-dark-bg/50 rounded-xl p-4 sm:p-5 mb-5 border border-dark-border shrink-0 overflow-hidden">
+          <p class="text-[10px] sm:text-xs text-dark-muted mb-3 font-bold uppercase flex items-center gap-2">
+            <i class="fa-solid fa-sparkles text-dark-accent"></i>
+            Neu in dieser Version:
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-gray-300">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-code text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span>Pseudocode für Algorithmen & OOP</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-database text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span>SQL-Beispiele (JOINs, CREATE TABLE, ...)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-list-check text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span>Listen-Fragen aufgeteilt (1 Item = 1 Karte)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-question text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span>"Warum"-Fragen für vertieftes Verständnis</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- WERBUNG FÜR ANDERE TRACKER (OPTIMIERT) -->
+        <div class="bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 rounded-xl p-3 sm:p-4 mb-5 shrink-0">
+          <p class="text-[10px] sm:text-xs text-indigo-300 mb-2.5 sm:mb-3 font-bold uppercase flex items-center gap-1.5 sm:gap-2">
+            <i class="fa-solid fa-star text-[10px] sm:text-xs"></i>
+            Mehr Tracker
+          </p>
+          <div class="space-y-2">
+            <a href="https://ap2-fisi.cwillam.de/" target="_blank" class="group flex items-center gap-3 bg-dark-card/60 hover:bg-indigo-900/25 border border-dark-border/50 hover:border-indigo-500/40 rounded-lg p-2.5 sm:p-3 no-underline">
+              <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-server text-indigo-400 text-xs group-hover:text-indigo-300 transition-colors"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-300 transition-colors truncate">AP2 FISI</p>
+                <p class="text-[10px] text-dark-muted truncate">Fachinformatiker für Systemintegration</p>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square text-dark-muted group-hover:text-indigo-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
+            </a>
+            <a href="https://ap1.cwillam.de/" target="_blank" class="group flex items-center gap-3 bg-dark-card/60 hover:bg-purple-900/25 border border-dark-border/50 hover:border-purple-500/40 rounded-lg p-2.5 sm:p-3 no-underline">
+              <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-graduation-cap text-purple-400 text-xs group-hover:text-purple-300 transition-colors"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 transition-colors truncate">AP1 Tracker</p>
+                <p class="text-[10px] text-dark-muted truncate">Alle Fachrichtungen</p>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square text-dark-muted group-hover:text-purple-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- BUTTONS -->
+        <div class="flex gap-2 sm:gap-3 shrink-0">
+          <button onclick="document.getElementById('updateNotificationModal').remove()" 
+                  class="flex-1 bg-dark-success hover:bg-dark-success/90 text-white font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl transition-all text-xs sm:text-sm whitespace-nowrap">
+            ✓ Verstanden
+          </button>
+          <a href="updates.html" target="_blank" 
+             onclick="document.getElementById('updateNotificationModal').remove()"
+             class="flex-1 bg-dark-card hover:bg-dark-border border border-dark-border text-white font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl transition-all text-center text-xs sm:text-sm whitespace-nowrap no-underline flex items-center justify-center gap-2">
+            <span>Änderungen</span>
+            <i class="fa-solid fa-external-link-alt text-[10px] sm:text-xs"></i>
+          </a>
+        </div>
+        
+        <!-- NIE WIEDER ANZEIGEN OPTION -->
+        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-dark-border shrink-0">
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <input type="checkbox" id="neverShowAgain" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent focus:ring-2" onchange="localStorage.setItem('ap2_update_never_again', this.checked ? 'true' : '')">
+            <span class="text-[10px] sm:text-xs text-dark-muted group-hover:text-white transition-colors">Nicht wieder anzeigen</span>
+          </label>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Schließen bei Klick außerhalb
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.remove();
+      }
+    });
   },
 
   hideInfoBox() {
