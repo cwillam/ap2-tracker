@@ -8,7 +8,7 @@ window.AP2_DATA = [
   {
     id: 'PLANEN',
     name: 'Planen eines Softwareproduktes',
-    icon: 'fa-solid fa-sitemap',
+    icon: 'git-branch',
     desc: 'Anforderungsanalyse, Design & Architektur (PB 1)',
     topics: [
       {
@@ -80,7 +80,7 @@ window.AP2_DATA = [
   {
     id: 'ALGORITHMEN',
     name: 'Entwicklung und Umsetzung von Algorithmen',
-    icon: 'fa-solid fa-code',
+    icon: 'code-2',
     desc: 'Logik, SQL & Codierung (PB 2)',
     topics: [
       {
@@ -132,7 +132,7 @@ window.AP2_DATA = [
   {
     id: 'SYSTEME',
     name: 'IT-Systeme, Sicherheit & Qualität',
-    icon: 'fa-solid fa-shield-halved',
+    icon: 'shield',
     desc: 'Netzwerke, Security & Testverfahren (Fachrichtungsübergreifend)',
     topics: [
       {
@@ -193,7 +193,7 @@ window.AP2_DATA = [
   {
     id: 'WISO',
     name: 'Wirtschafts- und Sozialkunde',
-    icon: 'fa-solid fa-scale-balanced',
+    icon: 'scale',
     desc: 'Recht, Betriebswirtschaft & Gesellschaft (PB 3)',
     topics: [
       {

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Updates & Roadmap | AP2 Tracker FIAE</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta
       name="description"
       content="Alle Updates und die Roadmap zum AP2 Tracker FIAE. Bleib auf dem Laufenden über neue Lernkarten und Funktionen für deine Prüfungsvorbereitung."
@@ -14,7 +16,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link href="assets/css/fontawesome/css/all.min.css" rel="stylesheet" />
 
     <!-- Tailwind Configuration -->
     <script src="assets/js/tailwind.js"></script>
@@ -83,7 +84,8 @@
             class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
           >
             <i
-              class="fa-solid fa-arrow-left text-dark-muted group-hover:text-dark-accent transition-colors"
+              data-lucide="arrow-left"
+              class="text-dark-muted group-hover:text-dark-accent transition-colors"
             ></i>
           </div>
           <div class="flex flex-col">
@@ -92,10 +94,18 @@
           </div>
         </a>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <!-- Help Link -->
+          <a
+            href="help.html"
+            class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+            title="Hilfe & FAQ"
+          >
+            <i data-lucide="help-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-            >v2.0.2</span
+            >v2.2.0</span
           >
         </div>
       </div>
@@ -137,7 +147,7 @@
 
       <!-- Tab Content: Updates -->
       <div id="tab-updates" class="space-y-12 fade-in delay-100">
-        <!-- v2.0.2 (AKTUELL) -->
+        <!-- v2.2.0 (AKTUELL) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
@@ -145,7 +155,7 @@
 
           <div class="md:flex items-center justify-between gap-8">
             <div
-              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-success items-center justify-center z-10 shadow-[0_0_20px_rgba(16,185,129,0.5)]"
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-success items-center justify-center z-10 shadow-[0_0_20px_rgba(16,185,129,0.5)]"
             >
               <div class="w-3 h-3 rounded-full bg-dark-success animate-pulse"></div>
             </div>
@@ -160,26 +170,127 @@
               <div class="flex items-center justify-between mb-3">
                 <span
                   class="bg-dark-success text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
+                  >v2.2.0 (Feature Update)</span
+                >
+                <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Fortschrittskreise & Tastatur-Shortcuts</h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                Zirkuläre Fortschrittsanzeigen pro Modul, Tastatur-Shortcuts zur Steuerung der Lernkarten und Erhöhung des Aktivitätsverlaufs auf 80 Tage.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Modul-Fortschrittskreise:</strong> Zirkuläre SVG-Verlaufsanzeigen visualisieren den exakten Wissensstand pro Lernbereich</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der Lernkarten via Leertaste, Eingabetaste, Pfeiltasten, Tasten 1/2 und Esc</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Aktivitätserweiterung:</strong> Erhöhung des Verlaufs auf 80 Tage für einen besseren Lernüberblick</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Hilfe-Dokumentation:</strong> Ausführliche Beschreibung aller Shortcuts in der neuen Hilfe-Sektion</span>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.1.0 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-border items-center justify-center z-10"
+            >
+              <div class="w-3 h-3 rounded-full bg-dark-border"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-2xl p-6 hover:border-dark-muted/50 transition-all duration-300 relative overflow-hidden shadow-2xl"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-dark-success text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
+                  >v2.1.0 (UI & Icon Update)</span
+                >
+                <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
+              </div>
+              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">Lucide Icon Migration & UI-Upgrade</h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
+                Komplette Modernisierung des Interfaces durch Vektor-Icons und verbessertes Header-Design.
+              </p>
+              <ul class="space-y-3 mb-4">
+                <li class="flex items-start text-sm text-gray-200">
+                  <i data-lucide="zap" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><b>Lucide-Icons & Header:</b> Umstellung auf ressourcenschonende, offline-fähige Vektorsymbole und neues Header-Kacheldesign (Violet-Theme) mit neuem `code-2`-Logo.</span></li>
+                <li class="flex items-start text-sm text-gray-200">
+                  <i data-lucide="play-circle" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><b>Fokus-Timer:</b> Play/Pause-Steuerung und Widget-Zentrierung korrigiert.</span></li>
+                <li class="flex items-start text-sm text-gray-200">
+                  <i data-lucide="bell" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><b>Notification-Dot:</b> Zentrierte Positionierung des Update-Indikators an der Glocke.</span></li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.0.2 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+            <div
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-success/60 items-center justify-center z-10"
+            >
+              <div class="w-2 h-2 rounded-full bg-dark-success/80"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-2xl p-6 hover:border-dark-success/60 transition-all duration-300 relative overflow-hidden shadow-2xl"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-success/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-dark-success/20 text-dark-success px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider border border-dark-success/30"
                   >v2.0.2 (Content Update)</span
                 >
                 <span class="text-dark-muted text-xs font-bold">24. März 2026</span>
               </div>
               <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">Lernkarten Optimierung für AP2-FIAE</h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
-                Anki-Style Optimierung der Lernkarten für besseres Lernen.
+                Umfangreiches inhaltliches Update des Lernkarten-Systems.
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-layer-group text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="layers" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Content-Ausbau:</b> +67 Karten (von 250 auf 317) in den Kern-Themen.</span></li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-code text-dark-success mt-1 mr-3 text-xs"></i>
-                  <span><b>Pseudocode hinzugefügt:</b> OOP, Algorithmen (Fakultät, Suche, Sortierung), SQL (JOINs, CREATE TABLE, Transaktionen).</span></li>
+                  <i data-lucide="code" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><b>Pseudocode hinzugefügt:</b> OOP, Algorithmen, SQL (JOINs, CREATE TABLE, Transaktionen).</span></li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-list-check text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="check-square" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Listen-Fragen aufgeteilt:</b> 1 Item = 1 Karte (Scrum Rollen, MoSCoW, PESTEL, 3 C's).</span></li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-circle-question text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="help-circle" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>"Warum"-Fragen ergänzt:</b> Vertieftes Verständnis für SOLID, Patterns, Algorithmen.</span></li>
               </ul>
             </div>
@@ -195,21 +306,17 @@
 
           <div class="md:flex items-center justify-between gap-8">
             <div
-              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-success items-center justify-center z-10 shadow-[0_0_20px_rgba(16,185,129,0.5)]"
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-success/60 items-center justify-center z-10"
             >
-              <div class="w-3 h-3 rounded-full bg-dark-success animate-pulse"></div>
+              <div class="w-2 h-2 rounded-full bg-dark-success/80"></div>
             </div>
 
             <div
-              class="w-full md:w-[45%] bg-dark-card border border-dark-success/50 rounded-2xl p-6 hover:border-dark-success transition-all duration-300 relative overflow-hidden shadow-2xl"
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-xl p-6 hover:border-dark-muted transition-all duration-300 relative overflow-hidden"
             >
-              <div
-                class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
-              ></div>
-
               <div class="flex items-center justify-between mb-3">
                 <span
-                  class="bg-dark-success text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
+                  class="bg-dark-border text-dark-muted px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider"
                   >v2.0.1 (Hotfix)</span
                 >
                 <span class="text-dark-muted text-xs font-bold">24. März 2026</span>
@@ -220,23 +327,23 @@
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-firefox-browser text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="chrome" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Firefox-Fix:</b> Lernkarten-Button jetzt in allen Browsern klickbar (Event-Capture-Phase).</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-database text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="database" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Storage-Schutz:</b> Proaktive Warnung bei 80% LocalStorage-Auslastung verhindert Datenverlust.</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-shield-halved text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="shield" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Import-Security:</b> 5-stufige Validierung (Typ, Struktur, Größe, Version, Plausibilität) blockiert korrupte Backups.</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-crosshairs text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="crosshair" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Smart Focus 2.0:</b> Intelligente Themen-Empfehlung basierend auf Gewicht, Fortschritt und Wiederholungen.</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-triangle-exclamation text-dark-success mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="alert-triangle" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Error-Handling:</b> Notification-System ersetzt blockierende Alerts + Corrupt-Data-Protection.</span>
                 </li>
               </ul>
@@ -251,11 +358,11 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8">
+          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
-              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent items-center justify-center z-10 shadow-[0_0_20px_rgba(139,92,246,0.5)]"
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-accent/60 items-center justify-center z-10"
             >
-              <div class="w-3 h-3 rounded-full bg-dark-accent animate-pulse"></div>
+              <div class="w-2 h-2 rounded-full bg-dark-accent/80"></div>
             </div>
 
             <div
@@ -276,21 +383,21 @@
               <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
                 Das bisher größte Update mit Fokus auf massiven Content-Ausbau und optimierte Benutzerführung.
               </p>
-              <ul class="space-y-3 mb-4">
+              <ul class="space-y-3">
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-layer-group text-dark-accent mt-1 mr-3 text-xs"></i>
-                  <span><b>Massives Karten-Update:</b> Datenbank auf 790 FIAE-spezifische Lernkarten erweitert.</span>
+                  <i data-lucide="layers" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><b>Lernkarten-System:</b> Anki-Style mit "Nicht gewusst" / "Sicher gewusst" & Topic-Selection.</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-brain text-dark-accent mt-1 mr-3 text-xs"></i>
-                  <span><b>Intelligentes Training:</b> Spaced-Repetition System (Strategie-Modus) voll integriert.</span>
+                  <i data-lucide="brain" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><b>Zwei Lernmodi:</b> "Spaced Repetition" (Strategisches Wiederholen) und "Freies Training".</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-mobile-screen text-dark-accent mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="smartphone" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>UI/UX Fixes:</b> Optimiertes Mobile-Layout, fixierte Suche und zentrierte Header.</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i class="fa-solid fa-chart-line text-dark-accent mt-1 mr-3 text-xs"></i>
+                  <i data-lucide="trending-up" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
                   <span><b>Session Tracking:</b> Verbesserte Statistik-Logik (Sitzungen zählen sofort ab Start).</span>
                 </li>
               </ul>
@@ -305,9 +412,9 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+          <div class="md:flex items-center justify-between gap-8">
             <div
-              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-border items-center justify-center z-10"
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-border items-center justify-center z-10"
             >
               <div class="w-2 h-2 rounded-full bg-dark-muted"></div>
             </div>
@@ -337,31 +444,43 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="space-y-4">
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-muted">
-              <i class="fa-regular fa-lightbulb"></i>
+              <i data-lucide="lightbulb"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Geplant</span>
             </div>
             <div class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm">
               <h4 class="font-bold text-gray-200 mb-1 italic">Detaillierte Lernzettel</h4>
               <p class="text-xs text-dark-muted leading-relaxed">Zusammenfassungen für komplexe SQL-Joins, UML-Diagramme und Design Patterns zum Download.</p>
             </div>
+            <div class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm">
+              <h4 class="font-bold text-gray-200 mb-1 italic">Prüfungs-Simulator</h4>
+              <p class="text-xs text-dark-muted leading-relaxed">Zufällige Fragenkombinationen zur realistischen Simulation der Abschlussprüfung.</p>
+            </div>
           </div>
 
           <div class="space-y-4">
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-accent">
-              <i class="fa-solid fa-hammer"></i>
+              <i data-lucide="hammer"></i>
               <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
             </div>
             <div class="bg-dark-card border border-dark-accent/30 p-4 rounded-xl relative overflow-hidden">
               <div class="absolute top-0 left-0 w-1 h-full bg-dark-accent"></div>
-              <h4 class="font-bold text-white mb-1">Prüfungs-Simulator</h4>
-              <p class="text-xs text-dark-muted mb-3 leading-relaxed">Ein Modul, das zufällige Fragen aus verschiedenen Bereichen kombiniert, um eine Prüfungssituation zu simulieren.</p>
+              <h4 class="font-bold text-white mb-1">PWA-Unterstützung</h4>
+              <p class="text-xs text-dark-muted leading-relaxed">Installation als native App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.</p>
             </div>
           </div>
 
           <div class="space-y-4">
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400">
-              <i class="fa-solid fa-check"></i>
+              <i data-lucide="check"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
+            </div>
+            <div class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all">
+              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">Modul-Fortschrittskreise</h4>
+              <p class="text-xs text-dark-muted leading-relaxed">Zirkuläre Fortschrittsanzeigen pro Lernbereich zur präzisen Visualisierung des Wissensstandes.</p>
+            </div>
+            <div class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all">
+              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">Tastatur-Shortcuts</h4>
+              <p class="text-xs text-dark-muted leading-relaxed">Anki-Style Shortcut-Steuerung für schnelles Beantworten von Lernkarten (z.B. Space, Tasten 1 & 2).</p>
             </div>
             <div class="bg-dark-card border border-dark-border p-4 rounded-xl">
               <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">Lernkarten-Vollausbau</h4>
@@ -380,17 +499,23 @@
         </div>
         <div class="flex gap-6 items-center flex-wrap justify-center md:justify-end w-full md:w-auto">
           <a href="https://buymeacoffee.com/cwillam" target="_blank" class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold">
-            <i class="fa-solid fa-mug-hot"></i> Support
+            <i data-lucide="coffee"></i> Support
           </a>
           <a href="index.html" class="group flex items-center gap-2 text-dark-muted hover:text-white transition-colors font-bold">
-            <i class="fa-solid fa-arrow-left"></i> Zurück zum Dashboard
+            <i data-lucide="arrow-left"></i> Zurück zum Dashboard
           </a>
         </div>
       </div>
     </footer>
 
-    <!-- Tab Logic -->
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js"></script>
     <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      });
       function switchTab(tab) {
         const contentUpdates = document.getElementById('tab-updates');
         const contentRoadmap = document.getElementById('tab-roadmap');

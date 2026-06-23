@@ -122,12 +122,11 @@ const app = {
       const badge = document.getElementById('ankiModeBadge');
       badge.classList.remove('hidden');
       if (mode === 'spaced') {
-        badge.innerHTML = '<i class="fa-solid fa-brain mr-1"></i> Strategie-Modus';
-        badge.className = 'text-[9px] font-bold uppercase tracking-widest text-dark-accent';
+        badge.innerHTML = '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
       } else {
-        badge.innerHTML = '<i class="fa-solid fa-dumbbell mr-1"></i> Freies Training';
-        badge.className = 'text-[9px] font-bold uppercase tracking-widest text-dark-warning';
+        badge.innerHTML = '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
       }
+      app.refreshIcons();
 
       document.getElementById('ankiModeView').classList.add('hidden');
       document.getElementById('ankiQuestionView').classList.remove('hidden');
@@ -329,8 +328,54 @@ const app = {
       this.renderActivityGraph();
       this.updateCountdown();
       setInterval(() => this.updateCountdown(), 60000);
+      // Keyboard Shortcuts für Lernkarten (Anki)
+      window.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('ankiModal');
+        if (modal && !modal.classList.contains('hidden')) {
+          const modeView = document.getElementById('ankiModeView');
+          const questionView = document.getElementById('ankiQuestionView');
+          const answerView = document.getElementById('ankiAnswerView');
+          const finishView = document.getElementById('ankiFinishView');
+
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            this.anki.close();
+            return;
+          }
+
+          if (modeView && !modeView.classList.contains('hidden')) {
+            if (e.key === '1') {
+              e.preventDefault();
+              this.anki.start('manual');
+            } else if (e.key === '2') {
+              e.preventDefault();
+              this.anki.start('spaced');
+            }
+          } else if (questionView && !questionView.classList.contains('hidden')) {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              this.anki.showAnswer();
+            }
+          } else if (answerView && !answerView.classList.contains('hidden')) {
+            if (e.key === '1' || e.key === 'ArrowLeft') {
+              e.preventDefault();
+              this.anki.next(false);
+            } else if (e.key === '2' || e.key === 'ArrowRight') {
+              e.preventDefault();
+              this.anki.next(true);
+            }
+          } else if (finishView && !finishView.classList.contains('hidden')) {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              this.anki.close();
+            }
+          }
+        }
+      });
+
       this.buildDOM();
       this.applyFilter();
+      this.refreshIcons();
     } catch (err) {
       console.error('[AP2] Critical Init Error:', err);
       // Fallback: Leeren State verwenden und weitermachen
@@ -354,6 +399,13 @@ const app = {
     if (this.state.activity) summary.activityDays = Object.keys(this.state.activity).length;
     if (this.state.ankiStats) summary.ankiTopics = Object.keys(this.state.ankiStats).length;
     return summary;
+  },
+
+  // Lucide Icons nach dynamischen DOM-Updates neu initialisieren
+  refreshIcons() {
+    if (window.lucide && typeof lucide.createIcons === 'function') {
+      lucide.createIcons();
+    }
   },
 
   // --- SAVE & STATE ---
@@ -403,10 +455,10 @@ const app = {
       error: 'bg-dark-danger'
     };
     const icons = {
-      info: 'fa-info-circle',
-      success: 'fa-check-circle',
-      warning: 'fa-exclamation-triangle',
-      error: 'fa-times-circle'
+      info: 'info',
+      success: 'check-circle-2',
+      warning: 'alert-triangle',
+      error: 'x-circle'
     };
 
     const existing = document.getElementById('appNotification');
@@ -417,18 +469,19 @@ const app = {
     notification.className = `fixed top-20 right-4 z-[100] ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm animate-in fade-in slide-in-from-top-2`;
     notification.innerHTML = `
       <div class="flex items-start gap-3">
-        <i class="fa-solid ${icons[type]} text-lg mt-0.5"></i>
+        <i data-lucide="${icons[type]}" class="text-lg mt-0.5"></i>
         <div class="flex-1">
           <p class="font-bold text-sm">${title}</p>
           <p class="text-xs opacity-90 mt-1">${message}</p>
         </div>
         <button onclick="this.parentElement.parentElement.remove()" class="opacity-70 hover:opacity-100">
-          <i class="fa-solid fa-xmark"></i>
+          <i data-lucide="x"></i>
         </button>
       </div>
     `;
 
     document.body.appendChild(notification);
+    this.refreshIcons();
 
     if (duration > 0) {
       setTimeout(() => notification.remove(), duration);
@@ -439,11 +492,11 @@ const app = {
   checkForUpdate() {
     // Modal wird JEDEM angezeigt (beim Seitenladen)
     // Prüfe nur ob User "Nie wieder anzeigen" gewählt hat
-    if (!localStorage.getItem('ap2_update_never_again')) {
+    if (!localStorage.getItem('ap2_update_never_again_v210')) {
       const update = {
-        title: '🎴 Lernkarten-Update (v2.0.2)',
-        message: '67 neue optimierte Karten hinzugefügt! Pseudocode, SQL-Beispiele und Warum-Fragen für besseres Lernen.',
-        icon: 'fa-layer-group'
+        title: '🚀 AP2 Tracker Update v2.1.0',
+        message: 'Wir haben den Tracker auf ressourcenschonende Lucide-Icons umgestellt, das Design modernisiert und Fehler behoben!',
+        icon: 'zap'
       };
       
       this.showUpdateModal(update.title, update.message, update.icon);
@@ -461,7 +514,7 @@ const app = {
         <!-- HEADER -->
         <div class="flex items-center gap-3 sm:gap-4 mb-5 shrink-0">
           <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-dark-success/20 border-2 border-dark-success flex items-center justify-center shrink-0">
-            <i class="fa-solid ${iconClass} text-dark-success text-xl sm:text-2xl"></i>
+            <i data-lucide="${iconClass}" class="text-dark-success text-xl sm:text-2xl"></i>
           </div>
           <div class="min-w-0 flex-1">
             <h3 class="text-lg sm:text-xl font-bold text-white truncate">Neues Update!</h3>
@@ -475,66 +528,66 @@ const app = {
           <p class="text-xs sm:text-sm text-dark-muted leading-relaxed">${message}</p>
         </div>
         
-        <!-- PROBLEME HINWEIS (NACH OBEN VERSCHOBEN) -->
+        <!-- PROBLEME HINWEIS -->
         <div class="bg-dark-warning/10 border border-dark-warning/30 rounded-xl p-2.5 sm:p-3 mb-5 shrink-0">
           <p class="text-[10px] sm:text-xs text-dark-warning flex items-start gap-2">
-            <i class="fa-solid fa-triangle-exclamation mt-0.5 shrink-0"></i>
+            <i data-lucide="alert-triangle" class="mt-0.5 shrink-0"></i>
             <span><b>Probleme?</b> Drücke <kbd class="bg-dark-warning/20 px-1 py-0.5 rounded text-[9px] sm:text-[10px]">Strg</kbd> + <kbd class="bg-dark-warning/20 px-1 py-0.5 rounded text-[9px] sm:text-[10px]">F5</kbd> für Cache-Refresh.</span>
           </p>
         </div>
         
-        <!-- NEU IN DIESER VERSION (BLAUE BOX WIE VORHER) -->
+        <!-- NEU IN DIESER VERSION -->
         <div class="bg-dark-bg/50 rounded-xl p-4 sm:p-5 mb-5 border border-dark-border shrink-0 overflow-hidden">
           <p class="text-[10px] sm:text-xs text-dark-muted mb-3 font-bold uppercase flex items-center gap-2">
-            <i class="fa-solid fa-sparkles text-dark-accent"></i>
+            <i data-lucide="sparkles" class="text-dark-accent"></i>
             Neu in dieser Version:
           </p>
           <ul class="space-y-2 text-xs sm:text-sm text-gray-300">
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-code text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>Pseudocode für Algorithmen & OOP</span>
+              <i data-lucide="zap" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Lucide-Icons & Header:</strong> Umstellung auf ressourcenschonende Vektorgrafiken, neues Header-Kacheldesign (Violet-Theme) und Code-Logo.</span>
             </li>
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-database text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>SQL-Beispiele (JOINs, CREATE TABLE, ...)</span>
+              <i data-lucide="play-circle" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Fokus-Timer:</strong> Play/Pause-Steuerung und Widget-Zentrierung korrigiert.</span>
             </li>
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-list-check text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>Listen-Fragen aufgeteilt (1 Item = 1 Karte)</span>
+              <i data-lucide="bell" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Notification-Dot:</strong> Zentrierte Positionierung des Update-Indikators an der Glocke.</span>
             </li>
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-circle-question text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>"Warum"-Fragen für vertieftes Verständnis</span>
+              <i data-lucide="layers" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Lernkarten-Upgrade (v2.0.2):</strong> 67 neue Karten, SQL-Beispiele, Pseudocode & verkleinerte Antwortaufdeckung (vorheriges Update).</span>
             </li>
           </ul>
         </div>
         
-        <!-- WERBUNG FÜR ANDERE TRACKER (OPTIMIERT) -->
+        <!-- WERBUNG FÜR ANDERE TRACKER -->
         <div class="bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 rounded-xl p-3 sm:p-4 mb-5 shrink-0">
           <p class="text-[10px] sm:text-xs text-indigo-300 mb-2.5 sm:mb-3 font-bold uppercase flex items-center gap-1.5 sm:gap-2">
-            <i class="fa-solid fa-star text-[10px] sm:text-xs"></i>
+            <i data-lucide="star" class="text-[10px] sm:text-xs"></i>
             Mehr Tracker
           </p>
           <div class="space-y-2">
             <a href="https://ap2-fisi.cwillam.de/" target="_blank" class="group flex items-center gap-3 bg-dark-card/60 hover:bg-indigo-900/25 border border-dark-border/50 hover:border-indigo-500/40 rounded-lg p-2.5 sm:p-3 no-underline">
               <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-server text-indigo-400 text-xs group-hover:text-indigo-300 transition-colors"></i>
+                <i data-lucide="server" class="text-indigo-400 text-xs group-hover:text-indigo-300 transition-colors"></i>
               </div>
               <div class="min-w-0 flex-1">
                 <p class="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-300 transition-colors truncate">AP2 FISI</p>
                 <p class="text-[10px] text-dark-muted truncate">Fachinformatiker für Systemintegration</p>
               </div>
-              <i class="fa-solid fa-arrow-up-right-from-square text-dark-muted group-hover:text-indigo-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
+              <i data-lucide="external-link" class="text-dark-muted group-hover:text-indigo-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
             </a>
             <a href="https://ap1.cwillam.de/" target="_blank" class="group flex items-center gap-3 bg-dark-card/60 hover:bg-purple-900/25 border border-dark-border/50 hover:border-purple-500/40 rounded-lg p-2.5 sm:p-3 no-underline">
               <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-graduation-cap text-purple-400 text-xs group-hover:text-purple-300 transition-colors"></i>
+                <i data-lucide="graduation-cap" class="text-purple-400 text-xs group-hover:text-purple-300 transition-colors"></i>
               </div>
               <div class="min-w-0 flex-1">
                 <p class="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 transition-colors truncate">AP1 Tracker</p>
                 <p class="text-[10px] text-dark-muted truncate">Alle Fachrichtungen</p>
               </div>
-              <i class="fa-solid fa-arrow-up-right-from-square text-dark-muted group-hover:text-purple-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
+              <i data-lucide="external-link" class="text-dark-muted group-hover:text-purple-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
             </a>
           </div>
         </div>
@@ -549,14 +602,14 @@ const app = {
              onclick="document.getElementById('updateNotificationModal').remove()"
              class="flex-1 bg-dark-card hover:bg-dark-border border border-dark-border text-white font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl transition-all text-center text-xs sm:text-sm whitespace-nowrap no-underline flex items-center justify-center gap-2">
             <span>Änderungen</span>
-            <i class="fa-solid fa-external-link-alt text-[10px] sm:text-xs"></i>
+            <i data-lucide="external-link" class="text-[10px] sm:text-xs"></i>
           </a>
         </div>
         
         <!-- NIE WIEDER ANZEIGEN OPTION -->
         <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-dark-border shrink-0">
           <label class="flex items-center gap-2 cursor-pointer group">
-            <input type="checkbox" id="neverShowAgain" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent focus:ring-2" onchange="localStorage.setItem('ap2_update_never_again', this.checked ? 'true' : '')">
+            <input type="checkbox" id="neverShowAgain" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent focus:ring-2" onchange="localStorage.setItem('ap2_update_never_again_v210', this.checked ? 'true' : '')">
             <span class="text-[10px] sm:text-xs text-dark-muted group-hover:text-white transition-colors">Nicht wieder anzeigen</span>
           </label>
         </div>
@@ -603,7 +656,7 @@ const app = {
     const container = document.getElementById('streakGraph');
     if (!container) return;
 
-    const days = 40;
+    const days = 80;
     const now = new Date();
 
     if (!this._streakCells) {
@@ -641,8 +694,8 @@ const app = {
 
   // --- TIMER ---
   updateCountdown() {
-    // Ziel: Sommerprüfung 2026 (28. April)
-    const target = new Date('2026-04-28T08:00:00');
+    // Ziel: Herbstprüfung 2026 (25. November)
+    const target = new Date('2026-11-25T08:00:00');
     const now = new Date();
     const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
     const el = document.getElementById('headerCountdown');
@@ -675,14 +728,16 @@ const app = {
     if (this.timerRunning) {
       clearInterval(this.timer);
       this.timerRunning = false;
-      btn.innerHTML = '<i class="fa-solid fa-play text-lg ml-1"></i>';
+      btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
       btn.classList.remove('bg-dark-accent', 'text-white', 'scale-105');
       btn.classList.add('bg-dark-border', 'text-dark-muted');
+      app.refreshIcons();
     } else {
       this.timerRunning = true;
-      btn.innerHTML = '<i class="fa-solid fa-pause text-lg"></i>';
+      btn.innerHTML = '<i data-lucide="pause" class="w-5 h-5"></i>';
       btn.classList.add('bg-dark-accent', 'text-white', 'scale-105');
       btn.classList.remove('bg-dark-border', 'text-dark-muted');
+      app.refreshIcons();
       this.timer = setInterval(() => {
         this.timeLeft--;
         if (this.timeLeft <= 0) {
@@ -690,10 +745,11 @@ const app = {
           this.timerRunning = false;
           this.timeLeft = 1500;
 
-          alert('Pomodoro beendet! Gönn dir eine Pause.');
-          btn.innerHTML = '<i class="fa-solid fa-play text-lg ml-1"></i>';
+          app.showNotification('Pomodoro beendet!', 'Gönn dir eine Pause.', 'info');
+          btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
           btn.classList.remove('bg-dark-accent', 'text-white', 'scale-105');
           btn.classList.add('bg-dark-border', 'text-dark-muted');
+          app.refreshIcons();
         }
         this.updateTimerDisplay();
       }, 1000);
@@ -1410,6 +1466,37 @@ const app = {
           catEl.classList.remove('hidden');
           hasVisible = true;
         }
+
+        // Fortschritt berechnen (nur fertige Themen im Verhältnis zu allen Themen dieser Kategorie)
+        const doneTopics = cat.topics.filter((t) => this.getState(t.id).done).length;
+        const totalTopics = cat.topics.length;
+        const pct = totalTopics === 0 ? 0 : Math.round((doneTopics / totalTopics) * 100);
+
+        // SVG Ring steuern
+        const progressRing = catEl.querySelector('.cat-progress-ring');
+        if (progressRing) {
+          progressRing.setAttribute('stroke-dasharray', `${pct} 100`);
+          if (pct === 100) {
+            progressRing.classList.remove('text-dark-accent');
+            progressRing.classList.add('text-dark-success');
+          } else {
+            progressRing.classList.add('text-dark-accent');
+            progressRing.classList.remove('text-dark-success');
+          }
+        }
+
+        // Prozent-Badge steuern
+        const pctEl = catEl.querySelector('.cat-pct');
+        if (pctEl) {
+          pctEl.textContent = `${pct}%`;
+          if (pct === 100) {
+            pctEl.classList.remove('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
+            pctEl.classList.add('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+          } else {
+            pctEl.classList.add('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
+            pctEl.classList.remove('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+          }
+        }
       }
     });
 
@@ -1457,7 +1544,38 @@ const app = {
       // Icon setzen
       const iconContainer = catNode.querySelector('.cat-icon');
       if (iconContainer && cat.icon) {
-        iconContainer.innerHTML = `<i class="${cat.icon}"></i>`;
+        iconContainer.innerHTML = `<i data-lucide="${cat.icon}"></i>`;
+      }
+
+      // Fortschritt berechnen (nur fertige Themen im Verhältnis zu allen Themen dieser Kategorie)
+      const doneTopics = cat.topics.filter((t) => this.getState(t.id).done).length;
+      const totalTopics = cat.topics.length;
+      const pct = totalTopics === 0 ? 0 : Math.round((doneTopics / totalTopics) * 100);
+
+      // SVG Ring steuern
+      const progressRing = catNode.querySelector('.cat-progress-ring');
+      if (progressRing) {
+        progressRing.setAttribute('stroke-dasharray', `${pct} 100`);
+        if (pct === 100) {
+          progressRing.classList.remove('text-dark-accent');
+          progressRing.classList.add('text-dark-success');
+        } else {
+          progressRing.classList.add('text-dark-accent');
+          progressRing.classList.remove('text-dark-success');
+        }
+      }
+
+      // Prozent-Badge steuern
+      const pctEl = catNode.querySelector('.cat-pct');
+      if (pctEl) {
+        pctEl.textContent = `${pct}%`;
+        if (pct === 100) {
+          pctEl.classList.remove('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
+          pctEl.classList.add('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+        } else {
+          pctEl.classList.add('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
+          pctEl.classList.remove('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+        }
       }
 
       const container = catNode.querySelector('.cat-topics');
@@ -1571,7 +1689,7 @@ const app = {
                       <input type="checkbox" class="peer appearance-none w-4 h-4 rounded border border-dark-border bg-dark-bg checked:bg-dark-accent checked:border-dark-accent cursor-pointer transition-colors" ${
                         isDone ? 'checked' : ''
                       }>
-                      <i class="fa-solid fa-check text-[10px] text-white absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                      <i data-lucide="check" class="text-[10px] text-white absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"></i>
                   </div>
                   <span class="transition-colors cursor-pointer pt-0.5 ${
                     isDone ? 'line-through opacity-50' : 'group-hover/item:text-white'
@@ -1601,6 +1719,7 @@ const app = {
     });
 
     this.scheduleStatsUpdate();
+    this.refreshIcons();
   },
 };
 
