@@ -40,7 +40,7 @@ const app = {
       // Debug-Log für Fehlersuche (Browser-Kompatibilität)
       console.log('[AP2] 🎴 Opening Anki for topic:', topicId);
       console.log('[AP2] 📚 Cards available:', window.ANKI_QUESTIONS?.[topicId]?.length || 0);
-      
+
       const allQuestions = window.ANKI_QUESTIONS || {};
       this.cards = allQuestions[topicId] || [];
       if (this.cards.length === 0) {
@@ -49,14 +49,14 @@ const app = {
       }
 
       this.currentTopicId = topicId;
-      
+
       const topic = app.findTopic(topicId);
       document.getElementById('ankiTopicTitle').textContent = topic ? topic.title : 'Lernkarten';
-      
+
       // Statistiken laden
       if (!app.state.ankiStats) app.state.ankiStats = {};
       const stats = app.state.ankiStats[topicId] || { total: 0, correct: 0, sessions: 0 };
-      
+
       const statsContainer = document.getElementById('ankiTopicStats');
       if (statsContainer) {
         if (stats.total > 0) {
@@ -101,7 +101,7 @@ const app = {
     start(mode) {
       this.mode = mode;
       this.currentIndex = 0;
-      
+
       // Global Stats tracken (Session zählt ab Start)
       if (!app.state.ankiStats) app.state.ankiStats = {};
       if (!app.state.ankiStats[this.currentTopicId]) {
@@ -118,13 +118,15 @@ const app = {
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
       this.cards = shuffled;
-      
+
       const badge = document.getElementById('ankiModeBadge');
       badge.classList.remove('hidden');
       if (mode === 'spaced') {
-        badge.innerHTML = '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
+        badge.innerHTML =
+          '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
       } else {
-        badge.innerHTML = '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
+        badge.innerHTML =
+          '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
       }
       app.refreshIcons();
 
@@ -136,9 +138,10 @@ const app = {
     showCard() {
       const card = this.cards[this.currentIndex];
       const progress = (this.currentIndex / this.cards.length) * 100;
-      
+
       document.getElementById('ankiProgress').style.width = `${progress}%`;
-      document.getElementById('ankiCardCounter').textContent = `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
+      document.getElementById('ankiCardCounter').textContent =
+        `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
       document.getElementById('ankiQuestionText').textContent = card.q;
       document.getElementById('ankiAnswerText').textContent = card.a;
 
@@ -199,11 +202,11 @@ const app = {
       // Intervalle in Tagen: 1, 3, 7, 14, 30
       const intervals = [0, 1, 3, 7, 14, 30];
       const daysToAdd = intervals[cardData.level] || 1;
-      
+
       const nextDate = new Date();
       nextDate.setDate(nextDate.getDate() + daysToAdd);
       cardData.nextReview = nextDate.getTime();
-      
+
       app.save();
     },
 
@@ -211,13 +214,13 @@ const app = {
       document.getElementById('ankiProgress').style.width = '100%';
       document.getElementById('ankiAnswerView').classList.add('hidden');
       document.getElementById('ankiFinishView').classList.remove('hidden');
-      
+
       if (typeof confetti === 'function') {
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#8b5cf6', '#10b981']
+          colors: ['#8b5cf6', '#10b981'],
         });
       }
     },
@@ -226,7 +229,7 @@ const app = {
       const modal = document.getElementById('ankiModal');
       modal.classList.add('hidden');
       document.body.style.overflow = '';
-    }
+    },
   },
 
   quotes: [
@@ -283,11 +286,13 @@ const app = {
           const corruptData = s.substring(0, 100);
           console.error('[AP2] Corrupt data preview:', corruptData);
 
-          if (confirm(
-            'Deine gespeicherten Daten sind beschädigt. \n\n' +
-            'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
-            'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.'
-          )) {
+          if (
+            confirm(
+              'Deine gespeicherten Daten sind beschädigt. \n\n' +
+                'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
+                'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.'
+            )
+          ) {
             localStorage.removeItem('ap2_tracker_state_v1');
             location.reload();
           } else {
@@ -375,6 +380,7 @@ const app = {
 
       this.buildDOM();
       this.applyFilter();
+      this.updateStats();
       this.refreshIcons();
     } catch (err) {
       console.error('[AP2] Critical Init Error:', err);
@@ -413,7 +419,7 @@ const app = {
     try {
       const serialized = JSON.stringify(this.state);
       const size = new Blob([serialized]).size;
-      
+
       // Warnung bei >80% Auslastung (ca. 4 MB von 5 MB Limit)
       if (size > 4 * 1024 * 1024 && !this._quotaWarningShown) {
         this._quotaWarningShown = true;
@@ -426,13 +432,13 @@ const app = {
           );
         }
       }
-      
+
       localStorage.setItem('ap2_tracker_state_v1', serialized);
       this._saveError = null;
     } catch (e) {
       this._saveError = e;
       console.error('[AP2] Save failed:', e.name, e.message);
-      
+
       if (e.name === 'QuotaExceededError') {
         if (!silent) {
           this.showNotification(
@@ -452,13 +458,13 @@ const app = {
       info: 'bg-dark-accent',
       success: 'bg-dark-success',
       warning: 'bg-dark-warning',
-      error: 'bg-dark-danger'
+      error: 'bg-dark-danger',
     };
     const icons = {
       info: 'info',
       success: 'check-circle-2',
       warning: 'alert-triangle',
-      error: 'x-circle'
+      error: 'x-circle',
     };
 
     const existing = document.getElementById('appNotification');
@@ -495,10 +501,11 @@ const app = {
     if (!localStorage.getItem('ap2_update_never_again_v210')) {
       const update = {
         title: '🚀 AP2 Tracker Update v2.1.0',
-        message: 'Wir haben den Tracker auf ressourcenschonende Lucide-Icons umgestellt, das Design modernisiert und Fehler behoben!',
-        icon: 'zap'
+        message:
+          'Wir haben den Tracker auf ressourcenschonende Lucide-Icons umgestellt, das Design modernisiert und Fehler behoben!',
+        icon: 'zap',
       };
-      
+
       this.showUpdateModal(update.title, update.message, update.icon);
     }
   },
@@ -506,11 +513,12 @@ const app = {
   showUpdateModal(title, message, iconClass) {
     const modal = document.createElement('div');
     modal.id = 'updateNotificationModal';
-    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto';
+    modal.className =
+      'fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto';
     modal.innerHTML = `
       <div class="bg-dark-card border border-dark-success/50 rounded-2xl p-5 sm:p-6 md:p-8 max-w-lg w-full shadow-2xl relative animate-in fade-in zoom-in duration-300 my-auto">
         <div class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
-        
+
         <!-- HEADER -->
         <div class="flex items-center gap-3 sm:gap-4 mb-5 shrink-0">
           <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-dark-success/20 border-2 border-dark-success flex items-center justify-center shrink-0">
@@ -521,13 +529,13 @@ const app = {
             <p class="text-[10px] sm:text-xs text-dark-muted">Verbesserungen für dein Lernen</p>
           </div>
         </div>
-        
+
         <!-- TITLE & MESSAGE -->
         <div class="mb-5 shrink-0">
           <h4 class="font-bold text-white mb-2 text-sm sm:text-base">${title}</h4>
           <p class="text-xs sm:text-sm text-dark-muted leading-relaxed">${message}</p>
         </div>
-        
+
         <!-- PROBLEME HINWEIS -->
         <div class="bg-dark-warning/10 border border-dark-warning/30 rounded-xl p-2.5 sm:p-3 mb-5 shrink-0">
           <p class="text-[10px] sm:text-xs text-dark-warning flex items-start gap-2">
@@ -535,7 +543,7 @@ const app = {
             <span><b>Probleme?</b> Drücke <kbd class="bg-dark-warning/20 px-1 py-0.5 rounded text-[9px] sm:text-[10px]">Strg</kbd> + <kbd class="bg-dark-warning/20 px-1 py-0.5 rounded text-[9px] sm:text-[10px]">F5</kbd> für Cache-Refresh.</span>
           </p>
         </div>
-        
+
         <!-- NEU IN DIESER VERSION -->
         <div class="bg-dark-bg/50 rounded-xl p-4 sm:p-5 mb-5 border border-dark-border shrink-0 overflow-hidden">
           <p class="text-[10px] sm:text-xs text-dark-muted mb-3 font-bold uppercase flex items-center gap-2">
@@ -561,7 +569,7 @@ const app = {
             </li>
           </ul>
         </div>
-        
+
         <!-- WERBUNG FÜR ANDERE TRACKER -->
         <div class="bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 rounded-xl p-3 sm:p-4 mb-5 shrink-0">
           <p class="text-[10px] sm:text-xs text-indigo-300 mb-2.5 sm:mb-3 font-bold uppercase flex items-center gap-1.5 sm:gap-2">
@@ -591,21 +599,21 @@ const app = {
             </a>
           </div>
         </div>
-        
+
         <!-- BUTTONS -->
         <div class="flex gap-2 sm:gap-3 shrink-0">
-          <button onclick="document.getElementById('updateNotificationModal').remove()" 
+          <button onclick="document.getElementById('updateNotificationModal').remove()"
                   class="flex-1 bg-dark-success hover:bg-dark-success/90 text-white font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl transition-all text-xs sm:text-sm whitespace-nowrap">
             ✓ Verstanden
           </button>
-          <a href="updates.html" target="_blank" 
+          <a href="updates.html" target="_blank"
              onclick="document.getElementById('updateNotificationModal').remove()"
              class="flex-1 bg-dark-card hover:bg-dark-border border border-dark-border text-white font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl transition-all text-center text-xs sm:text-sm whitespace-nowrap no-underline flex items-center justify-center gap-2">
             <span>Änderungen</span>
             <i data-lucide="external-link" class="text-[10px] sm:text-xs"></i>
           </a>
         </div>
-        
+
         <!-- NIE WIEDER ANZEIGEN OPTION -->
         <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-dark-border shrink-0">
           <label class="flex items-center gap-2 cursor-pointer group">
@@ -615,9 +623,9 @@ const app = {
         </div>
       </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
+
     // Schließen bei Klick außerhalb
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -664,8 +672,7 @@ const app = {
       container.innerHTML = '';
       for (let i = days; i >= 0; i--) {
         const el = document.createElement('div');
-        el.className =
-          'w-3 h-3 sm:w-4 sm:h-4 rounded-sm bg-dark-border streak-cell cursor-default';
+        el.className = 'w-3 h-3 sm:w-4 sm:h-4 rounded-sm bg-dark-border streak-cell cursor-default';
         container.appendChild(el);
         this._streakCells.push(el);
       }
@@ -685,8 +692,7 @@ const app = {
       const cellIdx = days - i;
       const el = this._streakCells[cellIdx];
       if (el) {
-        el.className =
-          `w-3 h-3 sm:w-4 sm:h-4 rounded-sm ${colorClass} streak-cell cursor-default`;
+        el.className = `w-3 h-3 sm:w-4 sm:h-4 rounded-sm ${colorClass} streak-cell cursor-default`;
         el.title = `${dateStr}: ${count} Aktionen`;
       }
     }
@@ -780,42 +786,48 @@ const app = {
     if (typeof data !== 'object' || data === null || Array.isArray(data)) {
       return { valid: false, error: 'Ungültiges Format: Erwartet wird ein JSON-Objekt.' };
     }
-    
+
     // 2. Minimale Struktur-Checks (existierende Keys prüfen)
     const requiredKeys = ['activity']; // activity ist immer vorhanden nach erstem Use
     for (const key of requiredKeys) {
       if (!(key in data)) {
-        return { valid: false, error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.` };
+        return {
+          valid: false,
+          error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.`,
+        };
       }
     }
-    
+
     // 3. Größen-Check (max 5 MB = LocalStorage Limit)
     const size = new Blob([JSON.stringify(data)]).size;
     if (size > 5 * 1024 * 1024) {
-      return { valid: false, error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)` };
+      return {
+        valid: false,
+        error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)`,
+      };
     }
-    
+
     // 4. Versions-Erkennung für zukünftige Migrationen
     const version = data._version || 'v1';
     const supportedVersions = ['v1', 'v2'];
-    
+
     if (!supportedVersions.includes(version)) {
-      return { 
-        valid: false, 
+      return {
+        valid: false,
         error: `Unbekannte Version: "${version}". Bitte Tracker aktualisieren.`,
-        needsMigration: true
+        needsMigration: true,
       };
     }
-    
+
     // 5. Plausibilitäts-Check für bekannte Felder
     if (data.activity && typeof data.activity !== 'object') {
       return { valid: false, error: 'Feld "activity" muss ein Objekt sein.' };
     }
-    
+
     if (data.ankiStats && typeof data.ankiStats !== 'object') {
       return { valid: false, error: 'Feld "ankiStats" muss ein Objekt sein.' };
     }
-    
+
     return { valid: true, version };
   },
 
@@ -827,18 +839,18 @@ const app = {
   migrateState(data) {
     const currentVersion = data._version || 'v1';
     let migrated = { ...data };
-    
+
     // Beispiel für zukünftige Migrationen:
     // if (currentVersion === 'v1') {
     //   migrated = { ...migrated, newField: defaultValue };
     //   migrated._version = 'v2';
     // }
-    
+
     // Immer aktuelle Version setzen, falls noch nicht vorhanden
     if (!migrated._version) {
       migrated._version = 'v1';
     }
-    
+
     console.log(`[AP2] Migration: ${currentVersion} -> ${migrated._version}`);
     return migrated;
   },
@@ -846,10 +858,10 @@ const app = {
   importData(input) {
     const file = input.files[0];
     if (!file) return;
-    
+
     // Reset input damit gleiche Datei erneut gewählt werden kann
     input.value = '';
-    
+
     // Größen-Check vor dem Lesen (max 10 MB Raw-Datei)
     if (file.size > 10 * 1024 * 1024) {
       this.showNotification(
@@ -859,17 +871,17 @@ const app = {
       );
       return;
     }
-    
+
     const reader = new FileReader();
-    
+
     reader.onerror = () => {
       console.error('[AP2] File read error:', reader.error);
       this.showNotification('Lesefehler', 'Die Datei konnte nicht gelesen werden.', 'error');
     };
-    
+
     reader.onload = (e) => {
       const content = e.target.result;
-      
+
       // 1. JSON parsen
       let parsed;
       try {
@@ -883,7 +895,7 @@ const app = {
         );
         return;
       }
-      
+
       // 2. Struktur validieren
       const validation = this.validateImport(parsed);
       if (!validation.valid) {
@@ -891,17 +903,17 @@ const app = {
         this.showNotification('Import fehlgeschlagen', validation.error, 'error', 0);
         return;
       }
-      
+
       // 3. Migration durchführen (falls nötig)
       const migrated = this.migrateState(parsed);
-      
+
       // 4. State ersetzen und speichern
       const oldState = this.state;
       this.state = migrated;
-      
+
       try {
         this.save();
-        
+
         // 5. Erfolg melden
         const stats = this.getImportStats(migrated);
         this.showNotification(
@@ -909,7 +921,7 @@ const app = {
           `Lade Fortschritt: ${stats.topics} Themen, ${stats.cards} Karten${stats.days ? `, ${stats.days} Tage Aktivität` : ''}`,
           'success'
         );
-        
+
         // 6. Reload nach kurzer Verzögerung
         setTimeout(() => location.reload(), 1500);
       } catch (err) {
@@ -924,7 +936,7 @@ const app = {
         );
       }
     };
-    
+
     reader.readAsText(file);
   },
 
@@ -933,29 +945,30 @@ const app = {
    */
   getImportStats(state) {
     const stats = { topics: 0, cards: 0, days: 0 };
-    
+
     // Gezählte Topics
     if (state) {
-      Object.keys(state).forEach(key => {
-        if (/^\d+\.\d+$/.test(key)) { // Topic-ID Pattern (z.B. "1.1", "2.3")
+      Object.keys(state).forEach((key) => {
+        if (/^\d+\.\d+$/.test(key)) {
+          // Topic-ID Pattern (z.B. "1.1", "2.3")
           stats.topics++;
           if (state[key].done) stats.cards++;
         }
       });
     }
-    
+
     // Anki-Karten
     if (state.ankiStats) {
-      Object.values(state.ankiStats).forEach(s => {
-        stats.cards += (s.correct || 0);
+      Object.values(state.ankiStats).forEach((s) => {
+        stats.cards += s.correct || 0;
       });
     }
-    
+
     // Aktivitätstage
     if (state.activity) {
-      stats.days = Object.keys(state.activity).filter(d => state.activity[d] > 0).length;
+      stats.days = Object.keys(state.activity).filter((d) => state.activity[d] > 0).length;
     }
-    
+
     return stats;
   },
 
@@ -1005,6 +1018,9 @@ const app = {
 
     this.trackActivity();
     this.save();
+    // FIX: updateStats synchron aufrufen damit Smart Focus sofort aktualisiert wird
+    this.updateStats();
+    this.applyFilter();
 
     if (checked) {
       if (typeof confetti === 'function') {
@@ -1059,6 +1075,9 @@ const app = {
     s.last = Date.now();
     this.trackActivity();
     this.save();
+    // FIX: updateStats synchron aufrufen damit Smart Focus sofort aktualisiert wird
+    this.updateStats();
+    this.applyFilter();
   },
 
   randomTopic() {
@@ -1291,123 +1310,140 @@ const app = {
 
   // --- RENDER ---
   updateStats() {
-    const allTopics = AP2_DATA.flatMap((c) => c.topics || []);
-    
-    // Punkte-Logik: 10 Punkte pro Unterthema (Sub-Task)
-    let doneSubTasks = 0;
-    let totalSubTasks = 0;
-    allTopics.forEach(t => {
-      const s = this.getState(t.id);
-      if (s.subDone) {
-        doneSubTasks += s.subDone.filter(Boolean).length;
-      } else if (s.done) {
-        // Fallback falls subDone nicht existiert aber Thema erledigt ist
-        doneSubTasks += (t.sub ? t.sub.length : 1);
-      }
-      totalSubTasks += (t.sub ? t.sub.length : 1);
-    });
-    const topicPoints = doneSubTasks * 10;
+    try {
+      const allTopics = AP2_DATA.flatMap((c) => c.topics || []);
 
-    // Anki-Punkte: 1 Punkt pro gelernte Karte (level >= 1)
-    const learnedCards = this.state.anki ? Object.values(this.state.anki).filter(c => c.level >= 1).length : 0;
-    const cardPoints = learnedCards;
+      // Punkte-Logik: 10 Punkte pro Unterthema (Sub-Task)
+      let doneSubTasks = 0;
+      let totalSubTasks = 0;
+      allTopics.forEach((t) => {
+        const s = this.getState(t.id);
+        if (s.subDone) {
+          doneSubTasks += s.subDone.filter(Boolean).length;
+        } else if (s.done) {
+          // Fallback falls subDone nicht existiert aber Thema erledigt ist
+          doneSubTasks += t.sub ? t.sub.length : 1;
+        }
+        totalSubTasks += t.sub ? t.sub.length : 1;
+      });
+      const topicPoints = doneSubTasks * 10;
 
-    // Max Points dynamisch berechnen
-    const allAnkiCards = window.ANKI_QUESTIONS ? Object.values(window.ANKI_QUESTIONS).flat().length : 0;
-    const maxPoints = (totalSubTasks * 10) + allAnkiCards;
+      // Anki-Punkte: 1 Punkt pro gelernte Karte (level >= 1)
+      const learnedCards = this.state.anki
+        ? Object.values(this.state.anki).filter((c) => c.level >= 1).length
+        : 0;
+      const cardPoints = learnedCards;
 
-    const currentPoints = topicPoints + cardPoints;
-    const totalPct = Math.min(100, Math.round((currentPoints / maxPoints) * 100));
+      // Max Points dynamisch berechnen
+      const allAnkiCards = window.ANKI_QUESTIONS
+        ? Object.values(window.ANKI_QUESTIONS).flat().length
+        : 0;
+      const maxPoints = totalSubTasks * 10 + allAnkiCards || 1; // Guard gegen Division by 0
 
-    const totalTopEl = document.getElementById('totalPercentTop');
-    if (totalTopEl) totalTopEl.textContent = totalPct + '%';
+      const currentPoints = topicPoints + cardPoints;
+      const totalPct = Math.min(100, Math.round((currentPoints / maxPoints) * 100));
 
-    const mainProgress = document.getElementById('mainProgressBar');
-    if (mainProgress) mainProgress.style.width = totalPct + '%';
+      const totalTopEl = document.getElementById('totalPercentTop');
+      if (totalTopEl) totalTopEl.textContent = totalPct + '%';
 
-    const doneCountEl = document.getElementById('doneCount');
-    if (doneCountEl) doneCountEl.textContent = learnedCards; // Zeigt nun Karten-Anzahl
+      const mainProgress = document.getElementById('mainProgressBar');
+      if (mainProgress) mainProgress.style.width = totalPct + '%';
 
-    let currentRank = this.ranks[0];
-    let nextRank = null;
-    let rankPct = 0;
+      const doneCountEl = document.getElementById('doneCount');
+      if (doneCountEl) doneCountEl.textContent = learnedCards; // Zeigt nun Karten-Anzahl
 
-    for (let i = 0; i < this.ranks.length; i++) {
-      if (currentPoints >= this.ranks[i].min) {
-        currentRank = this.ranks[i];
-        nextRank = this.ranks[i + 1] || null;
-      }
-    }
+      let currentRank = this.ranks[0];
+      let nextRank = null;
+      let rankPct = 0;
 
-    const rankNameEl = document.getElementById('levelName');
-    if (rankNameEl) {
-      rankNameEl.textContent = currentRank.name;
-      rankNameEl.style.color = currentRank.color;
-    }
-
-    if (nextRank) {
-      const range = nextRank.min - currentRank.min;
-      const currentInRank = currentPoints - currentRank.min;
-      rankPct = Math.min(100, (currentInRank / range) * 100);
-    } else {
-      rankPct = 100;
-    }
-
-    const rankBar = document.getElementById('levelProgress');
-    if (rankBar) {
-      rankBar.style.width = rankPct + '%';
-      rankBar.style.backgroundColor = currentRank.color;
-    }
-
-    let best = null,
-      maxScore = -1;
-    
-    // Smart Focus: Berechnet das nächste beste Thema basierend auf:
-    // 1. Gewichtung (weight) - höhere Priorität = wichtiger
-    // 2. Fortschritt (subDone) - weniger erledigt = dringender
-    // 3. Wiederholungen (reps) - weniger wiederholt = dringender
-    // 4. Leichter Zufall (für Varianz bei gleichen Scores)
-    
-    allTopics.forEach((t) => {
-      const s = this.getState(t.id);
-      if (!s.done) {
-        // Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
-        const weightScore = t.weight * 10;
-        
-        // Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
-        const totalSub = t.sub ? t.sub.length : 1;
-        const doneSub = s.subDone ? s.subDone.filter(Boolean).length : (s.done ? totalSub : 0);
-        const progressScore = ((totalSub - doneSub) / totalSub) * 20;
-        
-        // Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
-        const totalReps = 3;
-        const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
-        const repScore = ((totalReps - doneReps) / totalReps) * 15;
-        
-        // Leichter Zufall für Varianz (max 5 Punkte)
-        const randomScore = Math.random() * 5;
-        
-        // Gesamt-Score
-        const score = weightScore + progressScore + repScore + randomScore;
-        
-        if (score > maxScore) {
-          maxScore = score;
-          best = t;
+      for (let i = 0; i < this.ranks.length; i++) {
+        if (currentPoints >= this.ranks[i].min) {
+          currentRank = this.ranks[i];
+          nextRank = this.ranks[i + 1] || null;
         }
       }
-    });
-    
-    const recShort = document.getElementById('recShort');
-    if (recShort) {
-      if (best) {
-        this.recId = best.id;
-        recShort.textContent = `${best.title}`;
-        console.log('[AP2] 🎯 Smart Focus:', best.title, `(Score: ${maxScore.toFixed(1)})`);
-      } else {
-        this.recId = null;
-        recShort.textContent = 'Bereit für die AP2!';
-        console.log('[AP2] ✅ Alle Themen erledigt!');
+
+      const rankNameEl = document.getElementById('levelName');
+      if (rankNameEl) {
+        rankNameEl.textContent = currentRank.name;
+        rankNameEl.style.color = currentRank.color;
       }
+
+      if (nextRank) {
+        const range = nextRank.min - currentRank.min;
+        const currentInRank = currentPoints - currentRank.min;
+        rankPct = Math.min(100, (currentInRank / range) * 100);
+      } else {
+        rankPct = 100;
+      }
+
+      const rankBar = document.getElementById('levelProgress');
+      if (rankBar) {
+        rankBar.style.width = rankPct + '%';
+        rankBar.style.backgroundColor = currentRank.color;
+      }
+
+      let best = null,
+        maxScore = -1;
+
+      // Smart Focus: Berechnet das nächste beste Thema basierend auf:
+      // 1. Gewichtung (weight) - höhere Priorität = wichtiger
+      // 2. Fortschritt (subDone) - weniger erledigt = dringender
+      // 3. Wiederholungen (reps) - weniger wiederholt = dringender
+      // 4. Leichter Zufall (für Varianz bei gleichen Scores)
+
+      allTopics.forEach((t) => {
+        const s = this.getState(t.id);
+        if (!s.done) {
+          // Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
+          const weightScore = t.weight * 10;
+
+          // Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
+          const totalSub = t.sub ? t.sub.length : 1;
+          const doneSub = s.subDone ? s.subDone.filter(Boolean).length : s.done ? totalSub : 0;
+          const progressScore = ((totalSub - doneSub) / totalSub) * 20;
+
+          // Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
+          const totalReps = 3;
+          const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
+          const repScore = ((totalReps - doneReps) / totalReps) * 15;
+
+          // Leichter Zufall für Varianz (max 5 Punkte)
+          const randomScore = Math.random() * 5;
+
+          // Gesamt-Score
+          const score = weightScore + progressScore + repScore + randomScore;
+
+          if (score > maxScore) {
+            maxScore = score;
+            best = t;
+          }
+        }
+      });
+
+      // FIX: Smart Focus IMMER setzen (auch wenn noch keine Topics geladen sind)
+      const recShort = document.getElementById('recShort');
+      if (recShort) {
+        if (best) {
+          this.recId = best.id;
+          recShort.textContent = best.title;
+          recShort.title = best.title; // Tooltip für lange Titel
+          recShort.classList.remove('text-dark-muted');
+          recShort.classList.add('text-white');
+          console.log('[AP2] 🎯 Smart Focus:', best.title, `(Score: ${maxScore.toFixed(1)})`);
+        } else if (allTopics.length === 0) {
+          this.recId = null;
+          recShort.textContent = 'Lade Daten...';
+        } else {
+          this.recId = null;
+          recShort.textContent = 'Bereit für die AP2!';
+          console.log('[AP2] ✅ Alle Themen erledigt!');
+        }
+      }
+    } catch (err) {
+      console.error('[AP2] updateStats Fehler:', err);
+      const recShort = document.getElementById('recShort');
+      if (recShort) recShort.textContent = '—';
     }
   },
 
@@ -1434,8 +1470,7 @@ const app = {
         let subMatch = false;
         if (this.searchQuery) {
           subMatch = t.sub && t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery));
-          matchesSearch =
-            t.title.toLowerCase().includes(this.searchQuery) || subMatch;
+          matchesSearch = t.title.toLowerCase().includes(this.searchQuery) || subMatch;
         }
 
         let matchesFilter = true;
@@ -1475,6 +1510,9 @@ const app = {
         // SVG Ring steuern
         const progressRing = catEl.querySelector('.cat-progress-ring');
         if (progressRing) {
+          progressRing.setAttribute('stroke-dasharray', `0 100`);
+          // Force reflow damit Browser den Wert neu anwendet
+          void progressRing.getBoundingClientRect();
           progressRing.setAttribute('stroke-dasharray', `${pct} 100`);
           if (pct === 100) {
             progressRing.classList.remove('text-dark-accent');
@@ -1490,11 +1528,23 @@ const app = {
         if (pctEl) {
           pctEl.textContent = `${pct}%`;
           if (pct === 100) {
-            pctEl.classList.remove('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
-            pctEl.classList.add('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+            pctEl.classList.remove(
+              'text-dark-accent',
+              'bg-dark-accent/10',
+              'border-dark-accent/20'
+            );
+            pctEl.classList.add(
+              'text-dark-success',
+              'bg-dark-success/10',
+              'border-dark-success/20'
+            );
           } else {
             pctEl.classList.add('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
-            pctEl.classList.remove('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+            pctEl.classList.remove(
+              'text-dark-success',
+              'bg-dark-success/10',
+              'border-dark-success/20'
+            );
           }
         }
       }
@@ -1574,7 +1624,11 @@ const app = {
           pctEl.classList.add('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
         } else {
           pctEl.classList.add('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
-          pctEl.classList.remove('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+          pctEl.classList.remove(
+            'text-dark-success',
+            'bg-dark-success/10',
+            'border-dark-success/20'
+          );
         }
       }
 
@@ -1619,23 +1673,30 @@ const app = {
           ankiBtn.classList.remove('hidden');
           ankiBtn.classList.add('flex');
 
-          const hasSessions = this.state.ankiStats && this.state.ankiStats[t.id] && this.state.ankiStats[t.id].sessions > 0;
+          const hasSessions =
+            this.state.ankiStats &&
+            this.state.ankiStats[t.id] &&
+            this.state.ankiStats[t.id].sessions > 0;
 
           if (ankiBadge) {
             ankiBadge.classList.remove('hidden');
-            ankiBadge.textContent = "NEU";
+            ankiBadge.textContent = 'NEU';
             ankiBadge.classList.add('border-dark-accent/30', 'text-dark-accent');
-            ankiBadge.title = "Neu verfügbar";
+            ankiBadge.title = 'Neu verfügbar';
           }
 
           // FIX: addEventListener mit capture:true für Firefox-Kompatibilität
           // Verhindert dass Parent-Element (Accordion) den Klick abfängt
-          ankiBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('[AP2] 🎴 Anki Button clicked for topic:', t.id);
-            this.anki.open(t.id);
-          }, { once: false, capture: true });
+          ankiBtn.addEventListener(
+            'click',
+            (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('[AP2] 🎴 Anki Button clicked for topic:', t.id);
+              this.anki.open(t.id);
+            },
+            { once: false, capture: true }
+          );
         }
 
         const googleLinks = node.querySelectorAll('.google-link, .google-link-mobile');
@@ -1644,12 +1705,10 @@ const app = {
             t.title
           )}`;
         });
-        const duckduckgoLink = node.querySelectorAll(
-          '.duckduckgo-link, .duckduckgo-link-mobile'
-        );
+        const duckduckgoLink = node.querySelectorAll('.duckduckgo-link, .duckduckgo-link-mobile');
         duckduckgoLink.forEach((dl) => {
           dl.href = `https://www.duckduckgo.com/?q=Fachinformatiker+AP2+FIAE+${encodeURIComponent(
-              t.title
+            t.title
           )}`;
         });
 
@@ -1659,9 +1718,7 @@ const app = {
           wb.classList.add('text-dark-danger', 'border-dark-danger/30', 'bg-dark-danger/10');
         } else if (t.weight === 4) {
           wb.textContent = 'SEHR HOCH';
-          wb.classList.add(
-            'text-dark-warning', 'border-dark-warning/30', 'bg-dark-warning/10'
-          );
+          wb.classList.add('text-dark-warning', 'border-dark-warning/30', 'bg-dark-warning/10');
         } else if (t.weight === 3) {
           wb.textContent = 'HOCH';
           wb.classList.add('text-dark-accent', 'border-dark-accent/30', 'bg-dark-accent/10');
@@ -1675,15 +1732,13 @@ const app = {
         cb.onchange = (e) => this.toggleTopic(t.id, e.target.checked, e.target);
 
         if (s.done) card.classList.add('border-dark-accent/30');
-        node.querySelector('.header-area').onclick =
-          (e) => this.toggleAccordion(e.currentTarget);
+        node.querySelector('.header-area').onclick = (e) => this.toggleAccordion(e.currentTarget);
 
         const ul = node.querySelector('.subtask-list');
         t.sub.forEach((sub, idx) => {
           const isDone = s.subDone && s.subDone[idx];
           const li = document.createElement('li');
-          li.className =
-            'flex items-start gap-3 text-xs text-dark-muted group/item transition-all';
+          li.className = 'flex items-start gap-3 text-xs text-dark-muted group/item transition-all';
           li.innerHTML = `
                   <div class="shrink-0 flex items-center justify-center w-5 h-5 relative">
                       <input type="checkbox" class="peer appearance-none w-4 h-4 rounded border border-dark-border bg-dark-bg checked:bg-dark-accent checked:border-dark-accent cursor-pointer transition-colors" ${

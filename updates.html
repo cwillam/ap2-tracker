@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de" class="dark">
   <head>
     <meta charset="UTF-8" />
@@ -10,7 +10,10 @@
       name="description"
       content="Alle Updates und die Roadmap zum AP2 Tracker FIAE. Bleib auf dem Laufenden über neue Lernkarten und Funktionen für deine Prüfungsvorbereitung."
     />
-    <meta name="keywords" content="FIAE, Fachinformatiker Anwendungsentwicklung, AP2, Abschlussprüfung, Prüfungsvorbereitung, Anki, Lernkarten" />
+    <meta
+      name="keywords"
+      content="FIAE, Fachinformatiker Anwendungsentwicklung, AP2, Abschlussprüfung, Prüfungsvorbereitung, Anki, Lernkarten"
+    />
     <meta name="author" content="Christoph Willam" />
     <meta name="robots" content="index, follow" />
 
@@ -89,7 +92,9 @@
             ></i>
           </div>
           <div class="flex flex-col">
-            <span class="font-bold text-lg tracking-tight leading-none">AP2 <span class="text-dark-accent">Tracker</span></span>
+            <span class="font-bold text-lg tracking-tight leading-none"
+              >AP2 <span class="text-dark-accent">Tracker</span></span
+            >
             <span class="text-[10px] text-dark-muted font-mono">Zurück zum Dashboard</span>
           </div>
         </a>
@@ -105,7 +110,7 @@
           </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-            >v2.2.0</span
+            >v2.2.1</span
           >
         </div>
       </div>
@@ -147,7 +152,7 @@
 
       <!-- Tab Content: Updates -->
       <div id="tab-updates" class="space-y-12 fade-in delay-100">
-        <!-- v2.2.0 (AKTUELL) -->
+        <!-- v2.2.1 (AKTUELL) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
@@ -170,30 +175,112 @@
               <div class="flex items-center justify-between mb-3">
                 <span
                   class="bg-dark-success text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
-                  >v2.2.0 (Feature Update)</span
+                  >v2.2.1 (Bugfix & Cross-Promo)</span
                 >
                 <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Fortschrittskreise & Tastatur-Shortcuts</h3>
+              <h3 class="text-xl font-bold text-white mb-2">Bugfixes & Cross-Promo</h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed">
-                Zirkuläre Fortschrittsanzeigen pro Modul, Tastatur-Shortcuts zur Steuerung der Lernkarten und Erhöhung des Aktivitätsverlaufs auf 80 Tage.
+                Wichtige Fehlerbehebungen und gegenseitige Bewerbung der Tracker-Familie.
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
                   <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
-                  <span><strong>Modul-Fortschrittskreise:</strong> Zirkuläre SVG-Verlaufsanzeigen visualisieren den exakten Wissensstand pro Lernbereich</span>
+                  <span
+                    ><strong>Smart-Focus-Bug behoben:</strong> Der Status "Berechne..." wird jetzt
+                    korrekt durch den Thementitel ersetzt. Zusätzlicher Try/Catch-Schutz für
+                    maximale Stabilität.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
                   <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
-                  <span><strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der Lernkarten via Leertaste, Eingabetaste, Pfeiltasten, Tasten 1/2 und Esc</span>
+                  <span
+                    ><strong>Fortschrittsringe synchron:</strong> Modul-Ringe und Prozent-Anzeigen
+                    aktualisieren sich beim Abhaken sofort ohne Verzögerung.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
                   <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
-                  <span><strong>Aktivitätserweiterung:</strong> Erhöhung des Verlaufs auf 80 Tage für einen besseren Lernüberblick</span>
+                  <span
+                    ><strong>Cross-Promo im Footer:</strong> Neue Sektion "Andere Fachrichtungen
+                    entdecken" bewirbt AP1 und AP2 FISI prominent unterhalb des Inhalts.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
                   <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
-                  <span><strong>Hilfe-Dokumentation:</strong> Ausführliche Beschreibung aller Shortcuts in der neuen Hilfe-Sektion</span>
+                  <span
+                    ><strong>Robustere Update-Logik:</strong> Sauberere Berechnung der Ränge und
+                    Schutz vor Division durch Null.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.2.0 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-border items-center justify-center z-10"
+            >
+              <div class="w-3 h-3 rounded-full bg-dark-border"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-2xl p-6 hover:border-dark-muted/50 transition-all duration-300 relative overflow-hidden shadow-2xl"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-dark-success text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
+                  >v2.2.0 (Feature Update)</span
+                >
+                <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">
+                Fortschrittskreise & Tastatur-Shortcuts
+              </h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                Zirkuläre Fortschrittsanzeigen pro Modul, Tastatur-Shortcuts zur Steuerung der
+                Lernkarten und Erhöhung des Aktivitätsverlaufs auf 80 Tage.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span
+                    ><strong>Modul-Fortschrittskreise:</strong> Zirkuläre SVG-Verlaufsanzeigen
+                    visualisieren den exakten Wissensstand pro Lernbereich</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span
+                    ><strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der Lernkarten via
+                    Leertaste, Eingabetaste, Pfeiltasten, Tasten 1/2 und Esc</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span
+                    ><strong>Aktivitätserweiterung:</strong> Erhöhung des Verlaufs auf 80 Tage für
+                    einen besseren Lernüberblick</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span
+                    ><strong>Hilfe-Dokumentation:</strong> Ausführliche Beschreibung aller Shortcuts
+                    in der neuen Hilfe-Sektion</span
+                  >
                 </li>
               </ul>
             </div>
@@ -228,20 +315,39 @@
                 >
                 <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">Lucide Icon Migration & UI-Upgrade</h3>
+              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+                Lucide Icon Migration & UI-Upgrade
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
-                Komplette Modernisierung des Interfaces durch Vektor-Icons und verbessertes Header-Design.
+                Komplette Modernisierung des Interfaces durch Vektor-Icons und verbessertes
+                Header-Design.
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="zap" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Lucide-Icons & Header:</b> Umstellung auf ressourcenschonende, offline-fähige Vektorsymbole und neues Header-Kacheldesign (Violet-Theme) mit neuem `code-2`-Logo.</span></li>
+                  <span
+                    ><b>Lucide-Icons & Header:</b> Umstellung auf ressourcenschonende,
+                    offline-fähige Vektorsymbole und neues Header-Kacheldesign (Violet-Theme) mit
+                    neuem `code-2`-Logo.</span
+                  >
+                </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="play-circle" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Fokus-Timer:</b> Play/Pause-Steuerung und Widget-Zentrierung korrigiert.</span></li>
+                  <i
+                    data-lucide="play-circle"
+                    class="text-dark-success mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Fokus-Timer:</b> Play/Pause-Steuerung und Widget-Zentrierung
+                    korrigiert.</span
+                  >
+                </li>
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="bell" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Notification-Dot:</b> Zentrierte Positionierung des Update-Indikators an der Glocke.</span></li>
+                  <span
+                    ><b>Notification-Dot:</b> Zentrierte Positionierung des Update-Indikators an der
+                    Glocke.</span
+                  >
+                </li>
               </ul>
             </div>
             <div class="w-full md:w-[45%]"></div>
@@ -275,23 +381,46 @@
                 >
                 <span class="text-dark-muted text-xs font-bold">24. März 2026</span>
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">Lernkarten Optimierung für AP2-FIAE</h3>
+              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+                Lernkarten Optimierung für AP2-FIAE
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
                 Umfangreiches inhaltliches Update des Lernkarten-Systems.
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="layers" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Content-Ausbau:</b> +67 Karten (von 250 auf 317) in den Kern-Themen.</span></li>
+                  <span
+                    ><b>Content-Ausbau:</b> +67 Karten (von 250 auf 317) in den Kern-Themen.</span
+                  >
+                </li>
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="code" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Pseudocode hinzugefügt:</b> OOP, Algorithmen, SQL (JOINs, CREATE TABLE, Transaktionen).</span></li>
+                  <span
+                    ><b>Pseudocode hinzugefügt:</b> OOP, Algorithmen, SQL (JOINs, CREATE TABLE,
+                    Transaktionen).</span
+                  >
+                </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check-square" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Listen-Fragen aufgeteilt:</b> 1 Item = 1 Karte (Scrum Rollen, MoSCoW, PESTEL, 3 C's).</span></li>
+                  <i
+                    data-lucide="check-square"
+                    class="text-dark-success mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Listen-Fragen aufgeteilt:</b> 1 Item = 1 Karte (Scrum Rollen, MoSCoW,
+                    PESTEL, 3 C's).</span
+                  >
+                </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="help-circle" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>"Warum"-Fragen ergänzt:</b> Vertieftes Verständnis für SOLID, Patterns, Algorithmen.</span></li>
+                  <i
+                    data-lucide="help-circle"
+                    class="text-dark-success mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>"Warum"-Fragen ergänzt:</b> Vertieftes Verständnis für SOLID, Patterns,
+                    Algorithmen.</span
+                  >
+                </li>
               </ul>
             </div>
             <div class="w-full md:w-[45%]"></div>
@@ -321,30 +450,56 @@
                 >
                 <span class="text-dark-muted text-xs font-bold">24. März 2026</span>
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">Safety & Firefox Compatibility Fix</h3>
+              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+                Safety & Firefox Compatibility Fix
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
                 Kritisches Update für Browser-Kompatibilität und Datensicherheit.
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="chrome" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Firefox-Fix:</b> Lernkarten-Button jetzt in allen Browsern klickbar (Event-Capture-Phase).</span>
+                  <span
+                    ><b>Firefox-Fix:</b> Lernkarten-Button jetzt in allen Browsern klickbar
+                    (Event-Capture-Phase).</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="database" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Storage-Schutz:</b> Proaktive Warnung bei 80% LocalStorage-Auslastung verhindert Datenverlust.</span>
+                  <i
+                    data-lucide="database"
+                    class="text-dark-success mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Storage-Schutz:</b> Proaktive Warnung bei 80% LocalStorage-Auslastung
+                    verhindert Datenverlust.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="shield" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Import-Security:</b> 5-stufige Validierung (Typ, Struktur, Größe, Version, Plausibilität) blockiert korrupte Backups.</span>
+                  <span
+                    ><b>Import-Security:</b> 5-stufige Validierung (Typ, Struktur, Größe, Version,
+                    Plausibilität) blockiert korrupte Backups.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="crosshair" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Smart Focus 2.0:</b> Intelligente Themen-Empfehlung basierend auf Gewicht, Fortschritt und Wiederholungen.</span>
+                  <i
+                    data-lucide="crosshair"
+                    class="text-dark-success mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Smart Focus 2.0:</b> Intelligente Themen-Empfehlung basierend auf Gewicht,
+                    Fortschritt und Wiederholungen.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="alert-triangle" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Error-Handling:</b> Notification-System ersetzt blockierende Alerts + Corrupt-Data-Protection.</span>
+                  <i
+                    data-lucide="alert-triangle"
+                    class="text-dark-success mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Error-Handling:</b> Notification-System ersetzt blockierende Alerts +
+                    Corrupt-Data-Protection.</span
+                  >
                 </li>
               </ul>
             </div>
@@ -379,26 +534,47 @@
                 >
                 <span class="text-dark-muted text-xs font-bold">12. März 2026</span>
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">The Content & UI Overhaul</h3>
+              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+                The Content & UI Overhaul
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
-                Das bisher größte Update mit Fokus auf massiven Content-Ausbau und optimierte Benutzerführung.
+                Das bisher größte Update mit Fokus auf massiven Content-Ausbau und optimierte
+                Benutzerführung.
               </p>
               <ul class="space-y-3">
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="layers" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Lernkarten-System:</b> Anki-Style mit "Nicht gewusst" / "Sicher gewusst" & Topic-Selection.</span>
+                  <span
+                    ><b>Lernkarten-System:</b> Anki-Style mit "Nicht gewusst" / "Sicher gewusst" &
+                    Topic-Selection.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
                   <i data-lucide="brain" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Zwei Lernmodi:</b> "Spaced Repetition" (Strategisches Wiederholen) und "Freies Training".</span>
+                  <span
+                    ><b>Zwei Lernmodi:</b> "Spaced Repetition" (Strategisches Wiederholen) und
+                    "Freies Training".</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="smartphone" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>UI/UX Fixes:</b> Optimiertes Mobile-Layout, fixierte Suche und zentrierte Header.</span>
+                  <i
+                    data-lucide="smartphone"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>UI/UX Fixes:</b> Optimiertes Mobile-Layout, fixierte Suche und zentrierte
+                    Header.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="trending-up" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><b>Session Tracking:</b> Verbesserte Statistik-Logik (Sitzungen zählen sofort ab Start).</span>
+                  <i
+                    data-lucide="trending-up"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Session Tracking:</b> Verbesserte Statistik-Logik (Sitzungen zählen sofort
+                    ab Start).</span
+                  >
                 </li>
               </ul>
             </div>
@@ -407,7 +583,9 @@
         </div>
 
         <!-- v1.0 -->
-        <div class="relative md:pl-0 group opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+        <div
+          class="relative md:pl-0 group opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500"
+        >
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
@@ -423,13 +601,14 @@
               class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-xl p-6 hover:border-dark-muted transition-all duration-300 relative overflow-hidden"
             >
               <div class="flex items-center justify-between mb-3">
-                <span
-                  class="bg-dark-border text-dark-muted px-2 py-0.5 rounded text-xs font-bold"
+                <span class="bg-dark-border text-dark-muted px-2 py-0.5 rounded text-xs font-bold"
                   >v1.0</span
                 >
                 <span class="text-dark-muted text-xs">06. März 2026</span>
               </div>
-              <h3 class="text-xl font-bold text-white mb-2 font-mono tracking-tighter uppercase">AP2 Launch</h3>
+              <h3 class="text-xl font-bold text-white mb-2 font-mono tracking-tighter uppercase">
+                AP2 Launch
+              </h3>
               <p class="text-dark-muted text-sm leading-relaxed">
                 Startschuss für den AP2 Tracker speziell für Anwendungsentwickler.
               </p>
@@ -449,11 +628,16 @@
             </div>
             <div class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm">
               <h4 class="font-bold text-gray-200 mb-1 italic">Detaillierte Lernzettel</h4>
-              <p class="text-xs text-dark-muted leading-relaxed">Zusammenfassungen für komplexe SQL-Joins, UML-Diagramme und Design Patterns zum Download.</p>
+              <p class="text-xs text-dark-muted leading-relaxed">
+                Zusammenfassungen für komplexe SQL-Joins, UML-Diagramme und Design Patterns zum
+                Download.
+              </p>
             </div>
             <div class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm">
               <h4 class="font-bold text-gray-200 mb-1 italic">Prüfungs-Simulator</h4>
-              <p class="text-xs text-dark-muted leading-relaxed">Zufällige Fragenkombinationen zur realistischen Simulation der Abschlussprüfung.</p>
+              <p class="text-xs text-dark-muted leading-relaxed">
+                Zufällige Fragenkombinationen zur realistischen Simulation der Abschlussprüfung.
+              </p>
             </div>
           </div>
 
@@ -462,10 +646,15 @@
               <i data-lucide="hammer"></i>
               <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
             </div>
-            <div class="bg-dark-card border border-dark-accent/30 p-4 rounded-xl relative overflow-hidden">
+            <div
+              class="bg-dark-card border border-dark-accent/30 p-4 rounded-xl relative overflow-hidden"
+            >
               <div class="absolute top-0 left-0 w-1 h-full bg-dark-accent"></div>
               <h4 class="font-bold text-white mb-1">PWA-Unterstützung</h4>
-              <p class="text-xs text-dark-muted leading-relaxed">Installation als native App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.</p>
+              <p class="text-xs text-dark-muted leading-relaxed">
+                Installation als native App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit
+                via Service Worker.
+              </p>
             </div>
           </div>
 
@@ -474,16 +663,32 @@
               <i data-lucide="check"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
             </div>
-            <div class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all">
-              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">Modul-Fortschrittskreise</h4>
-              <p class="text-xs text-dark-muted leading-relaxed">Zirkuläre Fortschrittsanzeigen pro Lernbereich zur präzisen Visualisierung des Wissensstandes.</p>
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">
+                Modul-Fortschrittskreise
+              </h4>
+              <p class="text-xs text-dark-muted leading-relaxed">
+                Zirkuläre Fortschrittsanzeigen pro Lernbereich zur präzisen Visualisierung des
+                Wissensstandes.
+              </p>
             </div>
-            <div class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all">
-              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">Tastatur-Shortcuts</h4>
-              <p class="text-xs text-dark-muted leading-relaxed">Anki-Style Shortcut-Steuerung für schnelles Beantworten von Lernkarten (z.B. Space, Tasten 1 & 2).</p>
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">
+                Tastatur-Shortcuts
+              </h4>
+              <p class="text-xs text-dark-muted leading-relaxed">
+                Anki-Style Shortcut-Steuerung für schnelles Beantworten von Lernkarten (z.B. Space,
+                Tasten 1 & 2).
+              </p>
             </div>
             <div class="bg-dark-card border border-dark-border p-4 rounded-xl">
-              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">Lernkarten-Vollausbau</h4>
+              <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">
+                Lernkarten-Vollausbau
+              </h4>
               <p class="text-xs text-dark-muted">Über 700 Karten für FIAE AP2 integriert (v2.0).</p>
             </div>
           </div>
@@ -493,15 +698,26 @@
 
     <!-- Footer -->
     <footer class="border-t border-dark-border bg-dark-card mt-auto py-8">
-      <div class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted">
+      <div
+        class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted"
+      >
         <div class="flex items-center justify-center md:justify-start gap-2 w-full md:w-auto">
           <span class="font-bold text-white">cwillam</span> &copy; 2026
         </div>
-        <div class="flex gap-6 items-center flex-wrap justify-center md:justify-end w-full md:w-auto">
-          <a href="https://buymeacoffee.com/cwillam" target="_blank" class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold">
+        <div
+          class="flex gap-6 items-center flex-wrap justify-center md:justify-end w-full md:w-auto"
+        >
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
+          >
             <i data-lucide="coffee"></i> Support
           </a>
-          <a href="index.html" class="group flex items-center gap-2 text-dark-muted hover:text-white transition-colors font-bold">
+          <a
+            href="index.html"
+            class="group flex items-center gap-2 text-dark-muted hover:text-white transition-colors font-bold"
+          >
             <i data-lucide="arrow-left"></i> Zurück zum Dashboard
           </a>
         </div>
@@ -525,13 +741,17 @@
         if (tab === 'updates') {
           contentUpdates.classList.remove('hidden');
           contentRoadmap.classList.add('hidden');
-          btnUpdates.className = 'px-6 py-2 rounded-full text-sm font-bold transition-all bg-dark-accent text-white shadow-lg shadow-purple-900/20';
-          btnRoadmap.className = 'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
+          btnUpdates.className =
+            'px-6 py-2 rounded-full text-sm font-bold transition-all bg-dark-accent text-white shadow-lg shadow-purple-900/20';
+          btnRoadmap.className =
+            'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
         } else {
           contentUpdates.classList.add('hidden');
           contentRoadmap.classList.remove('hidden');
-          btnUpdates.className = 'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
-          btnRoadmap.className = 'px-6 py-2 rounded-full text-sm font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-900/20';
+          btnUpdates.className =
+            'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
+          btnRoadmap.className =
+            'px-6 py-2 rounded-full text-sm font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-900/20';
         }
       }
     </script>

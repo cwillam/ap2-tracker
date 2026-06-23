@@ -86,7 +86,7 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v2.2.0 (23. Juni 2026)
+**Aktuelle Version:** v2.2.1 (23. Juni 2026)
 
 - Modul-Fortschrittskreise: Zirkuläre SVG-Fortschrittsanzeigen pro Lernfeld
 - Tastatur-Shortcuts für Lernkarten (Leertaste, Pfeiltasten, Esc)
