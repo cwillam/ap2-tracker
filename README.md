@@ -44,15 +44,17 @@ Im Gegensatz zur AP1 liegt hier der Fokus auf tiefergehenden Themen wie Software
 - **Strategie-Modus:** Intelligentes Training mittels **Spaced Repetition** – lerne Themen basierend auf deinem Wissenstand in gewohnten Intervallen.
 - **Performance Engine:** Komplett neues Rendering-System (Map-basiert) für blitzschnelle Filterung und Suche ohne UI-Verzögerung.
 - **Mobile First:** Optimiertes Design für Smartphones mit fixierter Suche, verbesserten Touch-Bereichen und intuitiverer Navigation.
+### Highlights (Fortschrittskreise & Shortcuts)
 
-### Core Features
+Die Anwendung wurde kontinuierlich optimiert, um eine „Offline-First“ Erfahrung zu bieten, die komplett clientseitig läuft und maximale Performance bietet.
 
-- **Themen-Fokus:** Basierend auf dem aktuellen IHK-Prüfungskatalog (2024/25) und Analysen vergangener Prüfungen.
-- **Gewichtung:** Themen sind nach Relevanz markiert (Kritisch, Sehr Hoch, Hoch, Mittel).
-- **Persistent Storage:** Speicherung des Lernfortschritts via `LocalStorage` (bleibt nach Neustart erhalten).
-- **Smart Focus:** Der Tracker empfiehlt dir automatisch das nächste wichtigste Thema.
-- **Focus Timer:** Integrierter Pomodoro-Timer für effektive Lernphasen.
-- **Import/Export:** JSON-basierte Backup-Funktion deiner Daten.
+### Features
+
+- **Detaillierte Checklisten:** Lernfortschritt für alle relevanten Themengebiete der AP2.
+- **Lernkarten (Anki-Style):** 1.488 detaillierte Karten für alle Themenbereiche inklusive Codebeispielen, UML-Diagrammen und Tastatur-Shortcuts.
+- **Pomodoro-Timer:** Integrierte Stoppuhr zur Steuerung deiner Lerneinheiten.
+- **Import/Export:** Volle Datensouveränität durch lokale Backups als JSON-Dateien.
+- **Smart-Focus-Engine:** Schlägt dir Themen basierend auf ihrer Gewichtung und deinem aktuellen Fortschritt vor.
 
 ---
 
@@ -86,7 +88,14 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v2.2.1 (23. Juni 2026)
+**Aktuelle Version:** v2.3.0 (12. Juli 2026)
+
+- **PWA-Support:** Vollwertige Progressive Web App mit Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der Lernkarten.
+- **Homescreen-Installation:** Mobil-optimierte PWA-Meta-Tags und `apple-touch-icon` für die Homescreen-Installation auf iOS & Android.
+- **Kaffeekasse-Modal:** Neues Spenden-Modal mit direkten Optionen für PayPal (spendenfrei) und Buy Me a Coffee.
+- **Theme-Konsistenz:** Vereinheitlichung der theme-color Meta-Tags und des PWA-Brandings auf allen Unterseiten.
+
+### v2.2.1 (23. Juni 2026)
 
 - Modul-Fortschrittskreise: Zirkuläre SVG-Fortschrittsanzeigen pro Lernfeld
 - Tastatur-Shortcuts für Lernkarten (Leertaste, Pfeiltasten, Esc)
@@ -105,7 +114,7 @@ Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
 - [ ] **Prüfungs-Simulator:** Zufällige Fragenkombinationen zur Simulation der echten Abschlussprüfung.
 - [ ] **Detaillierte Lernzettel:** Download-Bereich für komprimierte Zusammenfassungen (Cheat Sheets).
-- [ ] **PWA Support:** Installation als App auf dem Homescreen.
+- [x] **PWA Support:** Installation als App auf the Homescreen.
 
 ---
 
