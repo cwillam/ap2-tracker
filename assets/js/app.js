@@ -313,16 +313,7 @@ const app = {
         if (infoBox) infoBox.classList.add('hidden');
       }
 
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      if (!isStandalone && !localStorage.getItem('ap2_welcome_dismissed_v2')) {
-        setTimeout(() => {
-          const welcomeModal = document.getElementById('welcomeModal');
-          if (welcomeModal) {
-            welcomeModal.classList.remove('hidden');
-            welcomeModal.style.display = 'flex';
-          }
-        }, 800);
-      }
+      // Willkommens-Modal beim Start deaktiviert
 
       // --- UPDATE NOTIFICATION ---
       this.checkForUpdate();
