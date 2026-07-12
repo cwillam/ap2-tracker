@@ -1,0 +1,17 @@
+{
+  "name": "AP2 Tracker FIAE",
+  "short_name": "AP2 Tracker",
+  "description": "IHK Prüfungstracker für Fachinformatiker Anwendungsentwicklung (AP2)",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#8b5cf6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
