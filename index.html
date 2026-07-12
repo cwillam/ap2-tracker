@@ -200,7 +200,7 @@
           <div class="flex flex-col gap-4">
             <!-- PayPal Button -->
             <a
-              href="https://www.paypal.com/donate/?business=christoph.w@malliwid.com"
+              href="https://www.paypal.com/paypalme/parablepanorama"
               target="_blank"
               class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
             >
@@ -533,26 +533,28 @@
       <!-- Info Box -->
       <div
         id="infoBox"
-        class="bg-gradient-to-r from-slate-900 to-dark-card border border-dark-border rounded-xl p-5 relative shadow-card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group no-print"
+        class="bg-gradient-to-r from-slate-900 to-dark-card border border-dark-accent/30 rounded-xl p-5 relative shadow-card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group no-print"
       >
         <div class="max-w-3xl">
           <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <i data-lucide="shield" class="text-dark-accent"></i> AP2 Vorbereitung FIAE
+            <i data-lucide="layers" class="text-dark-accent"></i> Neu in v2.3.0: PWA-Support & Kaffeekasse
           </h3>
           <div class="text-xs text-dark-muted leading-relaxed space-y-2 tracking-wide">
             <p>
-              Dieser Tracker ist speziell auf die
-              <strong>Abschlussprüfung Teil 2 (FIAE)</strong> zugeschnitten. Alle Daten werden
-              <strong>nur lokal</strong> in deinem Browser gespeichert.
+              <strong>App-Installation & Offline-Modus:</strong> Installiere den Tracker als App auf deinem Smartphone (iOS & Android). Sie läuft jetzt vollständig offline (100% offline-fähig).
             </p>
             <p>
-              Tipp: Nutze den <strong>Smart Focus</strong>, um Themen mit hoher Relevanz und
-              Häufigkeit zuerst zu lernen.
+              <strong>Kaffeekasse-Modal:</strong> Klick auf die Kaffeetasse öffnet ein Modal mit direkten Optionen für PayPal (spendenfrei) und Buy Me a Coffee.
+            </p>
+            <p>
+              <strong>Google Play Release:</strong> Der Tracker wird in Kürze für einen geschlossenen Betatest direkt im Google Play Store als App veröffentlicht.
+            </p>
+            <p class="text-dark-warning">
+              <i data-lucide="alert-triangle" class="mr-1"></i>
+              <strong>Tipp:</strong> Bei Anzeigeproblemen nach Updates bitte einen
+              <strong>Hard Refresh</strong> durchführen (Strg+F5 / Cmd+Shift+R) oder den Service Worker in der App neu laden.
             </p>
           </div>
-          <p class="text-xs text-dark-accent mt-2 font-mono italic opacity-80" id="motivationQuote">
-            „Code is poetry.“
-          </p>
         </div>
         <button
           onclick="app.hideInfoBox()"
