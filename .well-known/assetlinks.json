@@ -3,6 +3,9 @@
       "target": {
         "namespace": "android_app",
         "package_name": "de.cwillam.ap2.tracker",
-        "sha256_cert_fingerprints": ["D5:12:D0:0E:EC:44:BC:98:E5:79:32:34:E9:E7:82:B5:BA:A8:60:A2:E2:49:F9:7C:D1:AA:22:71:EA:AA:40:85"]
+        "sha256_cert_fingerprints": [
+          "D5:12:D0:0E:EC:44:BC:98:E5:79:32:34:E9:E7:82:B5:BA:A8:60:A2:E2:49:F9:7C:D1:AA:22:71:EA:AA:40:85",
+          "CE:0E:BD:C8:D0:F4:53:E7:4F:4A:DC:3C:24:00:E6:B5:67:05:BD:0F:F0:25:EA:E7:AB:C1:E9:0A:7F:B1:79:F7"
+        ]
       }
     }]
