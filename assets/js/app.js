@@ -313,7 +313,8 @@ const app = {
         if (infoBox) infoBox.classList.add('hidden');
       }
 
-      if (!localStorage.getItem('ap2_welcome_dismissed_v2')) {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      if (!isStandalone && !localStorage.getItem('ap2_welcome_dismissed_v2')) {
         setTimeout(() => {
           const welcomeModal = document.getElementById('welcomeModal');
           if (welcomeModal) {
