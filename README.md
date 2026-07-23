@@ -1,4 +1,4 @@
-# AP2 Tracker FIAE - Dein Lernbegleiter (v2.2.0 Update)
+# AP2 Tracker FIAE - Dein Lernbegleiter (v2.4.1 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
@@ -90,8 +90,17 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v2.3.0 (12. Juli 2026)
+**Aktuelle Version:** v2.4.1 (23. Juli 2026)
 
+### v2.4.1 (23. Juli 2026)
+- **Bugfix GitHub-Templates:** Syntaxfehler in `bug.yml` behoben, so dass das Bug-Formular nun reibungslos von GitHub erkannt wird.
+- **Cache-Aktualisierung:** Anhebung von CACHE_NAME auf `v2.4.1` und Asset-Versioning (`?v=2.4.1`) durchgeführt, um automatische Updates beim Nutzer anzustoßen.
+
+### v2.4.0 (23. Juli 2026)
+- **Berufsschul-Portal:** Neue Infoseite (`bildungseinrichtungen.html`) für Schulen und Dozenten bezüglich datenschutzkonformem und freiem Einsatz im Unterricht.
+- **Outreach & Feedback:** Integration direkter Verlinkungen für Fehlerberichte und Feature-Wünsche im Footer sowie Google Forms für Closed-Beta-Anmeldungen.
+
+### v2.3.0 (12. Juli 2026)
 - **PWA-Support:** Vollwertige Progressive Web App mit Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der Lernkarten.
 - **Homescreen-Installation:** Mobil-optimierte PWA-Meta-Tags und `apple-touch-icon` für die Homescreen-Installation auf iOS & Android.
 - **Kaffeekasse-Modal:** Neues Spenden-Modal mit direkten Optionen für PayPal (spendenfrei) und Buy Me a Coffee.
