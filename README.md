@@ -120,7 +120,7 @@ Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
 ## Disclaimer
 
-_Alle Lerninhalte wurden nach bestem Wissen und Gewissen auf Basis der aktuellen IHK-Prüfungskataloge zusammengestellt. Ich übernehme jedoch keine Gewähr für die Vollständigkeit oder Richtigkeit der prüfungsrelevanten Themen._
+_Alle Lerninhalte wurden nach bestem Wissen und Gewissen auf Basis der aktuellen amtlichen Rahmenlehrpläne und Prüfungsanforderungen zusammengestellt. Ich übernehme jedoch keine Gewähr für die Vollständigkeit oder Richtigkeit der prüfungsrelevanten Themen._
 
 ---
 
