@@ -1,4 +1,4 @@
-# AP2 Tracker FIAE - Dein Lernbegleiter (v2.4.1 Update)
+# AP2 Tracker FIAE - Dein Lernbegleiter (v2.4.2 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
@@ -90,7 +90,13 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v2.4.1 (23. Juli 2026)
+**Aktuelle Version:** v2.4.2 (26. Juli 2026)
+
+### v2.4.2 (26. Juli 2026)
+- **Lernkarten-Upgrade (Anki-Style):** Ersetzt die einfache Richtig/Falsch-Abfrage durch eine detaillierte 4-Stufen-Bewertung (*Sofort gewusst*, *Nachgedacht*, *Geraten*, *Nicht gewusst*) zur hochpräzisen Intervallberechnung.
+- **Zustands-Dashboard:** Direktes persistent visualisiertes Deck-Zustandspanel (Neu, Sofort, Wissen, Geraten, Falsch) direkt in der Lern-Zentrale.
+- **Schwachstellen-Modus:** Ein neuer Filter ermöglicht das gezielte Wiederholen von falsch beantworteten oder geratenen Karten.
+- **Mobile Platzoptimierung:** Durch Anpassung der Spacings und Header-Icon-Größen auf Mobilgeräten bleibt die gesamte Lern-Zentrale ohne Scrollen bedienbar.
 
 ### v2.4.1 (23. Juli 2026)
 - **Bugfix GitHub-Templates:** Syntaxfehler in `bug.yml` behoben, so dass das Bug-Formular nun reibungslos von GitHub erkannt wird.

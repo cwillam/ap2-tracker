@@ -25,10 +25,10 @@
     <meta name="theme-color" content="#8b5cf6" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.4.1" />
+    <link rel="stylesheet" href="assets/css/style.css?v=2.4.2" />
 
     <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.4.1"></script>
+    <script src="assets/js/tailwind.js?v=2.4.2"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -117,7 +117,7 @@
           </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-            >v2.3.0</span
+            >v2.4.2</span
           >
         </div>
       </div>
@@ -159,15 +159,15 @@
 
       <!-- Tab Content: Updates -->
       <div id="tab-updates" class="space-y-12 fade-in delay-100">
-        <!-- v2.4.0 (AKTUELL) -->
+        <!-- v2.4.2 (AKTUELL) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8">
+          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
-              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent items-center justify-center z-10 shadow-[0_0_20px_rgba(139,92,246,0.5)]"
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent items-center justify-center z-10 shadow-[0_0_20px_rgba(139,92,246,0.4)]"
             >
               <div class="w-3 h-3 rounded-full bg-dark-accent animate-pulse"></div>
             </div>
@@ -176,12 +176,69 @@
               class="w-full md:w-[45%] bg-dark-card border border-dark-accent/50 rounded-2xl p-6 hover:border-dark-accent transition-all duration-300 relative overflow-hidden shadow-2xl"
             >
               <div
-                class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
               ></div>
 
-              <div class="flex items-center justify-between mb-3">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <span
-                  class="bg-dark-accent text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
+                  class="bg-gradient-to-r from-white to-dark-accent text-dark-bg font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider shadow-sm animate-pulse-slow"
+                  >v2.4.2 (Prüfungs- &amp; Schwachstellen-Modus)</span>
+                <span class="text-dark-muted text-xs font-bold">26. Juli 2026</span>
+              </div>
+              <h3 class="text-xl font-bold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2">Das ultimative Anki-Upgrade</h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                4-stufiges Gedächtnis-Rating, neuer Schwachstellen-Modus und eine detaillierte Deck-Zustandsgrafik direkt in der Lern-Zentrale.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><strong>4-Stufen-Bewertung:</strong> Bewerte deinen Wissensstand präzise von *Sofort gewusst* bis *Nicht gewusst* zur optimalen Intervallberechnung.</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><strong>Schwachstellen-Modus:</strong> Ein neuer Algorithmus filtert automatisch alle schwierigen oder unsicheren Karten für eine gezielte Wiederholung heraus.</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><strong>Deck-Zustand-Dashboard:</strong> Visualisiert die Verteilung deiner Karten (Neu, Sofort, Wissen, Geraten, Falsch) direkt in der Lern-Zentrale.</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><strong>Mobil-Ergonomie:</strong> Reduzierte Kopfbereichs-Höhe spart Platz auf kleinen Bildschirmen, damit alles ohne Scrollen im Blick bleibt.</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <span><strong>Hotfix GitHub-Templates (v2.4.1):</strong> Syntaxfehler behoben für reibungslose Fehlerberichte.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.4.0 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
+            >
+              <div class="w-3 h-3 rounded-full bg-dark-accent/40"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-accent/30 rounded-2xl p-6 hover:border-dark-accent/50 transition-all duration-300 relative overflow-hidden shadow-2xl"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <span
+                  class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.4.0 (Community &amp; Feedback)</span>
                 <span class="text-dark-muted text-xs font-bold">23. Juli 2026</span>
               </div>
@@ -851,7 +908,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=2.4.1"></script>
+    <script src="assets/js/lucide.min.js?v=2.4.2"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) {
@@ -886,7 +943,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.4.1')
+          navigator.serviceWorker.register('sw.js?v=2.4.2')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });

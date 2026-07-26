@@ -73,7 +73,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    <script src="assets/js/tailwind.js?v=2.4.1"></script>
+    <script src="assets/js/tailwind.js?v=2.4.2"></script>
 
     <script>
       tailwind.config = {
@@ -127,7 +127,7 @@
       };
     </script>
 
-    <link href="assets/css/style.css?v=2.4.1" rel="stylesheet" />
+    <link href="assets/css/style.css?v=2.4.2" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen">
@@ -366,7 +366,7 @@
               <div class="hidden sm:flex items-center gap-2 mt-0.5">
                 <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
                 <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded"
-                  >v2.3.0</span
+                  >v2.4.2</span
                 >
               </div>
             </div>
@@ -799,11 +799,11 @@
           class="w-full max-w-2xl px-6 py-12 flex-grow flex flex-col justify-center min-h-full text-center"
         >
           <div id="ankiModeView" class="w-full space-y-6 animate-in fade-in zoom-in duration-300">
-            <div class="mb-10">
+            <div class="mb-6 md:mb-10">
               <div
-                class="w-20 h-20 bg-dark-accent/10 rounded-2xl flex items-center justify-center text-dark-accent mx-auto mb-6 border border-dark-accent/20"
+                class="w-12 h-12 md:w-20 md:h-20 bg-dark-accent/10 rounded-xl md:rounded-2xl flex items-center justify-center text-dark-accent mx-auto mb-4 md:mb-6 border border-dark-accent/20"
               >
-                <i data-lucide="layers" class="text-4xl"></i>
+                <i data-lucide="layers" class="text-2xl md:text-4xl"></i>
               </div>
               <h3 class="text-2xl font-bold text-white tracking-tight">Lern-Zentrale</h3>
               <p class="text-dark-muted mt-2 text-sm">Wähle deine Strategie für dieses Modul.</p>
@@ -811,27 +811,77 @@
               <!-- NEU: Themen-Statistik -->
               <div id="ankiTopicStats" class="hidden"></div>
             </div>
-            <div class="grid gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               <!-- Strategie Modus -->
               <button
                 onclick="app.anki.start('spaced')"
-                class="w-full p-6 bg-dark-card border border-dark-accent/30 hover:border-dark-accent rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-accent/5"
+                class="w-full p-3 md:p-6 bg-dark-card border border-dark-accent/30 hover:border-dark-accent rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-accent/5"
               >
-                <div class="flex flex-col items-center gap-4">
+                <div class="flex flex-col items-center gap-2 md:gap-4">
                   <div
-                    class="w-12 h-12 rounded-xl bg-dark-accent/20 flex items-center justify-center text-dark-accent group-hover:scale-110 transition-transform shrink-0"
+                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-accent/20 flex items-center justify-center text-dark-accent group-hover:scale-110 transition-transform shrink-0"
                   >
                     <i data-lucide="brain" class="text-xl"></i>
                   </div>
                   <div>
                     <h4
-                      class="text-base font-bold text-white group-hover:text-dark-accent transition-colors"
+                      class="text-sm md:text-base font-bold text-white group-hover:text-dark-accent transition-colors"
                     >
                       Strategie-Modus
                     </h4>
-                    <p class="text-xs text-dark-muted leading-relaxed mt-1 max-w-sm">
+                    <p class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm">
                       <span class="text-dark-accent font-bold">Intelligente Intervalle.</span>
                       Richtige Antworten erhöhen die Pause bis zur nächsten Wiederholung.
+                    </p>
+                  </div>
+                </div>
+              </button>
+
+              <!-- Prüfungs-Modus -->
+              <button
+                onclick="app.anki.start('exam-prep')"
+                class="w-full p-3 md:p-6 bg-dark-card border border-dark-danger/30 hover:border-dark-danger rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-danger/5"
+              >
+                <div class="flex flex-col items-center gap-2 md:gap-4">
+                  <div
+                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-danger/20 flex items-center justify-center text-dark-danger group-hover:scale-110 transition-transform shrink-0"
+                  >
+                    <i data-lucide="flame" class="text-xl"></i>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm md:text-base font-bold text-white group-hover:text-dark-danger transition-colors"
+                    >
+                      Prüfungs-Modus
+                    </h4>
+                    <p class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm">
+                      <span class="text-dark-danger font-bold">Schnellere Wiederholungen.</span>
+                      Halbierte Intervalle - perfekt für die letzten Wochen vor der Prüfung.
+                    </p>
+                  </div>
+                </div>
+              </button>
+
+              <!-- Schwachstellen-Modus -->
+              <button
+                onclick="app.anki.start('weaknesses')"
+                class="w-full p-3 md:p-6 bg-dark-card border border-dark-warning/30 hover:border-dark-warning rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-warning/5"
+              >
+                <div class="flex flex-col items-center gap-2 md:gap-4">
+                  <div
+                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-warning/20 flex items-center justify-center text-dark-warning group-hover:scale-110 transition-transform shrink-0"
+                  >
+                    <i data-lucide="alert-triangle" class="text-xl"></i>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm md:text-base font-bold text-white group-hover:text-dark-warning transition-colors"
+                    >
+                      Schwachstellen-Modus
+                    </h4>
+                    <p class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm">
+                      <span class="text-dark-warning font-bold">Fehler fokussieren.</span>
+                      Wiederhole gezielt nur Karten, die du falsch beantwortet oder geraten hast.
                     </p>
                   </div>
                 </div>
@@ -840,30 +890,26 @@
               <!-- Freies Training -->
               <button
                 onclick="app.anki.start('manual')"
-                class="w-full p-6 bg-dark-card border border-dark-border hover:border-dark-muted rounded-2xl text-center group transition-all shadow-lg"
+                class="w-full p-3 md:p-6 bg-dark-card border border-dark-border hover:border-dark-muted rounded-2xl text-center group transition-all shadow-lg"
               >
-                <div class="flex flex-col items-center gap-4">
+                <div class="flex flex-col items-center gap-2 md:gap-4">
                   <div
-                    class="w-12 h-12 rounded-xl bg-dark-bg flex items-center justify-center text-dark-muted group-hover:scale-110 transition-transform shrink-0"
+                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-bg flex items-center justify-center text-dark-muted group-hover:scale-110 transition-transform shrink-0"
                   >
                     <i data-lucide="dumbbell" class="text-xl"></i>
                   </div>
                   <div>
-                    <h4 class="text-base font-bold text-white">Freies Training</h4>
-                    <p class="text-xs text-dark-muted leading-relaxed mt-1 max-w-sm"></p>
-                    <p class="text-xs text-dark-muted leading-relaxed mt-1 max-w-sm">
-                      <span class="text-white font-bold text-opacity-70"
-                        >Reinpauken ohne Limit.</span
-                      >
-                      Alle 10 Karten sofort wiederholen. Kein Speichern, kein Druck.
+                    <h4 class="text-sm md:text-base font-bold text-white">Freies Training</h4>
+                    <p class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm">
+                      <span class="text-white font-bold text-opacity-70">Reinpauken ohne Limit.</span>
+                      Alle Karten sofort wiederholen. Kein Speichern, kein Druck.
                     </p>
                   </div>
                 </div>
               </button>
             </div>
             <div class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono">
-              Shortcuts: [1] Freies Training &nbsp;|&nbsp; [2] Strategie-Modus &nbsp;|&nbsp; [Esc]
-              Schließen
+              Shortcuts: [1] Freies Training &nbsp;|&nbsp; [2] Strategie-Modus &nbsp;|&nbsp; [3] Prüfungs-Modus &nbsp;|&nbsp; [4] Schwachstellen-Modus &nbsp;|&nbsp; [Esc] Schließen
             </div>
           </div>
 
@@ -924,25 +970,47 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div
+              class="mt-4 md:mt-2 grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-2xl"
+            >
               <button
-                onclick="app.anki.next(false)"
-                class="order-2 sm:order-1 py-5 px-6 bg-dark-bg border border-dark-danger/30 text-dark-danger hover:bg-dark-danger/10 font-bold rounded-2xl transition-all flex items-center justify-center gap-3 group"
+                onclick="app.anki.next(0)"
+                title="Sofort gewusst (1)"
+                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-success/10 border border-dark-success/40 text-dark-success hover:bg-dark-success/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
               >
-                <i data-lucide="x" class="text-lg group-hover:rotate-12 transition-transform"></i>
-                Nicht gewusst
+                <i data-lucide="zap" class="w-5 h-5"></i>
+                <span class="text-[11px] sm:text-xs">Sofort gewusst</span>
               </button>
               <button
-                onclick="app.anki.next(true)"
-                class="order-1 sm:order-2 py-5 px-6 bg-dark-success text-dark-bg font-bold rounded-2xl transition-all flex items-center justify-center gap-3 shadow-lg transform hover:scale-[1.02] active:scale-[0.98]"
+                onclick="app.anki.next(1)"
+                title="Nachgedacht (2)"
+                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-accent/10 border border-dark-accent/40 text-dark-accent hover:bg-dark-accent/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
               >
-                <i data-lucide="check" class="text-lg"></i>
-                Sicher gewusst
+                <i data-lucide="brain" class="w-5 h-5"></i>
+                <span class="text-[11px] sm:text-xs">Nachgedacht</span>
+              </button>
+              <button
+                onclick="app.anki.next(2)"
+                title="Geraten (3)"
+                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-warning/10 border border-dark-warning/40 text-dark-warning hover:bg-dark-warning/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
+              >
+                <i data-lucide="help-circle" class="w-5 h-5"></i>
+                <span class="text-[11px] sm:text-xs">Geraten</span>
+              </button>
+              <button
+                onclick="app.anki.next(3)"
+                title="Nicht gewusst (4)"
+                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-danger/10 border border-dark-danger/40 text-dark-danger hover:bg-dark-danger/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
+              >
+                <i data-lucide="x" class="w-5 h-5"></i>
+                <span class="text-[11px] sm:text-xs">Nicht gewusst</span>
               </button>
             </div>
-            <div class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono">
-              Shortcuts: [1] / [←] Nicht gewusst &nbsp;|&nbsp; [2] / [→] Sicher gewusst
-              &nbsp;|&nbsp; [Esc] Schließen
+            <div
+              class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono"
+            >
+              Shortcuts: [1]/[←] Sofort | [2]/[↓] Nachgedacht | [3]/[→] Geraten
+              | [4]/[↑] Nicht gewusst &nbsp;|&nbsp; [Esc] Schließen
             </div>
           </div>
 
@@ -1315,17 +1383,17 @@
       </div>
     </template>
 
-    <script src="assets/js/confetti.js?v=2.4.1"></script>
-    <script src="assets/js/data.js?v=2.4.1"></script>
-    <script src="assets/js/questions.js?v=2.4.1"></script>
-    <script src="assets/js/lucide.min.js?v=2.4.1"></script>
-    <script src="assets/js/app.js?v=2.4.1"></script>
+    <script src="assets/js/confetti.js?v=2.4.2"></script>
+    <script src="assets/js/data.js?v=2.4.2"></script>
+    <script src="assets/js/questions.js?v=2.4.2"></script>
+    <script src="assets/js/lucide.min.js?v=2.4.2"></script>
+    <script src="assets/js/app.js?v=2.4.2"></script>
     
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.4.1')
+          navigator.serviceWorker.register('sw.js?v=2.4.2')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });

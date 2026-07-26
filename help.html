@@ -16,10 +16,10 @@
     <meta name="theme-color" content="#8b5cf6" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.4.1" />
+    <link rel="stylesheet" href="assets/css/style.css?v=2.4.2" />
 
     <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.4.1"></script>
+    <script src="assets/js/tailwind.js?v=2.4.2"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -106,7 +106,7 @@
           </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted hidden sm:inline-block"
-            >v2.2.0</span
+            >v2.4.2</span
           >
         </div>
       </div>
@@ -158,39 +158,174 @@
         </div>
 
         <!-- 2. Lernkarten-System -->
-        <div class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
-          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <div
+          class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group"
+        >
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center gap-2.5"
+          >
             <i data-lucide="layers" class="text-dark-accent"></i>
             2. Das Lernkarten-System (Anki-Style)
           </h3>
           <div class="text-sm text-dark-muted leading-relaxed space-y-4">
             <div>
               <p class="font-bold text-white mb-1">Lernkarten starten:</p>
-              <p>Klicke bei einem beliebigen Thema auf <strong class="text-dark-accent inline-flex items-center gap-1"><i data-lucide="layers" class="w-3 h-3"></i> Lernkarten</strong>, um die zugehörigen Fragen zu öffnen.</p>
+              <p>
+                Klicke bei einem beliebigen Thema auf
+                <strong class="text-dark-accent inline-flex items-center gap-1"
+                  ><i data-lucide="layers" class="w-3 h-3"></i>
+                  Lernkarten</strong
+                >, um die zugehörigen Fragen zu öffnen.
+              </p>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">Zwei verschiedene Lernmodi:</p>
+              <p class="font-bold text-white mb-1">
+                Vier verschiedene Lernmodi:
+              </p>
               <ul class="list-disc pl-5 space-y-1 mt-1">
-                <li><strong class="text-white">Strategie-Modus (Spaced Repetition):</strong> Lerne intelligent. Falsch beantwortete Karten werden dir bald wieder vorgelegt, während gewusste Karten in größere Intervalle rutschen.</li>
-                <li><strong class="text-white">Freies Training:</strong> Hier kannst du alle Lernkarten des Moduls ungezwungen und in deiner eigenen Geschwindigkeit durchgehen.</li>
+                <li>
+                  <strong class="text-white"
+                    >Strategie-Modus (Spaced Repetition):</strong
+                  >
+                  Lerne intelligent. Falsch beantwortete oder geratene Karten werden dir bald
+                  wieder vorgelegt, während sicher gewusste Karten in größere
+                  Intervalle rutschen.
+                </li>
+                <li>
+                  <strong class="text-white">Prüfungs-Modus:</strong> Wie der
+                  Strategie-Modus, aber mit halbierten Abfrage-Intervallen — perfekt für
+                  die letzten Wochen vor der Abschlussprüfung zum intensiven Reinpauken.
+                </li>
+                <li>
+                  <strong class="text-white">Schwachstellen-Modus:</strong> Ein neuer Filter,
+                  der nur Karten abfragt, die du zuvor falsch beantwortet, nur geraten oder
+                  noch nicht ausreichend gelernt hast.
+                </li>
+                <li>
+                  <strong class="text-white">Freies Training:</strong> Hier
+                  kannst du alle Lernkarten des Moduls ungezwungen und in deiner
+                  eigenen Geschwindigkeit durchgehen (keine Intervallberechnung).
+                </li>
               </ul>
             </div>
             <div>
               <p class="font-bold text-white mb-1">Antworten bewerten:</p>
-              <p>Drehe die Karte um und bewerte deine Antwort ehrlich mit <span class="text-dark-danger font-bold">"Nicht gewusst"</span> oder <span class="text-dark-success font-bold">"Gewusst"</span>. Der Tracker merkt sich deinen Stand lokal im Browser.</p>
+              <p>
+                Drehe die Karte um und bewerte deinen Wissensstand ehrlich mit den vier Buttons:
+              </p>
+              <ul class="list-disc pl-5 space-y-1 mt-1">
+                <li><strong class="text-dark-success">Sofort gewusst:</strong> Die Antwort saß auf Anhieb (+2 Stufen).</li>
+                <li><strong class="text-dark-accent">Nachgedacht:</strong> Nach kurzem Grübeln eingefallen (+1 Stufe).</li>
+                <li><strong class="text-dark-warning">Geraten:</strong> Halbwissen oder unsicher (-1 Stufe).</li>
+                <li><strong class="text-dark-danger">Nicht gewusst:</strong> Falsche oder gar keine Antwort (Stufe wird zurückgesetzt).</li>
+              </ul>
             </div>
             <div>
               <p class="font-bold text-white mb-1">Wiederholungs-Zyklen:</p>
-              <p>In der Detailansicht eines Themas findest du Checkboxen für 3 Wiederholungen. Nutze sie, um sicherzustellen, dass du wichtige Fakten mehrfach gefestigt hast.</p>
+              <p>
+                In der Detailansicht eines Themas findest du Checkboxen für 3
+                Wiederholungen. Nutze sie, um sicherzustellen, dass du wichtige
+                Fakten mehrfach gefestigt hast.
+              </p>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">Tastatur-Shortcuts (Desktop):</p>
-              <p>Wenn du am PC lernst, kannst du die Lernkarten effizient über Tastaturkürzel steuern:</p>
+              <p class="font-bold text-white mb-1">
+                Tastatur-Shortcuts (Desktop):
+              </p>
+              <p>
+                Wenn du am PC lernst, kannst du die Lernkarten effizient über
+                Tastaturkürzel steuern:
+              </p>
               <ul class="list-disc pl-5 space-y-1 mt-1">
-                <li><strong class="text-white">Modus-Auswahl:</strong> Taste <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">1</kbd> für Freies Training, <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">2</kbd> für Strategie-Modus.</li>
-                <li><strong class="text-white">Frage aufdecken:</strong> <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Leertaste</kbd> oder <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Eingabetaste</kbd>.</li>
-                <li><strong class="text-white">Bewertung abgeben:</strong> Taste <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">1</kbd> / <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">←</kbd> für "Nicht gewusst", Taste <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">2</kbd> / <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">→</kbd> für "Gewusst".</li>
-                <li><strong class="text-white">Modal beenden/schließen:</strong> <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Esc</kbd> auf jeder Stufe, <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Leertaste</kbd> / <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Eingabetaste</kbd> in der Abschlussansicht.</li>
+                <li>
+                  <strong class="text-white">Modus-Auswahl:</strong> Taste
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >1</kbd
+                  >
+                  für Spaced Repetition,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >2</kbd
+                  >
+                  für Prüfungs-Modus,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >3</kbd
+                  >
+                  für Schwachstellen-Modus,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >4</kbd
+                  >
+                  für Freies Training.
+                </li>
+                <li>
+                  <strong class="text-white">Frage aufdecken:</strong>
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Leertaste</kbd
+                  >
+                  oder
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Eingabetaste</kbd
+                  >.
+                </li>
+                <li>
+                  <strong class="text-white"
+                    >Confidence-Bewertung (4-stufig):</strong
+                  >
+                  Tasten
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-success/20 border border-dark-success/40 text-dark-success rounded text-xs font-mono"
+                    >1</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-success/20 border border-dark-success/40 text-dark-success rounded text-xs font-mono"
+                    >←</kbd
+                  >
+                  = <strong>Sofort gewusst</strong>,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 text-dark-accent rounded text-xs font-mono"
+                    >2</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 text-dark-accent rounded text-xs font-mono"
+                    >↓</kbd
+                  >
+                  = <strong>Nachgedacht</strong>,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-warning/20 border border-dark-warning/40 text-dark-warning rounded text-xs font-mono"
+                    >3</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-warning/20 border border-dark-warning/40 text-dark-warning rounded text-xs font-mono"
+                    >→</kbd
+                  >
+                  = <strong>Geraten</strong>,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-danger/20 border border-dark-danger/40 text-dark-danger rounded text-xs font-mono"
+                    >4</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-danger/20 border border-dark-danger/40 text-dark-danger rounded text-xs font-mono"
+                    >↑</kbd
+                  >
+                  = <strong>Nicht gewusst</strong>.
+                </li>
+                <li>
+                  <strong class="text-white">Modal beenden/schließen:</strong>
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Esc</kbd
+                  >
+                  auf jeder Stufe.
+                </li>
               </ul>
             </div>
           </div>
@@ -337,7 +472,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=2.4.1"></script>
+    <script src="assets/js/lucide.min.js?v=2.4.2"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) {
@@ -350,7 +485,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.4.1')
+          navigator.serviceWorker.register('sw.js?v=2.4.2')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });

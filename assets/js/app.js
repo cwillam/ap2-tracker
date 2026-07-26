@@ -34,68 +34,125 @@ const app = {
     currentTopicId: null,
     cards: [],
     currentIndex: 0,
-    mode: 'manual', // 'manual' oder 'spaced'
+    mode: "manual", // 'manual' oder 'spaced'
 
     open(topicId) {
       // Debug-Log für Fehlersuche (Browser-Kompatibilität)
-      console.log('[AP2] 🎴 Opening Anki for topic:', topicId);
-      console.log('[AP2] 📚 Cards available:', window.ANKI_QUESTIONS?.[topicId]?.length || 0);
+      console.log("[AP2] 🎴 Opening Anki for topic:", topicId);
+      console.log(
+        "[AP2] 📚 Cards available:",
+        window.ANKI_QUESTIONS?.[topicId]?.length || 0,
+      );
 
       const allQuestions = window.ANKI_QUESTIONS || {};
       this.cards = allQuestions[topicId] || [];
       if (this.cards.length === 0) {
-        console.warn('[AP2] ⚠️ No cards found for topic:', topicId);
+        console.warn("[AP2] ⚠️ No cards found for topic:", topicId);
+        app.showNotification(
+          "Keine Lernkarten",
+          `Für Topic ${topicId} sind noch keine Karten verfügbar.`,
+          "info",
+        );
         return;
       }
 
       this.currentTopicId = topicId;
 
       const topic = app.findTopic(topicId);
-      document.getElementById('ankiTopicTitle').textContent = topic ? topic.title : 'Lernkarten';
+      document.getElementById("ankiTopicTitle").textContent = topic
+        ? topic.title
+        : "Lernkarten";
 
       // Statistiken laden
       if (!app.state.ankiStats) app.state.ankiStats = {};
-      const stats = app.state.ankiStats[topicId] || { total: 0, correct: 0, sessions: 0 };
+      const stats = app.state.ankiStats[topicId] || {
+        total: 0,
+        correct: 0,
+        sessions: 0,
+      };
 
-      const statsContainer = document.getElementById('ankiTopicStats');
+      const statsContainer = document.getElementById("ankiTopicStats");
       if (statsContainer) {
-        if (stats.total > 0) {
-          const accuracy = Math.round((stats.correct / stats.total) * 100);
-          statsContainer.innerHTML = `
-            <div class="flex items-center justify-center gap-6 mt-4 p-3 bg-dark-bg/50 rounded-xl border border-dark-border/50">
-              <div class="text-center">
-                <span class="block text-[10px] text-dark-muted uppercase font-bold">Gelernt</span>
-                <span class="text-sm font-bold text-white">${stats.total} Karten</span>
-              </div>
-              <div class="w-px h-6 bg-dark-border"></div>
-              <div class="text-center">
-                <span class="block text-[10px] text-dark-muted uppercase font-bold">Quote</span>
-                <span class="text-sm font-bold text-dark-success">${accuracy}%</span>
-              </div>
-              <div class="w-px h-6 bg-dark-border"></div>
-              <div class="text-center">
-                <span class="block text-[10px] text-dark-muted uppercase font-bold">Sessions</span>
-                <span class="text-sm font-bold text-dark-accent">${stats.sessions}x</span>
-              </div>
+        // Karten-Zustände für dieses Thema zählen
+        let countSofort = 0;
+        let countNachgedacht = 0;
+        let countGeraten = 0;
+        let countNichtGewusst = 0;
+        let countUnbekannt = 0;
+
+        this.cards.forEach((card) => {
+          const cardData = app.state.anki?.[card.id];
+          if (!cardData) {
+            countUnbekannt++;
+          } else {
+            if (cardData.confidence === 0) countSofort++;
+            else if (cardData.confidence === 1) countNachgedacht++;
+            else if (cardData.confidence === 2) countGeraten++;
+            else if (cardData.confidence === 3) countNichtGewusst++;
+            else countUnbekannt++;
+          }
+        });
+
+        const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+
+        statsContainer.innerHTML = `
+          <!-- Haupt-Statistiken -->
+          <div class="flex items-center justify-center gap-6 mt-4 p-3 bg-dark-bg/50 rounded-xl border border-dark-border/50">
+            <div class="text-center">
+              <span class="block text-[10px] text-dark-muted uppercase font-bold">Gelernt</span>
+              <span class="text-sm font-bold text-white">${stats.total} Karten</span>
             </div>
-          `;
-          statsContainer.classList.remove('hidden');
-        } else {
-          statsContainer.classList.add('hidden');
-        }
+            <div class="w-px h-6 bg-dark-border"></div>
+            <div class="text-center">
+              <span class="block text-[10px] text-dark-muted uppercase font-bold">Quote</span>
+              <span class="text-sm font-bold text-dark-success">${accuracy}%</span>
+            </div>
+            <div class="w-px h-6 bg-dark-border"></div>
+            <div class="text-center">
+              <span class="block text-[10px] text-dark-muted uppercase font-bold">Sessions</span>
+              <span class="text-sm font-bold text-dark-accent">${stats.sessions}x</span>
+            </div>
+          </div>
+
+          <!-- Karten-Zustands-Auswertung (Anki-Style) -->
+          <div class="grid grid-cols-5 gap-1.5 mt-3 max-w-lg mx-auto w-full">
+            <div class="bg-dark-card/40 border border-dark-border/40 rounded-xl py-2 px-1 text-center" title="Noch nicht gelernte Karten">
+              <span class="block text-[8px] text-dark-muted font-black uppercase tracking-wider">Neu</span>
+              <span class="text-xs sm:text-sm font-black text-slate-300">${countUnbekannt}</span>
+            </div>
+            <div class="bg-dark-card/40 border border-dark-success/20 rounded-xl py-2 px-1 text-center" title="Auf Anhieb gewusst">
+              <span class="block text-[8px] text-dark-success font-black uppercase tracking-wider">Sofort</span>
+              <span class="text-xs sm:text-sm font-black text-white">${countSofort}</span>
+            </div>
+            <div class="bg-dark-card/40 border border-dark-accent/20 rounded-xl py-2 px-1 text-center" title="Nachgedacht &amp; gewusst">
+              <span class="block text-[8px] text-dark-accent font-black uppercase tracking-wider">Wissen</span>
+              <span class="text-xs sm:text-sm font-black text-white">${countNachgedacht}</span>
+            </div>
+            <div class="bg-dark-card/40 border border-dark-warning/20 rounded-xl py-2 px-1 text-center" title="Nur geraten oder unsicher">
+              <span class="block text-[8px] text-dark-warning font-black uppercase tracking-wider">Geraten</span>
+              <span class="text-xs sm:text-sm font-black text-white">${countGeraten}</span>
+            </div>
+            <div class="bg-dark-card/40 border border-dark-danger/20 rounded-xl py-2 px-1 text-center" title="Falsch beantwortet (Zurückgesetzt)">
+              <span class="block text-[8px] text-dark-danger font-black uppercase tracking-wider">Falsch</span>
+              <span class="text-xs sm:text-sm font-black text-white">${countNichtGewusst}</span>
+            </div>
+          </div>
+        `;
+        statsContainer.classList.remove("hidden");
+        app.refreshIcons();
       }
 
       // Reset Views
-      document.getElementById('ankiModeView').classList.remove('hidden');
-      document.getElementById('ankiQuestionView').classList.add('hidden');
-      document.getElementById('ankiAnswerView').classList.add('hidden');
-      document.getElementById('ankiFinishView').classList.add('hidden');
-      document.getElementById('ankiModeBadge').classList.add('hidden');
-      document.getElementById('ankiProgress').style.width = '0%';
+      document.getElementById("ankiModeView").classList.remove("hidden");
+      document.getElementById("ankiQuestionView").classList.add("hidden");
+      document.getElementById("ankiAnswerView").classList.add("hidden");
+      document.getElementById("ankiFinishView").classList.add("hidden");
+      document.getElementById("ankiModeBadge").classList.add("hidden");
+      document.getElementById("ankiProgress").style.width = "0%";
 
-      const modal = document.getElementById('ankiModal');
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+      const modal = document.getElementById("ankiModal");
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
     },
 
     start(mode) {
@@ -105,11 +162,34 @@ const app = {
       // Global Stats tracken (Session zählt ab Start)
       if (!app.state.ankiStats) app.state.ankiStats = {};
       if (!app.state.ankiStats[this.currentTopicId]) {
-        app.state.ankiStats[this.currentTopicId] = { total: 0, correct: 0, sessions: 0 };
+        app.state.ankiStats[this.currentTopicId] = {
+          total: 0,
+          correct: 0,
+          sessions: 0,
+        };
       }
       app.state.ankiStats[this.currentTopicId].sessions++;
       app.save();
       app.updateStats(); // UI sofort aktualisieren
+
+      // Filter-Logik für den Schwachstellen-Modus
+      if (mode === "weaknesses") {
+        const filtered = this.cards.filter((card) => {
+          const cardData = app.state.anki?.[card.id];
+          if (!cardData) return false;
+          return cardData.confidence === 2 || cardData.confidence === 3 || cardData.level === 1;
+        });
+
+        if (filtered.length === 0) {
+          app.showNotification(
+            "Keine Schwachstellen",
+            "Super! Du hast in diesem Thema aktuell keine schwierigen oder unfertigen Karten.",
+            "success",
+          );
+          return;
+        }
+        this.cards = filtered;
+      }
 
       // Karten für diese Session mischen (Fisher-Yates Shuffle)
       const shuffled = [...this.cards];
@@ -119,19 +199,36 @@ const app = {
       }
       this.cards = shuffled;
 
-      const badge = document.getElementById('ankiModeBadge');
-      badge.classList.remove('hidden');
-      if (mode === 'spaced') {
-        badge.innerHTML =
-          '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
-      } else {
-        badge.innerHTML =
-          '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
-      }
+      const badge = document.getElementById("ankiModeBadge");
+      badge.classList.remove("hidden");
+      const modeConfig = {
+        spaced: {
+          icon: "brain",
+          text: "Strategie-Modus",
+          color: "dark-accent",
+        },
+        "exam-prep": {
+          icon: "flame",
+          text: "Prüfungs-Modus",
+          color: "dark-danger",
+        },
+        weaknesses: {
+          icon: "alert-triangle",
+          text: "Schwachstellen-Modus",
+          color: "dark-warning",
+        },
+        manual: {
+          icon: "dumbbell",
+          text: "Freies Training",
+          color: "dark-muted",
+        },
+      };
+      const cfg = modeConfig[mode] || modeConfig.manual;
+      badge.innerHTML = `<i data-lucide="${cfg.icon}" class="w-3.5 h-3.5 mr-1 text-${cfg.color}"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-${cfg.color}">${cfg.text}</span>`;
       app.refreshIcons();
 
-      document.getElementById('ankiModeView').classList.add('hidden');
-      document.getElementById('ankiQuestionView').classList.remove('hidden');
+      document.getElementById("ankiModeView").classList.add("hidden");
+      document.getElementById("ankiQuestionView").classList.remove("hidden");
       this.showCard();
     },
 
@@ -139,45 +236,92 @@ const app = {
       const card = this.cards[this.currentIndex];
       const progress = (this.currentIndex / this.cards.length) * 100;
 
-      document.getElementById('ankiProgress').style.width = `${progress}%`;
-      document.getElementById('ankiCardCounter').textContent =
+      document.getElementById("ankiProgress").style.width = `${progress}%`;
+      document.getElementById("ankiCardCounter").textContent =
         `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
-      document.getElementById('ankiQuestionText').textContent = card.q;
-      const ansQElement = document.getElementById('ankiAnswerQuestionText');
+      document.getElementById("ankiQuestionText").textContent = card.q;
+      const ansQElement = document.getElementById("ankiAnswerQuestionText");
       if (ansQElement) ansQElement.textContent = card.q;
-      document.getElementById('ankiAnswerText').textContent = card.a;
+      document.getElementById("ankiAnswerText").textContent = card.a;
 
-      document.getElementById('ankiQuestionView').classList.remove('hidden');
-      document.getElementById('ankiAnswerView').classList.add('hidden');
+      document.getElementById("ankiQuestionView").classList.remove("hidden");
+      document.getElementById("ankiAnswerView").classList.add("hidden");
     },
 
     showAnswer() {
-      document.getElementById('ankiQuestionView').classList.add('hidden');
-      document.getElementById('ankiAnswerView').classList.remove('hidden');
+      document.getElementById("ankiQuestionView").classList.add("hidden");
+      document.getElementById("ankiAnswerView").classList.remove("hidden");
     },
 
-    next(isCorrect) {
-      // Global Stats tracken
+    next(confidence) {
+      // Rückwärtskompatibilität: alte 2-Button-API akzeptiert boolean
+      if (typeof confidence === "boolean") {
+        confidence = confidence ? 0 : 3; // true = Sofort gewusst, false = Nicht gewusst
+      }
+
+      // Confidence: 0=Sofort gewusst, 1=Nachgedacht, 2=Geraten, 3=Nicht gewusst
+      // Global-Stats: confidence < 2 zählt als "richtig beantwortet"
+      const isCorrect = confidence < 2;
+
       if (!app.state.ankiStats) app.state.ankiStats = {};
       if (!app.state.ankiStats[this.currentTopicId]) {
-        app.state.ankiStats[this.currentTopicId] = { total: 0, correct: 0, sessions: 0 };
+        app.state.ankiStats[this.currentTopicId] = {
+          total: 0,
+          correct: 0,
+          sessions: 0,
+        };
       }
       const gStats = app.state.ankiStats[this.currentTopicId];
       gStats.total++;
       if (isCorrect) gStats.correct++;
 
+      // Card-Data mit erweitertem Schema (rückwärtskompatibel)
+      const cardId = this.cards[this.currentIndex].id;
+      if (!app.state.anki) app.state.anki = {};
+      if (!app.state.anki[cardId]) {
+        app.state.anki[cardId] = {
+          level: 0,
+          nextReview: 0,
+          confidence: 0,
+          markedHard: false,
+        };
+      }
+      const cardData = app.state.anki[cardId];
+      // Migration: alte Einträge ohne neue Felder ergänzen
+      if (cardData.confidence === undefined) cardData.confidence = 0;
+      if (cardData.markedHard === undefined) cardData.markedHard = false;
+      cardData.confidence = confidence;
+
       // Im freien Training markieren wir neue Karten als gelernt (Stufe 1)
-      if (isCorrect && this.mode !== 'spaced') {
-        if (!app.state.anki) app.state.anki = {};
-        const cardId = this.cards[this.currentIndex].id;
-        if (!app.state.anki[cardId]) {
-          app.state.anki[cardId] = { level: 1, nextReview: Date.now() + 86400000 };
-        }
+      if (isCorrect && this.mode !== "spaced" && cardData.level === 0) {
+        cardData.level = 1;
+        cardData.nextReview = Date.now() + 86400000;
       }
 
-      if (this.mode === 'spaced') {
-        this.updateCardLevel(this.cards[this.currentIndex].id, isCorrect);
+      if (this.mode === "spaced" || this.mode === "exam-prep" || this.mode === "weaknesses") {
+        this.updateCardLevel(cardId, confidence);
       }
+
+      // Sichtbares Confidence-Feedback: kurze Notification mit dem gewählten Level
+      // und dem Hinweis, wann die Karte das nächste Mal kommt
+      const confLabels = [
+        { text: "Sofort gewusst", type: "success", icon: "zap" },
+        { text: "Nachgedacht", type: "info", icon: "brain" },
+        { text: "Geraten", type: "warning", icon: "help-circle" },
+        { text: "Nicht gewusst", type: "error", icon: "x" },
+      ];
+      const conf = confLabels[confidence] || confLabels[0];
+      const nextReviewDate = new Date(cardData.nextReview);
+      const nextReviewStr = nextReviewDate.toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit",
+      });
+      app.showNotification(
+        "Bewertung gespeichert",
+        `${conf.text} · Stufe ${cardData.level} · Nächste Wiederholung: ${nextReviewStr}`,
+        conf.type,
+        2000,
+      );
 
       this.currentIndex++;
       if (this.currentIndex < this.cards.length) {
@@ -186,51 +330,73 @@ const app = {
         this.showFinish();
       }
       app.save();
+      app.trackActivity();
     },
 
-    updateCardLevel(cardId, isCorrect) {
+    updateCardLevel(cardId, confidence = 0) {
       if (!app.state.anki) app.state.anki = {};
       if (!app.state.anki[cardId]) {
-        app.state.anki[cardId] = { level: 0, nextReview: 0 };
+        app.state.anki[cardId] = {
+          level: 0,
+          nextReview: 0,
+          confidence: 0,
+          markedHard: false,
+        };
       }
 
       const cardData = app.state.anki[cardId];
-      if (isCorrect) {
+      if (confidence === 0) {
+        cardData.level = Math.min(cardData.level + 2, 5);
+      } else if (confidence === 1) {
         cardData.level = Math.min(cardData.level + 1, 5);
+      } else if (confidence === 2) {
+        cardData.level = Math.max(cardData.level - 1, 1);
       } else {
-        cardData.level = 1; // Zurück auf Stufe 1 bei Fehler
+        cardData.level = 1; // Reset bei Nicht gewusst
       }
 
-      // Intervalle in Tagen: 1, 3, 7, 14, 30
-      const intervals = [0, 1, 3, 7, 14, 30];
+      // Intervalle in Tagen: 0, 1, 2, 4, 7, 14 (kürzer als vorher [0, 1, 3, 7, 14, 30])
+      const intervals = [0, 1, 2, 4, 7, 14];
       const daysToAdd = intervals[cardData.level] || 1;
 
+      // Confidence-Multiplikator: "Geraten" kürzt das Intervall, "Sofort" verlängert
+      // 0=Sofort, 1=Nachgedacht, 2=Geraten, 3=Nicht gewusst
+      const confidenceMultiplier = [1.4, 1.0, 0.6, 0.3];
+      // Prüfungs-Modus: halbiert alle Intervalle für intensiveres Wiederholen vor der AP
+      const examPrepMultiplier = this.mode === "exam-prep" ? 0.5 : 1.0;
+      const adjustedDays = Math.max(
+        1,
+        Math.round(
+          daysToAdd * confidenceMultiplier[confidence] * examPrepMultiplier,
+        ),
+      );
+
       const nextDate = new Date();
-      nextDate.setDate(nextDate.getDate() + daysToAdd);
+      nextDate.setDate(nextDate.getDate() + adjustedDays);
       cardData.nextReview = nextDate.getTime();
 
       app.save();
     },
 
     showFinish() {
-      document.getElementById('ankiProgress').style.width = '100%';
-      document.getElementById('ankiAnswerView').classList.add('hidden');
-      document.getElementById('ankiFinishView').classList.remove('hidden');
+      document.getElementById("ankiProgress").style.width = "100%";
+      document.getElementById("ankiAnswerView").classList.add("hidden");
+      document.getElementById("ankiFinishView").classList.remove("hidden");
 
-      if (typeof confetti === 'function') {
+      if (typeof confetti === "function") {
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#8b5cf6', '#10b981'],
+          colors: ["#8b5cf6", "#10b981"],
         });
       }
     },
 
     close() {
-      const modal = document.getElementById('ankiModal');
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
+      const modal = document.getElementById("ankiModal");
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
     },
   },
 
@@ -349,6 +515,12 @@ const app = {
             } else if (e.key === '2') {
               e.preventDefault();
               this.anki.start('spaced');
+            } else if (e.key === '3') {
+              e.preventDefault();
+              this.anki.start('exam-prep');
+            } else if (e.key === '4') {
+              e.preventDefault();
+              this.anki.start('weaknesses');
             }
           } else if (questionView && !questionView.classList.contains('hidden')) {
             if (e.key === ' ' || e.key === 'Enter') {
@@ -356,12 +528,19 @@ const app = {
               this.anki.showAnswer();
             }
           } else if (answerView && !answerView.classList.contains('hidden')) {
+            // 4-stufiges Confidence-Rating: 1=Sofort, 2=Nachgedacht, 3=Geraten, 4=Nicht gewusst
             if (e.key === '1' || e.key === 'ArrowLeft') {
               e.preventDefault();
-              this.anki.next(false);
-            } else if (e.key === '2' || e.key === 'ArrowRight') {
+              this.anki.next(0); // Sofort gewusst
+            } else if (e.key === '2' || e.key === 'ArrowDown') {
               e.preventDefault();
-              this.anki.next(true);
+              this.anki.next(1); // Nachgedacht
+            } else if (e.key === '3' || e.key === 'ArrowRight') {
+              e.preventDefault();
+              this.anki.next(2); // Geraten
+            } else if (e.key === '4' || e.key === 'ArrowUp') {
+              e.preventDefault();
+              this.anki.next(3); // Nicht gewusst
             }
           } else if (finishView && !finishView.classList.contains('hidden')) {
             if (e.key === ' ' || e.key === 'Enter') {
