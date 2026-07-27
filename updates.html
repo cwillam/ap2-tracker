@@ -21,39 +21,42 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <meta name="theme-color" content="#8b5cf6" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.4.2" />
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5.0" />
 
     <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.4.2"></script>
+    <script src="assets/js/tailwind.js?v=2.5.0"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class',
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
-              'dark-bg': '#020617',
-              'dark-card': '#0f172a',
-              'dark-border': '#1e293b',
-              'dark-muted': '#64748b',
-              'dark-text': '#f8fafc',
-              'dark-accent': '#8b5cf6',
-              'dark-accent-hover': '#7c3aed',
-              'dark-success': '#10b981',
-              'dark-warning': '#f59e0b',
-              'dark-danger': '#ef4444',
+              "dark-bg": "#020617",
+              "dark-card": "#0f172a",
+              "dark-border": "#1e293b",
+              "dark-muted": "#64748b",
+              "dark-text": "#f8fafc",
+              "dark-accent": "#8b5cf6",
+              "dark-accent-hover": "#7c3aed",
+              "dark-success": "#10b981",
+              "dark-warning": "#f59e0b",
+              "dark-danger": "#ef4444",
             },
             fontFamily: {
               sans: [
-                'system-ui',
-                '-apple-system',
-                'BlinkMacSystemFont',
-                'Segoe UI',
-                'Roboto',
-                'sans-serif',
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "sans-serif",
               ],
             },
           },
@@ -85,7 +88,9 @@
     <header
       class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50"
     >
-      <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div
+        class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between"
+      >
         <a
           href="index.html"
           class="flex items-center gap-3 group hover:opacity-80 transition-opacity"
@@ -102,7 +107,9 @@
             <span class="font-bold text-lg tracking-tight leading-none"
               >AP2 <span class="text-dark-accent">Tracker</span></span
             >
-            <span class="text-[10px] text-dark-muted font-mono">Zurück zum Dashboard</span>
+            <span class="text-[10px] text-dark-muted font-mono"
+              >Zurück zum Dashboard</span
+            >
           </div>
         </a>
 
@@ -117,7 +124,7 @@
           </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-            >v2.4.2</span
+            >v2.5.0</span
           >
         </div>
       </div>
@@ -159,17 +166,102 @@
 
       <!-- Tab Content: Updates -->
       <div id="tab-updates" class="space-y-12 fade-in delay-100">
-        <!-- v2.4.2 (AKTUELL) -->
+        <!-- v2.5.0 (AKTUELL) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+                    <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent items-center justify-center z-10 shadow-[0_0_20px_rgba(139,92,246,0.5)]"
+            >
+              <div
+                class="w-3 h-3 rounded-full bg-dark-accent animate-pulse"
+              ></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-accent/50 rounded-2xl p-6 hover:border-dark-accent transition-all duration-300 relative overflow-hidden shadow-2xl"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <span
+                  class="bg-gradient-to-r from-white to-dark-accent text-dark-bg font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider shadow-sm animate-pulse-slow"
+                  >v2.5.0 (SQL-Labor)</span
+                >
+                <span class="text-dark-muted text-xs font-bold"
+                  >27. Juli 2026</span
+                >
+              </div>
+              <h3
+                class="text-xl font-bold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2"
+              >
+                Das neue SQL-Labor (3 Stufen)
+              </h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                Progressives Übungs-Labor für SQL: Von Basics über Joins bis zu
+                Subqueries, Transaktionen und Normalisierungs-Checkups –
+                komplett offline gegen eine Vier-Tabellen-Mock-DB.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>12 Aufgaben in 3 Stufen:</strong> Basics,
+                    Intermediate (Joins, GROUP BY, String-Funktionen), Expert
+                    (Subqueries, Transaktionen).</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>Mock-SQL-Engine:</strong> Leichtgewichtiger
+                    JS-Parser (kein WASM) mit Schema-Explorer und
+                    Live-Auswertung.</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>XP &amp; Streak:</strong> Gamification mit
+                    kontextsensitiven Hints und Lösungsweg bei
+                    Fehlversuchen.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.4.3 (AKTUELL) -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+                    <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent items-center justify-center z-10 shadow-[0_0_20px_rgba(139,92,246,0.4)]"
             >
-              <div class="w-3 h-3 rounded-full bg-dark-accent animate-pulse"></div>
+              <div
+                class="w-3 h-3 rounded-full bg-dark-accent animate-pulse"
+              ></div>
             </div>
 
             <div
@@ -179,36 +271,159 @@
                 class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
               ></div>
 
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
                 <span
                   class="bg-gradient-to-r from-white to-dark-accent text-dark-bg font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider shadow-sm animate-pulse-slow"
-                  >v2.4.2 (Prüfungs- &amp; Schwachstellen-Modus)</span>
-                <span class="text-dark-muted text-xs font-bold">26. Juli 2026</span>
+                  >v2.4.3 (Subnetz- &amp; IP-Trainer)</span
+                >
+                <span class="text-dark-muted text-xs font-bold"
+                  >27. Juli 2026</span
+                >
               </div>
-              <h3 class="text-xl font-bold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2">Das ultimative Anki-Upgrade</h3>
+              <h3
+                class="text-xl font-bold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2"
+              >
+                Der neue Subnetz-Trainer &amp; Mobile-Drawer
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed">
-                4-stufiges Gedächtnis-Rating, neuer Schwachstellen-Modus und eine detaillierte Deck-Zustandsgrafik direkt in der Lern-Zentrale.
+                Erweitert den Tracker um ein dediziertes IP-Übungs-Labor sowie
+                ein platzsparendes, voll animiertes Hamburger-Navigationsmenü
+                für mobile Geräte.
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><strong>4-Stufen-Bewertung:</strong> Bewerte deinen Wissensstand präzise von *Sofort gewusst* bis *Nicht gewusst* zur optimalen Intervallberechnung.</span>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>IPv4 Grundlagen-Übungen:</strong> Berechne
+                    Netz-IDs, Masken, Broadcast-IPs und Host-Kapazitäten mit
+                    detaillierten Binär-Erklärungen.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><strong>Schwachstellen-Modus:</strong> Ein neuer Algorithmus filtert automatisch alle schwierigen oder unsicheren Karten für eine gezielte Wiederholung heraus.</span>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>IPv6 Kompression:</strong> Übe das regelkonforme
+                    Kürzen von IPv6-Adressen nach IHK/RFC-Standards.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><strong>Deck-Zustand-Dashboard:</strong> Visualisiert die Verteilung deiner Karten (Neu, Sofort, Wissen, Geraten, Falsch) direkt in der Lern-Zentrale.</span>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>Mobiles Hamburger-Menü:</strong> Ausziehbarer
+                    Navigation Drawer für sauberes Layout auf Smartphones.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.4.2 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+                    <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border border-dark-border items-center justify-center z-10"
+            >
+              <div class="w-3 h-3 rounded-full bg-dark-accent/40"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-2xl p-6 hover:border-dark-accent transition-all duration-300 relative overflow-hidden shadow-2xl"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <span
+                  class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
+                  >v2.4.2 (Prüfungs- &amp; Schwachstellen-Modus)</span
+                >
+                <span class="text-dark-muted text-xs font-bold"
+                  >26. Juli 2026</span
+                >
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">
+                Das ultimative Anki-Upgrade
+              </h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                4-stufiges Gedächtnis-Rating, neuer Schwachstellen-Modus und
+                eine detaillierte Deck-Zustandsgrafik direkt in der
+                Lern-Zentrale.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>4-Stufen-Bewertung:</strong> Bewerte deinen
+                    Wissensstand präzise von *Sofort gewusst* bis *Nicht
+                    gewusst* zur optimalen Intervallberechnung.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><strong>Mobil-Ergonomie:</strong> Reduzierte Kopfbereichs-Höhe spart Platz auf kleinen Bildschirmen, damit alles ohne Scrollen im Blick bleibt.</span>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>Schwachstellen-Modus:</strong> Ein neuer
+                    Algorithmus filtert automatisch alle schwierigen oder
+                    unsicheren Karten für eine gezielte Wiederholung
+                    heraus.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span><strong>Hotfix GitHub-Templates (v2.4.1):</strong> Syntaxfehler behoben für reibungslose Fehlerberichte.</span>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>Deck-Zustand-Dashboard:</strong> Visualisiert die
+                    Verteilung deiner Karten (Neu, Sofort, Wissen, Geraten,
+                    Falsch) direkt in der Lern-Zentrale.</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>Mobil-Ergonomie:</strong> Reduzierte
+                    Kopfbereichs-Höhe spart Platz auf kleinen Bildschirmen,
+                    damit alles ohne Scrollen im Blick bleibt.</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><strong>Hotfix GitHub-Templates (v2.4.1):</strong>
+                    Syntaxfehler behoben für reibungslose Fehlerberichte.</span
+                  >
                 </li>
               </ul>
             </div>
@@ -222,7 +437,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8">
+                    <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -236,42 +451,72 @@
                 class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
               ></div>
 
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
                 <span
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
-                  >v2.4.0 (Community &amp; Feedback)</span>
-                <span class="text-dark-muted text-xs font-bold">23. Juli 2026</span>
+                  >v2.4.0 (Community &amp; Feedback)</span
+                >
+                <span class="text-dark-muted text-xs font-bold"
+                  >23. Juli 2026</span
+                >
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Mehr Austausch &amp; einfacheres Feedback</h3>
+              <h3 class="text-xl font-bold text-white mb-2">
+                Mehr Austausch &amp; einfacheres Feedback
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed">
-                Eigene Seite für Berufsschulen und Bildungsträger, schnellere Feedback-Wege und
-                komfortablere Beta-Anmeldung.
+                Eigene Seite für Berufsschulen und Bildungsträger, schnellere
+                Feedback-Wege und komfortablere Beta-Anmeldung.
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Neue Seite für Berufsschulen &amp; Bildungsträger:</strong> Eigene
-                    Unterseite mit allen Infos für Lehrkräfte und Schulen, die den Tracker im
-                    Unterricht einsetzen möchten.</span>
+                    ><strong
+                      >Neue Seite für Berufsschulen &amp;
+                      Bildungsträger:</strong
+                    >
+                    Eigene Unterseite mit allen Infos für Lehrkräfte und
+                    Schulen, die den Tracker im Unterricht einsetzen
+                    möchten.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Bug melden &amp; Feature wünschen:</strong> Neue Buttons im Footer –
-                    ein Klick genügt, um einen Fehler zu melden oder eine Idee einzureichen.</span>
+                    ><strong>Bug melden &amp; Feature wünschen:</strong> Neue
+                    Buttons im Footer – ein Klick genügt, um einen Fehler zu
+                    melden oder eine Idee einzureichen.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Beta-Anmeldung über Google Forms:</strong> Schneller und
-                    strukturierter anmelden, E-Mail bleibt als Alternative erhalten.</span>
+                    ><strong>Beta-Anmeldung über Google Forms:</strong>
+                    Schneller und strukturierter anmelden, E-Mail bleibt als
+                    Alternative erhalten.</span
+                  >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Kleinere Verbesserungen:</strong> Mehr Stabilität im Alltag und
-                    ein paar Komfort-Updates an der Bedienung.</span>
+                    ><strong>Kleinere Verbesserungen:</strong> Mehr Stabilität
+                    im Alltag und ein paar Komfort-Updates an der
+                    Bedienung.</span
+                  >
                 </li>
               </ul>
             </div>
@@ -285,7 +530,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+                    <div class="md:flex items-center justify-between gap-8">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -304,29 +549,49 @@
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.3.0 (PWA & Offline Support)</span
                 >
-                <span class="text-dark-muted text-xs font-bold">12. Juli 2026</span>
+                <span class="text-dark-muted text-xs font-bold"
+                  >12. Juli 2026</span
+                >
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">PWA & Offline Support</h3>
+              <h3 class="text-xl font-bold text-white mb-2">
+                PWA & Offline Support
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed">
-                Großes Update für App-Store-Kompatibilität und echte Offline-Verwendung der Lernkarten.
+                Großes Update für App-Store-Kompatibilität und echte
+                Offline-Verwendung der Lernkarten.
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Echter Offline-Modus:</strong> Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der gesamten Web-App im Zug oder bei schlechter Internetverbindung.</span
+                    ><strong>Echter Offline-Modus:</strong> Service Worker
+                    (Offline-Caching) für 100% Offline-Fähigkeit der gesamten
+                    Web-App im Zug oder bei schlechter Internetverbindung.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Homescreen-App:</strong> PWA-Manifest und responsive Apple-Touch-Icons ermöglichen die direkte Installation als mobile App.</span
+                    ><strong>Homescreen-App:</strong> PWA-Manifest und
+                    responsive Apple-Touch-Icons ermöglichen die direkte
+                    Installation als mobile App.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Kaffeekasse-Modal:</strong> Integriertes Spenden-Modal mit direkten Spenden-Optionen für PayPal und Buy Me a Coffee.</span
+                    ><strong>Kaffeekasse-Modal:</strong> Integriertes
+                    Spenden-Modal mit direkten Spenden-Optionen für PayPal und
+                    Buy Me a Coffee.</span
                   >
                 </li>
               </ul>
@@ -341,7 +606,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8">
+                    <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -360,40 +625,61 @@
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.2.1 (Bugfix & Cross-Promo)</span
                 >
-                <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
+                <span class="text-dark-muted text-xs font-bold"
+                  >23. Juni 2026</span
+                >
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Bugfixes & Cross-Promo</h3>
+              <h3 class="text-xl font-bold text-white mb-2">
+                Bugfixes & Cross-Promo
+              </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed">
-                Wichtige Fehlerbehebungen und gegenseitige Bewerbung der Tracker-Familie.
+                Wichtige Fehlerbehebungen und gegenseitige Bewerbung der
+                Tracker-Familie.
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Smart-Focus-Bug behoben:</strong> Der Status "Berechne..." wird jetzt
-                    korrekt durch den Thementitel ersetzt. Zusätzlicher Try/Catch-Schutz für
-                    maximale Stabilität.</span
+                    ><strong>Smart-Focus-Bug behoben:</strong> Der Status
+                    "Berechne..." wird jetzt korrekt durch den Thementitel
+                    ersetzt. Zusätzlicher Try/Catch-Schutz für maximale
+                    Stabilität.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Fortschrittsringe synchron:</strong> Modul-Ringe und Prozent-Anzeigen
-                    aktualisieren sich beim Abhaken sofort ohne Verzögerung.</span
+                    ><strong>Fortschrittsringe synchron:</strong> Modul-Ringe
+                    und Prozent-Anzeigen aktualisieren sich beim Abhaken sofort
+                    ohne Verzögerung.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Cross-Promo im Footer:</strong> Neue Sektion "Andere Fachrichtungen
-                    entdecken" bewirbt AP1 und AP2 FISI prominent unterhalb des Inhalts.</span
+                    ><strong>Cross-Promo im Footer:</strong> Neue Sektion
+                    "Andere Fachrichtungen entdecken" bewirbt AP1 und AP2 FISI
+                    prominent unterhalb des Inhalts.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Robustere Update-Logik:</strong> Sauberere Berechnung der Ränge und
-                    Schutz vor Division durch Null.</span
+                    ><strong>Robustere Update-Logik:</strong> Sauberere
+                    Berechnung der Ränge und Schutz vor Division durch
+                    Null.</span
                   >
                 </li>
               </ul>
@@ -408,7 +694,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+                    <div class="md:flex items-center justify-between gap-8">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -427,42 +713,60 @@
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.2.0 (Feature Update)</span
                 >
-                <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
+                <span class="text-dark-muted text-xs font-bold"
+                  >23. Juni 2026</span
+                >
               </div>
               <h3 class="text-xl font-bold text-white mb-2">
                 Fortschrittskreise & Tastatur-Shortcuts
               </h3>
               <p class="text-dark-muted text-sm mb-4 leading-relaxed">
-                Zirkuläre Fortschrittsanzeigen pro Modul, Tastatur-Shortcuts zur Steuerung der
-                Lernkarten und Erhöhung des Aktivitätsverlaufs auf 80 Tage.
+                Zirkuläre Fortschrittsanzeigen pro Modul, Tastatur-Shortcuts zur
+                Steuerung der Lernkarten und Erhöhung des Aktivitätsverlaufs auf
+                80 Tage.
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Modul-Fortschrittskreise:</strong> Zirkuläre SVG-Verlaufsanzeigen
-                    visualisieren den exakten Wissensstand pro Lernbereich</span
+                    ><strong>Modul-Fortschrittskreise:</strong> Zirkuläre
+                    SVG-Verlaufsanzeigen visualisieren den exakten Wissensstand
+                    pro Lernbereich</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der Lernkarten via
-                    Leertaste, Eingabetaste, Pfeiltasten, Tasten 1/2 und Esc</span
+                    ><strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der
+                    Lernkarten via Leertaste, Eingabetaste, Pfeiltasten, Tasten
+                    1/2 und Esc</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Aktivitätserweiterung:</strong> Erhöhung des Verlaufs auf 80 Tage für
-                    einen besseren Lernüberblick</span
+                    ><strong>Aktivitätserweiterung:</strong> Erhöhung des
+                    Verlaufs auf 80 Tage für einen besseren Lernüberblick</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><strong>Hilfe-Dokumentation:</strong> Ausführliche Beschreibung aller Shortcuts
-                    in der neuen Hilfe-Sektion</span
+                    ><strong>Hilfe-Dokumentation:</strong> Ausführliche
+                    Beschreibung aller Shortcuts in der neuen
+                    Hilfe-Sektion</span
                   >
                 </li>
               </ul>
@@ -477,7 +781,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8">
+                    <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -496,22 +800,32 @@
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.1.0 (UI & Icon Update)</span
                 >
-                <span class="text-dark-muted text-xs font-bold">23. Juni 2026</span>
+                <span class="text-dark-muted text-xs font-bold"
+                  >23. Juni 2026</span
+                >
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+              <h3
+                class="text-2xl font-black text-white mb-2 tracking-tight italic"
+              >
                 Lucide Icon Migration & UI-Upgrade
               </h3>
-              <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
-                Komplette Modernisierung des Interfaces durch Vektor-Icons und verbessertes
-                Header-Design.
+              <p
+                class="text-dark-muted text-sm mb-4 leading-relaxed font-medium"
+              >
+                Komplette Modernisierung des Interfaces durch Vektor-Icons und
+                verbessertes Header-Design.
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><b>Lucide-Icons & Header:</b> Umstellung auf ressourcenschonende,
-                    offline-fähige Vektorsymbole und neues Header-Kacheldesign (Violet-Theme) mit
-                    neuem `code-2`-Logo.</span
+                    ><b>Lucide-Icons & Header:</b> Umstellung auf
+                    ressourcenschonende, offline-fähige Vektorsymbole und neues
+                    Header-Kacheldesign (Violet-Theme) mit neuem
+                    `code-2`-Logo.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -520,15 +834,18 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>Fokus-Timer:</b> Play/Pause-Steuerung und Widget-Zentrierung
-                    korrigiert.</span
+                    ><b>Fokus-Timer:</b> Play/Pause-Steuerung und
+                    Widget-Zentrierung korrigiert.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><b>Notification-Dot:</b> Zentrierte Positionierung des Update-Indikators an der
-                    Glocke.</span
+                    ><b>Notification-Dot:</b> Zentrierte Positionierung des
+                    Update-Indikators an der Glocke.</span
                   >
                 </li>
               </ul>
@@ -543,7 +860,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+                    <div class="md:flex items-center justify-between gap-8">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -562,26 +879,29 @@
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.0.2 (Content Update)</span
                 >
-                <span class="text-dark-muted text-xs font-bold">24. März 2026</span>
+                <span class="text-dark-muted text-xs font-bold"
+                  >24. März 2026</span
+                >
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+              <h3
+                class="text-2xl font-black text-white mb-2 tracking-tight italic"
+              >
                 Lernkarten Optimierung für AP2-FIAE
               </h3>
-              <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
+              <p
+                class="text-dark-muted text-sm mb-4 leading-relaxed font-medium"
+              >
                 Umfangreiches inhaltliches Update des Lernkarten-Systems.
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><b>Content-Ausbau:</b> +67 Karten (von 250 auf 317) in den Kern-Themen.</span
-                  >
-                </li>
-                <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span
-                    ><b>Pseudocode hinzugefügt:</b> OOP, Algorithmen, SQL (JOINs, CREATE TABLE,
-                    Transaktionen).</span
+                    ><b>Content-Ausbau:</b> +67 Karten (von 250 auf 317) in den
+                    Kern-Themen.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -590,8 +910,8 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>Listen-Fragen aufgeteilt:</b> 1 Item = 1 Karte (Scrum Rollen, MoSCoW,
-                    PESTEL, 3 C's).</span
+                    ><b>Pseudocode hinzugefügt:</b> OOP, Algorithmen, SQL
+                    (JOINs, CREATE TABLE, Transaktionen).</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -600,8 +920,18 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>"Warum"-Fragen ergänzt:</b> Vertieftes Verständnis für SOLID, Patterns,
-                    Algorithmen.</span
+                    ><b>Listen-Fragen aufgeteilt:</b> 1 Item = 1 Karte (Scrum
+                    Rollen, MoSCoW, PESTEL, 3 C's).</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-200">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>"Warum"-Fragen ergänzt:</b> Vertieftes Verständnis für
+                    SOLID, Patterns, Algorithmen.</span
                   >
                 </li>
               </ul>
@@ -616,7 +946,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8">
+                    <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -631,20 +961,30 @@
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.0.1 (Hotfix)</span
                 >
-                <span class="text-dark-muted text-xs font-bold">24. März 2026</span>
+                <span class="text-dark-muted text-xs font-bold"
+                  >24. März 2026</span
+                >
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+              <h3
+                class="text-2xl font-black text-white mb-2 tracking-tight italic"
+              >
                 Safety & Firefox Compatibility Fix
               </h3>
-              <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
-                Kritisches Update für Browser-Kompatibilität und Datensicherheit.
+              <p
+                class="text-dark-muted text-sm mb-4 leading-relaxed font-medium"
+              >
+                Kritisches Update für Browser-Kompatibilität und
+                Datensicherheit.
               </p>
               <ul class="space-y-3 mb-4">
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><b>Firefox-Fix:</b> Lernkarten-Button jetzt in allen Browsern klickbar
-                    (Event-Capture-Phase).</span
+                    ><b>Firefox-Fix:</b> Lernkarten-Button jetzt in allen
+                    Browsern klickbar (Event-Capture-Phase).</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -653,15 +993,8 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>Storage-Schutz:</b> Proaktive Warnung bei 80% LocalStorage-Auslastung
-                    verhindert Datenverlust.</span
-                  >
-                </li>
-                <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span
-                    ><b>Import-Security:</b> 5-stufige Validierung (Typ, Struktur, Größe, Version,
-                    Plausibilität) blockiert korrupte Backups.</span
+                    ><b>Storage-Schutz:</b> Proaktive Warnung bei 80%
+                    LocalStorage-Auslastung verhindert Datenverlust.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -670,8 +1003,9 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>Smart Focus 2.0:</b> Intelligente Themen-Empfehlung basierend auf Gewicht,
-                    Fortschritt und Wiederholungen.</span
+                    ><b>Import-Security:</b> 5-stufige Validierung (Typ,
+                    Struktur, Größe, Version, Plausibilität) blockiert korrupte
+                    Backups.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -680,8 +1014,18 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>Error-Handling:</b> Notification-System ersetzt blockierende Alerts +
-                    Corrupt-Data-Protection.</span
+                    ><b>Smart Focus 2.0:</b> Intelligente Themen-Empfehlung
+                    basierend auf Gewicht, Fortschritt und Wiederholungen.</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-200">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Error-Handling:</b> Notification-System ersetzt
+                    blockierende Alerts + Corrupt-Data-Protection.</span
                   >
                 </li>
               </ul>
@@ -696,7 +1040,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+                    <div class="md:flex items-center justify-between gap-8">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-accent/40 items-center justify-center z-10"
             >
@@ -715,28 +1059,30 @@
                   class="bg-dark-accent/10 text-dark-accent border border-dark-accent/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
                   >v2.0 (Major)</span
                 >
-                <span class="text-dark-muted text-xs font-bold">12. März 2026</span>
+                <span class="text-dark-muted text-xs font-bold"
+                  >12. März 2026</span
+                >
               </div>
-              <h3 class="text-2xl font-black text-white mb-2 tracking-tight italic">
+              <h3
+                class="text-2xl font-black text-white mb-2 tracking-tight italic"
+              >
                 The Content & UI Overhaul
               </h3>
-              <p class="text-dark-muted text-sm mb-4 leading-relaxed font-medium">
-                Das bisher größte Update mit Fokus auf massiven Content-Ausbau und optimierte
-                Benutzerführung.
+              <p
+                class="text-dark-muted text-sm mb-4 leading-relaxed font-medium"
+              >
+                Das bisher größte Update mit Fokus auf massiven Content-Ausbau
+                und optimierte Benutzerführung.
               </p>
               <ul class="space-y-3">
                 <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
                   <span
-                    ><b>Lernkarten-System:</b> Anki-Style mit "Nicht gewusst" / "Sicher gewusst" &
-                    Topic-Selection.</span
-                  >
-                </li>
-                <li class="flex items-start text-sm text-gray-200">
-                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
-                  <span
-                    ><b>Zwei Lernmodi:</b> "Spaced Repetition" (Strategisches Wiederholen) und
-                    "Freies Training".</span
+                    ><b>Lernkarten-System:</b> Anki-Style mit "Nicht gewusst" /
+                    "Sicher gewusst" & Topic-Selection.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -745,8 +1091,8 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>UI/UX Fixes:</b> Optimiertes Mobile-Layout, fixierte Suche und zentrierte
-                    Header.</span
+                    ><b>Zwei Lernmodi:</b> "Spaced Repetition" (Strategisches
+                    Wiederholen) und "Freies Training".</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-200">
@@ -755,8 +1101,18 @@
                     class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
                   ></i>
                   <span
-                    ><b>Session Tracking:</b> Verbesserte Statistik-Logik (Sitzungen zählen sofort
-                    ab Start).</span
+                    ><b>UI/UX Fixes:</b> Optimiertes Mobile-Layout, fixierte
+                    Suche und zentrierte Header.</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-200">
+                  <i
+                    data-lucide="check"
+                    class="text-dark-accent mt-1 mr-3 text-xs shrink-0"
+                  ></i>
+                  <span
+                    ><b>Session Tracking:</b> Verbesserte Statistik-Logik
+                    (Sitzungen zählen sofort ab Start).</span
                   >
                 </li>
               </ul>
@@ -771,7 +1127,7 @@
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8">
+                    <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
             <div
               class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-emerald-500/40 items-center justify-center z-10"
             >
@@ -788,11 +1144,14 @@
                 >
                 <span class="text-dark-muted text-xs">06. März 2026</span>
               </div>
-              <h3 class="text-xl font-bold text-white mb-2 font-mono tracking-tighter uppercase">
+              <h3
+                class="text-xl font-bold text-white mb-2 font-mono tracking-tighter uppercase"
+              >
                 AP2 Launch
               </h3>
               <p class="text-dark-muted text-sm leading-relaxed">
-                Startschuss für den AP2 Tracker speziell für Anwendungsentwickler.
+                Startschuss für den AP2 Tracker speziell für
+                Anwendungsentwickler.
               </p>
             </div>
             <div class="w-full md:w-[45%]"></div>
@@ -804,38 +1163,58 @@
       <div id="tab-roadmap" class="hidden space-y-8 fade-in delay-100">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="space-y-4">
-            <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-muted">
+            <div
+              class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-muted"
+            >
               <i data-lucide="lightbulb"></i>
-              <span class="font-bold text-sm uppercase tracking-wider">Geplant</span>
+              <span class="font-bold text-sm uppercase tracking-wider"
+                >Geplant</span
+              >
             </div>
-            <div class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm">
-              <h4 class="font-bold text-gray-200 mb-1 italic">Prüfungs-Simulator</h4>
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm"
+            >
+              <h4 class="font-bold text-gray-200 mb-1 italic">
+                Prüfungs-Simulator
+              </h4>
               <p class="text-xs text-dark-muted leading-relaxed">
-                Zufällige Fragenkombinationen zur realistischen Simulation der Abschlussprüfung.
+                Zufällige Fragenkombinationen zur realistischen Simulation der
+                Abschlussprüfung.
               </p>
             </div>
           </div>
 
           <div class="space-y-4">
-            <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-accent">
+            <div
+              class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-accent"
+            >
               <i data-lucide="hammer"></i>
-              <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
+              <span class="font-bold text-sm uppercase tracking-wider"
+                >In Arbeit</span
+              >
             </div>
             <div
               class="bg-dark-card border border-dark-accent/30 p-4 rounded-xl relative overflow-hidden"
             >
-              <div class="absolute top-0 left-0 w-1 h-full bg-dark-accent"></div>
+              <div
+                class="absolute top-0 left-0 w-1 h-full bg-dark-accent"
+              ></div>
               <h4 class="font-bold text-white mb-1">Detaillierte Lernzettel</h4>
               <p class="text-xs text-dark-muted leading-relaxed">
-                Zusammenfassungen für komplexe SQL-Joins, UML-Diagramme und Design Patterns zum Download.
+                Zusammenfassungen für komplexe SQL-Joins, UML-Diagramme und
+                Design Patterns zum Download.
               </p>
             </div>
           </div>
 
           <div class="space-y-4">
-            <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400">
+            <div
+              class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400"
+            >
               <i data-lucide="check"></i>
-              <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
+              <span class="font-bold text-sm uppercase tracking-wider"
+                >Erledigt</span
+              >
             </div>
             <div
               class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
@@ -844,7 +1223,8 @@
                 PWA-Unterstützung
               </h4>
               <p class="text-xs text-dark-muted leading-relaxed">
-                Installation als native App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.
+                Installation als native App auf dem Homescreen/Desktop und 100%
+                Offline-Fähigkeit via Service Worker.
               </p>
             </div>
             <div
@@ -854,8 +1234,8 @@
                 Modul-Fortschrittskreise
               </h4>
               <p class="text-xs text-dark-muted leading-relaxed">
-                Zirkuläre Fortschrittsanzeigen pro Lernbereich zur präzisen Visualisierung des
-                Wissensstandes.
+                Zirkuläre Fortschrittsanzeigen pro Lernbereich zur präzisen
+                Visualisierung des Wissensstandes.
               </p>
             </div>
             <div
@@ -865,15 +1245,17 @@
                 Tastatur-Shortcuts
               </h4>
               <p class="text-xs text-dark-muted leading-relaxed">
-                Anki-Style Shortcut-Steuerung für schnelles Beantworten von Lernkarten (z.B. Space,
-                Tasten 1 & 2).
+                Anki-Style Shortcut-Steuerung für schnelles Beantworten von
+                Lernkarten (z.B. Space, Tasten 1 & 2).
               </p>
             </div>
             <div class="bg-dark-card border border-dark-border p-4 rounded-xl">
               <h4 class="font-bold text-gray-300 mb-1 line-through opacity-50">
                 Lernkarten-Vollausbau
               </h4>
-              <p class="text-xs text-dark-muted">Über 700 Karten für FIAE AP2 integriert (v2.0).</p>
+              <p class="text-xs text-dark-muted">
+                Über 700 Karten für FIAE AP2 integriert (v2.0).
+              </p>
             </div>
           </div>
         </div>
@@ -885,14 +1267,23 @@
       <div
         class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted"
       >
-        <div class="flex items-center justify-center md:justify-start gap-2 w-full md:w-auto">
+        <div
+          class="flex items-center justify-center md:justify-start gap-2 w-full md:w-auto"
+        >
           <span class="font-bold text-white">cwillam</span> &copy; 2026
         </div>
         <div
           class="flex gap-6 items-center flex-wrap justify-center md:justify-end w-full md:w-auto"
         >
           <button
-            onclick="document.getElementById('supportModal').classList.remove('hidden'); if(window.lucide) { lucide.createIcons(); }"
+            onclick="
+              document
+                .getElementById('supportModal')
+                .classList.remove('hidden');
+              if (window.lucide) {
+                lucide.createIcons();
+              }
+            "
             class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
           >
             <i data-lucide="coffee"></i> Support
@@ -908,48 +1299,53 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=2.4.2"></script>
+    <script src="assets/js/lucide.min.js?v=2.5.0"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         if (window.lucide) {
           window.lucide.createIcons();
         }
       });
       function switchTab(tab) {
-        const contentUpdates = document.getElementById('tab-updates');
-        const contentRoadmap = document.getElementById('tab-roadmap');
-        const btnUpdates = document.getElementById('btn-updates');
-        const btnRoadmap = document.getElementById('btn-roadmap');
+        const contentUpdates = document.getElementById("tab-updates");
+        const contentRoadmap = document.getElementById("tab-roadmap");
+        const btnUpdates = document.getElementById("btn-updates");
+        const btnRoadmap = document.getElementById("btn-roadmap");
 
-        if (tab === 'updates') {
-          contentUpdates.classList.remove('hidden');
-          contentRoadmap.classList.add('hidden');
+        if (tab === "updates") {
+          contentUpdates.classList.remove("hidden");
+          contentRoadmap.classList.add("hidden");
           btnUpdates.className =
-            'px-6 py-2 rounded-full text-sm font-bold transition-all bg-dark-accent text-white shadow-lg shadow-purple-900/20';
+            "px-6 py-2 rounded-full text-sm font-bold transition-all bg-dark-accent text-white shadow-lg shadow-purple-900/20";
           btnRoadmap.className =
-            'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
+            "px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all";
         } else {
-          contentUpdates.classList.add('hidden');
-          contentRoadmap.classList.remove('hidden');
+          contentUpdates.classList.add("hidden");
+          contentRoadmap.classList.remove("hidden");
           btnUpdates.className =
-            'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
+            "px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all";
           btnRoadmap.className =
-            'px-6 py-2 rounded-full text-sm font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-900/20';
+            "px-6 py-2 rounded-full text-sm font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-900/20";
         }
       }
     </script>
-    
+
     <!-- PWA Service Worker Registration -->
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.4.2')
-            .then(reg => console.log('PWA Service Worker registered successfully', reg))
-            .catch(err => console.error('PWA Service Worker registration failed', err));
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("sw.js?v=2.5.0")
+            .then((reg) =>
+              console.log("PWA Service Worker registered successfully", reg),
+            )
+            .catch((err) =>
+              console.error("PWA Service Worker registration failed", err),
+            );
         });
       }
     </script>
-    
+
     <!-- Support Modal -->
     <div
       id="supportModal"
@@ -958,91 +1354,119 @@
       <div
         class="w-full max-w-md p-6 bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative transition-all transform"
       >
-          <button
-            onclick="document.getElementById('supportModal').classList.add('hidden')"
-            class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
-            title="Schließen"
+        <button
+          onclick="
+            document.getElementById('supportModal').classList.add('hidden')
+          "
+          class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
+          title="Schließen"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
+          <i data-lucide="coffee" class="text-[#FFDD00]"></i> Kaffeekasse
+        </h2>
+        <p class="text-dark-muted text-sm mb-6 leading-relaxed">
+          Die Tracker sind komplett kostenlos und open-source. Wenn sie dir
+          geholfen haben, freue ich mich riesig über eine freiwillige Spende zur
+          Unterstützung des Projekts!
+        </p>
+
+        <div class="flex flex-col gap-4">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
           >
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-
-          <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-            <i data-lucide="coffee" class="text-[#FFDD00]"></i> Kaffeekasse
-          </h2>
-          <p class="text-dark-muted text-sm mb-6 leading-relaxed">
-            Die Tracker sind komplett kostenlos und open-source. Wenn sie dir geholfen haben, freue ich mich riesig über eine freiwillige Spende zur Unterstützung des Projekts!
-          </p>
-
-          <div class="flex flex-col gap-4">
-            <!-- PayPal Button -->
-            <a
-              href="https://www.paypal.com/paypalme/parablepanorama"
-              target="_blank"
-              class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-[#003087]/15 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
-                  <i data-lucide="wallet" class="w-5 h-5"></i>
-                </div>
-                <div class="flex flex-col">
-                  <span class="font-bold text-white text-sm">PayPal</span>
-                  <span class="text-[11px] text-dark-muted">In Deutschland am beliebtesten</span>
-                </div>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-lg bg-[#003087]/15 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform"
+              >
+                <i data-lucide="wallet" class="w-5 h-5"></i>
               </div>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
-            </a>
-
-            <!-- Buy Me A Coffee Button -->
-            <a
-              href="https://buymeacoffee.com/cwillam"
-              target="_blank"
-              class="flex items-center justify-between p-4 rounded-xl bg-[#FFDD00]/5 border border-[#FFDD00]/20 hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/10 transition-all group"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-[#FFDD00]/15 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
-                  <i data-lucide="coffee" class="w-5 h-5"></i>
-                </div>
-                <div class="flex flex-col">
-                  <span class="font-bold text-white text-sm">Buy Me a Coffee</span>
-                  <span class="text-[11px] text-dark-muted">Kreditkarte, Apple Pay, Google Pay</span>
-                </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-white text-sm">PayPal</span>
+                <span class="text-[11px] text-dark-muted"
+                  >In Deutschland am beliebtesten</span
+                >
               </div>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
-            </a>
-          </div>
+            </div>
+            <i
+              data-lucide="chevron-right"
+              class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"
+            ></i>
+          </a>
+
+          <!-- Buy Me A Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            class="flex items-center justify-between p-4 rounded-xl bg-[#FFDD00]/5 border border-[#FFDD00]/20 hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/10 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-lg bg-[#FFDD00]/15 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform"
+              >
+                <i data-lucide="coffee" class="w-5 h-5"></i>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-white text-sm"
+                  >Buy Me a Coffee</span
+                >
+                <span class="text-[11px] text-dark-muted"
+                  >Kreditkarte, Apple Pay, Google Pay</span
+                >
+              </div>
+            </div>
+            <i
+              data-lucide="chevron-right"
+              class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"
+            ></i>
+          </a>
         </div>
       </div>
-      <!-- TWA Kaffeekasse Redirect Weiche -->
+    </div>
+    <!-- TWA Kaffeekasse Redirect Weiche -->
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const isTWA = window.matchMedia('(display-mode: standalone)').matches || 
-                      window.navigator.standalone || 
-                      document.referrer.includes('android-app://') || 
-                      window.location.search.includes('mode=twa');
+      document.addEventListener("DOMContentLoaded", () => {
+        const isTWA =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone ||
+          document.referrer.includes("android-app://") ||
+          window.location.search.includes("mode=twa");
         if (isTWA) {
-          const coffeeButtons = document.querySelectorAll('button[title="Kaffeekasse"], a[title="Kaffeekasse"]');
-          coffeeButtons.forEach(btn => {
-            btn.removeAttribute('onclick');
-            btn.addEventListener('click', (e) => {
+          const coffeeButtons = document.querySelectorAll(
+            'button[title="Kaffeekasse"], a[title="Kaffeekasse"]',
+          );
+          coffeeButtons.forEach((btn) => {
+            btn.removeAttribute("onclick");
+            btn.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
               const targetUrl = "https://cwillam.de/spende.html";
-              window.open(targetUrl, '_blank');
+              window.open(targetUrl, "_blank");
             });
           });
         } else {
-          if (window.location.search.includes('openKaffeekasse=true')) {
-            const modal = document.getElementById('supportModal');
+          if (window.location.search.includes("openKaffeekasse=true")) {
+            const modal = document.getElementById("supportModal");
             if (modal) {
-              modal.classList.remove('hidden');
-              if (window.lucide) { lucide.createIcons(); }
-              const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-              window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+              modal.classList.remove("hidden");
+              if (window.lucide) {
+                lucide.createIcons();
+              }
+              const cleanUrl =
+                window.location.protocol +
+                "//" +
+                window.location.host +
+                window.location.pathname;
+              window.history.replaceState({ path: cleanUrl }, "", cleanUrl);
             }
           }
         }
       });
     </script>
-
-</body>
+  </body>
 </html>

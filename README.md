@@ -1,4 +1,4 @@
-# AP2 Tracker FIAE - Dein Lernbegleiter (v2.4.2 Update)
+# AP2 Tracker FIAE - Dein Lernbegleiter (v2.4.3 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
@@ -46,6 +46,7 @@ Im Gegensatz zur AP1 liegt hier der Fokus auf tiefergehenden Themen wie Software
 - **Strategie-Modus:** Intelligentes Training mittels **Spaced Repetition** – lerne Themen basierend auf deinem Wissenstand in gewohnten Intervallen.
 - **Performance Engine:** Komplett neues Rendering-System (Map-basiert) für blitzschnelle Filterung und Suche ohne UI-Verzögerung.
 - **Mobile First:** Optimiertes Design für Smartphones mit fixierter Suche, verbesserten Touch-Bereichen und intuitiverer Navigation.
+
 ### Highlights (Fortschrittskreise & Shortcuts)
 
 Die Anwendung wurde kontinuierlich optimiert, um eine „Offline-First“ Erfahrung zu bieten, die komplett clientseitig läuft und maximale Performance bietet.
@@ -90,23 +91,40 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v2.4.2 (26. Juli 2026)
+**Aktuelle Version:** v2.5.0 (27. Juli 2026)
+
+### v2.5.0 (27. Juli 2026)
+
+- **SQL-Labor:** Neue Übungs-Seite (`sql.html`) mit 12 progressiven Aufgaben über drei Schwierigkeitsstufen: Basics, Intermediate (Joins, GROUP BY, String-Funktionen), Expert (Subqueries, Transaktionen).
+- **Mock-SQL-Engine:** Leichtgewichtiger JS-Parser mit Vier-Tabellen-Mock-DB, Schema-Explorer und Live-Auswertung – komplett offline.
+- **Gamification:** XP- und Streak-System mit kontextuellen Hints und Lösungsweg.
+- **Service Worker & Caching:** Caching von `sql.html` und `sql.js` im Service Worker (`sw.js`) sowie Versionsbumping auf `v2.5.0`.
+
+### v2.4.3 (27. Juli 2026)
+
+- **Subnetz- & IP-Trainer:** Ein neues, eigenständiges Übungs-Labor zur Berechnung von IPv4-Netzmasken, Netz-IDs, Broadcasts und Host-Kapazitäten (inklusive Schritt-für-Schritt Binär-Erklärung) sowie IPv6-Kompressionstraining.
+- **Mobiles Hamburger-Menü:** Vollwertiger, reaktionsschneller Navigation Drawer für mobile Endgeräte zur sauberen Platzeinsparung auf Smartphones.
+- **Service Worker & Caching:** Erweitertes Caching im Service Worker (`sw.js`) und Versionsbumping für die neuen Trainer-Assets auf `v2.4.3`.
 
 ### v2.4.2 (26. Juli 2026)
+
 - **Lernkarten-Upgrade (Anki-Style):** Ersetzt die einfache Richtig/Falsch-Abfrage durch eine detaillierte 4-Stufen-Bewertung (*Sofort gewusst*, *Nachgedacht*, *Geraten*, *Nicht gewusst*) zur hochpräzisen Intervallberechnung.
 - **Zustands-Dashboard:** Direktes persistent visualisiertes Deck-Zustandspanel (Neu, Sofort, Wissen, Geraten, Falsch) direkt in der Lern-Zentrale.
 - **Schwachstellen-Modus:** Ein neuer Filter ermöglicht das gezielte Wiederholen von falsch beantworteten oder geratenen Karten.
 - **Mobile Platzoptimierung:** Durch Anpassung der Spacings und Header-Icon-Größen auf Mobilgeräten bleibt die gesamte Lern-Zentrale ohne Scrollen bedienbar.
 
 ### v2.4.1 (23. Juli 2026)
+
 - **Bugfix GitHub-Templates:** Syntaxfehler in `bug.yml` behoben, so dass das Bug-Formular nun reibungslos von GitHub erkannt wird.
 - **Cache-Aktualisierung:** Anhebung von CACHE_NAME auf `v2.4.1` und Asset-Versioning (`?v=2.4.1`) durchgeführt, um automatische Updates beim Nutzer anzustoßen.
 
 ### v2.4.0 (23. Juli 2026)
+
 - **Berufsschul-Portal:** Neue Infoseite (`bildungseinrichtungen.html`) für Schulen und Dozenten bezüglich datenschutzkonformem und freiem Einsatz im Unterricht.
 - **Outreach & Feedback:** Integration direkter Verlinkungen für Fehlerberichte und Feature-Wünsche im Footer sowie Google Forms für Closed-Beta-Anmeldungen.
 
 ### v2.3.0 (12. Juli 2026)
+
 - **PWA-Support:** Vollwertige Progressive Web App mit Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der Lernkarten.
 - **Homescreen-Installation:** Mobil-optimierte PWA-Meta-Tags und `apple-touch-icon` für die Homescreen-Installation auf iOS & Android.
 - **Kaffeekasse-Modal:** Neues Spenden-Modal mit direkten Optionen für PayPal (spendenfrei) und Buy Me a Coffee.
@@ -137,7 +155,7 @@ Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
 ## Disclaimer
 
-_Alle Lerninhalte wurden nach bestem Wissen und Gewissen auf Basis der aktuellen amtlichen Rahmenlehrpläne und Prüfungsanforderungen zusammengestellt. Ich übernehme jedoch keine Gewähr für die Vollständigkeit oder Richtigkeit der prüfungsrelevanten Themen._
+*Alle Lerninhalte wurden nach bestem Wissen und Gewissen auf Basis der aktuellen amtlichen Rahmenlehrpläne und Prüfungsanforderungen zusammengestellt. Ich übernehme jedoch keine Gewähr für die Vollständigkeit oder Richtigkeit der prüfungsrelevanten Themen.*
 
 ---
 
