@@ -129,10 +129,12 @@
     <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
       <!-- Intro Section -->
       <div class="text-center mb-8 fade-in">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-dark-accent/10 border border-dark-accent/25 mb-4 shadow-lg shadow-dark-accent/5">
+          <i data-lucide="brain" class="text-dark-accent w-6 h-6"></i>
+        </div>
         <h1
-          class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-dark-accent to-indigo-400 bg-clip-text text-transparent mb-3 pb-1 leading-tight flex items-center justify-center gap-3"
+          class="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-3 pb-1 leading-tight"
         >
-          <i data-lucide="brain" class="text-dark-accent w-8 h-8"></i>
           Glossar &amp; Eselsbrücken (FIAE)
         </h1>
         <p class="text-dark-muted max-w-lg mx-auto text-sm md:text-base">
@@ -153,8 +155,32 @@
           />
         </div>
 
-        <!-- Categories horizontal scroll -->
-        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1.5 mb-4 text-xs font-bold border-b border-dark-border/40">
+        <!-- Mobile/Tablet Dropdown Category Filter -->
+        <div class="block md:hidden mb-4 relative">
+          <label for="categorySelect" class="block text-xs font-bold text-dark-muted mb-1.5 uppercase tracking-wider">Kategorie filtern</label>
+          <div class="relative">
+            <select
+              id="categorySelect"
+              onchange="glossaryApp.setCategory(this.value)"
+              class="w-full pl-3 pr-10 py-2.5 bg-dark-bg border border-dark-border rounded-xl text-dark-text appearance-none focus:outline-none focus:border-dark-accent/60 transition-all text-sm font-bold focus:ring-1 focus:ring-dark-accent/30"
+            >
+              <option value="all">Alle Kategorien</option>
+              <option value="favorites">⭐ Favoriten</option>
+              <option value="Software-Architektur">Architektur &amp; UML</option>
+              <option value="Datenbanken">Datenbanken</option>
+              <option value="Programmierung & OOP">Programmierung &amp; OOP</option>
+              <option value="Web-Technologien">Web &amp; APIs</option>
+              <option value="Software-Sicherheit">Sicherheit</option>
+              <option value="DevOps & Prozesse">DevOps &amp; Agile</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-dark-muted">
+              <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Categories wrapped list -->
+        <div class="hidden md:flex flex-wrap items-center gap-2 pb-3 mb-4 text-xs font-bold border-b border-dark-border/40">
           <button onclick="glossaryApp.setCategory('all')" id="cat-all" class="px-3 py-1.5 rounded-lg bg-dark-accent text-white transition-all shrink-0">
             Alle
           </button>
@@ -539,6 +565,518 @@
           category: "DevOps & Prozesse",
           definition: "Git-Flow: Komplexe Strategie mit langlebigen Verzweigungen (main, develop, feature, release, hotfix). Trunk-Based: Entwickler arbeiten auf einem einzigen Hauptbranch (Trunk) mit kurzen Commits.",
           mnemonic: "<strong>Git-Flow</strong> = Viele feste Zwischenstopps und strukturierte Releases.<br><strong>Trunk-Based</strong> = Schnelles Liefern durch ständige Integration auf dem Main-Branch."
+        },
+        {
+          id: "technical-debt",
+          term: "Technical Debt & Refactoring",
+          long: "Technische Schulden & Code-Bereinigung",
+          category: "Programmierung & OOP",
+          definition: "Technische Schulden beschreiben die zukünftigen Kosten für die Behebung schlechten Codes. Refactoring ist das Umschreiben von Code, um die Struktur zu verbessern, ohne das funktionale Verhalten zu ändern.",
+          mnemonic: "Zinsen zahlen für schlampigen Code: Je länger du das Aufräumen aufschiebst, desto schwieriger wird jede neue Änderung."
+        },
+        {
+          id: "dependency-injection",
+          term: "Dependency Injection (DI)",
+          long: "Abhängigkeitsinjektion",
+          category: "Programmierung & OOP",
+          definition: "Ein Entwurfsmuster, bei dem Abhängigkeiten eines Objekts von außen (z.B. durch ein Framework) hineingereicht statt intern erzeugt werden. Fördert die lose Kopplung und Testbarkeit.",
+          mnemonic: "Bau dein Auto nicht um einen festen Motor herum. Gib dem Auto-Konstruktor den Motor als Schnittstelle mit – so kannst du ihn leicht austauschen (oder simulieren)."
+        },
+        {
+          id: "cap-theorem",
+          term: "CAP-Theorem",
+          long: "Consistency, Availability, Partition Tolerance",
+          category: "Datenbanken",
+          definition: "Besagt, dass verteilte Datenspeicher maximal zwei von drei Garantien gleichzeitig bieten können: Konsistenz (Consistency), Verfügbarkeit (Availability) und Ausfalltoleranz (Partition Tolerance).",
+          mnemonic: "Pick Any Two: Bei Netzwerkfehlern (P) musst du dich entscheiden, ob die Datenbank offline geht (A opfern) oder veraltete Daten anzeigt (C opfern)."
+        },
+        {
+          id: "locking-db",
+          term: "Pessimistic vs. Optimistic Locking",
+          long: "Sperrverfahren bei Datenkonflikten",
+          category: "Datenbanken",
+          definition: "Pessimistic Locking: Sperrt Datensätze sofort beim Lesen für Schreibzugriffe anderer. Optimistic Locking: Prüft erst beim Speichern (z.B. via Version-Spalte), ob zwischenzeitlich Änderungen stattfanden.",
+          mnemonic: "**Pessimist:** Schließt die Tür ab, solange er arbeitet.<br>**Optimist:** Hofft, dass keiner stört, kontrolliert es am Ende und fängt ggf. von vorne an."
+        },
+        {
+          id: "oauth2-oidc",
+          term: "OAuth 2.0 & OIDC",
+          long: "Open Authorization & OpenID Connect",
+          category: "Software-Sicherheit",
+          definition: "OAuth 2.0: Protokoll zur Autorisierung (Zugriff auf Ressourcen via Access Tokens). OpenID Connect (OIDC): Identitätsschicht auf OAuth 2.0 zur Authentisierung (Nutzer-ID via ID Tokens).",
+          mnemonic: "OAuth 2.0 = **Türschlüssel-Karte** fürs Hotelzimmer (Rechte). OIDC = **Personalausweis** zur Identifikation an der Rezeption."
+        },
+        {
+          id: "cors",
+          term: "CORS",
+          long: "Cross-Origin Resource Sharing",
+          category: "Web-Technologien",
+          definition: "Ein Sicherheitsmechanismus in Browsern. Er erlaubt oder verbietet HTTP-Requests einer Webseite auf eine andere Domain (Origin), gesteuert durch spezielle HTTP-Header des Zielservers.",
+          mnemonic: "Grenzkontrolle im Browser: Der Server entscheidet im Response-Header `Access-Control-Allow-Origin`, welche fremden Webseiten seine APIs abfragen dürfen."
+        },
+        {
+          id: "microservices",
+          term: "Microservices",
+          long: "Dezentrale Softwarearchitektur",
+          category: "Software-Architektur",
+          definition: "Eine Anwendungsarchitektur, bei der eine Software aus kleinen, unabhängigen, lose gekoppelten Diensten besteht, die über leichtgewichtige Protokolle (z.B. REST, gRPC) kommunizieren.",
+          mnemonic: "Kleine Boote statt eines riesigen Tankers. Wenn ein Boot sinkt (Service abstürzt), bleibt der Rest der Flotte schwimmfähig."
+        },
+        {
+          id: "graphql",
+          term: "GraphQL vs. REST",
+          long: "API-Abfragesprachen im Vergleich",
+          category: "Web-Technologien",
+          definition: "REST: Statische Endpunkte liefern feste Datenstrukturen. GraphQL: Ein einziger Endpunkt ermöglicht es Clients, exakt die benötigten Datenstrukturen dynamisch abzufragen (verhindert Over- und Underfetching).",
+          mnemonic: "REST = **Festmenü** (du kriegst, was auf der Karte steht). GraphQL = **Buffet** (du legst dir exakt auf den Teller, was du willst)."
+        },
+        {
+          id: "subqueries-sql",
+          term: "SQL: Subqueries",
+          long: "Unterabfragen in SQL",
+          category: "Datenbanken",
+          definition: "Eine in eine andere SQL-Abfrage (SELECT, INSERT, UPDATE, DELETE) geschachtelte Abfrage, die in der WHERE-Klausel, FROM-Klausel oder als Spaltenwert ausgewertet wird.",
+          mnemonic: "Russische Matroschka-Puppen: Du wertest erst die innere Abfrage aus und übergibst ihr Ergebnis an die äußere Abfrage."
+        },
+        {
+          id: "scout-rule",
+          term: "Boy Scout Rule (Pfadfinder-Regel)",
+          long: "Clean-Code-Prinzip",
+          category: "Programmierung & OOP",
+          definition: "Hinterlasse den Code immer in einem besseren Zustand, als du ihn vorgefunden hast (z.B. durch Entfernen von ungenutzten Variablen oder Optimieren kleiner Formatierungen).",
+          mnemonic: "Den Campingplatz sauberer verlassen, als man ihn betreten hat. So verrottet eine Codebasis über die Jahre nicht."
+        },
+        {
+          id: "event-driven",
+          term: "Event-Driven Architecture",
+          long: "Ereignisgesteuerte Architektur",
+          category: "Software-Architektur",
+          definition: "Ein Software-Design-Muster, bei dem das System auf das Eintreten von Ereignissen (Events) reagiert. Produzenten senden Events an einen Event Broker (z.B. Kafka, RabbitMQ), Konsumenten verarbeiten sie asynchron.",
+          mnemonic: "Postkasten-Prinzip: Der Sender wirft einen Brief ein (Event) und geht. Der Empfänger holt ihn ab, wann er Zeit hat (entkoppelte asynchrone Verarbeitung)."
+        },
+        {
+          id: "scrum-roles",
+          term: "Scrum-Rollen",
+          long: "Rollenverteilung im Scrum-Framework",
+          category: "DevOps & Prozesse",
+          definition: "Product Owner: Maximiert den Wert des Produkts (Backlog-Priorisierung). Scrum Master: Beseitigt Hindernisse und optimiert den Prozess. Developers: Setzen die Sprints inkrementell um.",
+          mnemonic: "**PO** = Was wird gebaut? **Master** = Wie arbeiten wir gut zusammen? **Devs** = Wie wird es technisch umgesetzt?"
+        },
+        {
+          id: "decorator-pattern",
+          term: "Design Pattern: Decorator",
+          long: "Strukturmuster zur dynamischen Erweiterung",
+          category: "Software-Architektur",
+          definition: "Ermöglicht es, einem Objekt dynamisch zusätzliches Verhalten hinzuzufügen, ohne die ursprüngliche Klasse zu verändern oder Vererbung zu nutzen (Wrapper-Prinzip).",
+          mnemonic: "Weihnachtsbaum schmücken: Der Baum bleibt derselbe, aber du hängst flexibel Kugeln (Features) oder Lametta (Formatierungen) dran."
+        },
+        {
+          id: "command-pattern",
+          term: "Design Pattern: Command",
+          long: "Verhaltensmuster zur Kapselung von Befehlen",
+          category: "Software-Architektur",
+          definition: "Kapselt eine Anfrage oder Aktion als eigenständiges Objekt. Dies ermöglicht es, Befehle in Warteschlangen einzureihen, zu protokollieren oder rückgängig zu machen (Undo-Funktion).",
+          mnemonic: "Bestellzettel im Restaurant: Der Kellner nimmt den Zettel (Command) auf. Der Koch führt ihn aus. Der Zettel kann verschoben, gelöscht oder archiviert werden."
+        },
+        {
+          id: "mocking-stubbing",
+          term: "Mocking vs. Stubbing",
+          long: "Testdoubles im Vergleich",
+          category: "Programmierung & OOP",
+          definition: "Stub: Liefert fest programmierte Antwortdaten für Tests (zustandslos). Mock: Erwartet spezifische Interaktionen (Aufrufe, Parameter) und verifiziert diese während der Testausführung.",
+          mnemonic: "Stub = **Stummer Komparse** (sagt immer 'Ja'). Mock = **Lügendetektor-Test** (prüft genau, ob und wie oft du mit ihm gesprochen hast)."
+        },
+        {
+          id: "kubernetes",
+          term: "Kubernetes (K8s)",
+          long: "Container-Orchestrierungsplattform",
+          category: "DevOps & Prozesse",
+          definition: "Ein Open-Source-System zur Automatisierung der Bereitstellung, Skalierung und Verwaltung von containerisierten Anwendungen über Rechnercluster hinweg.",
+          mnemonic: "Der **Hafendirigent**: Er überwacht hunderte Container-Schiffe, leitet sie um, skaliert ihre Kapazitäten hoch oder startet sie neu, falls sie sinken."
+        },
+        {
+          id: "serverless",
+          term: "Serverless Computing (FaaS)",
+          long: "Cloud-Computing-Ausführungsmodell",
+          category: "Web-Technologien",
+          definition: "Ein Modell, bei dem der Cloud-Provider Serverkapazitäten dynamisch verwaltet. Entwickler schreiben nur Funktionen (Function-as-a-Service, FaaS), die ereignisbasiert ausgeführt und sekundengenau abgerechnet werden.",
+          mnemonic: "Taxi fahren statt Auto kaufen. Du bezahlst nur für die tatsächliche Fahrtzeit (Ausführungszeit der Funktion), nicht fürs bloße Herumstehen des Taxis."
+        },
+        {
+          id: "cd-vs-cd",
+          term: "CD vs. CD",
+          long: "Continuous Delivery vs. Continuous Deployment",
+          category: "DevOps & Prozesse",
+          definition: "Continuous Delivery: Der Build wird automatisch getestet und steht zur manuellen Freigabe bereit. Continuous Deployment: Jede Code-Änderung, die die Pipeline besteht, wird sofort vollautomatisch produktiv gesetzt.",
+          mnemonic: "**Delivery** = Paket liegt versandbereit an der Rampe (Knopfdruck nötig). **Deployment** = Drohne liefert das Paket automatisch direkt an den Kunden aus."
+        },
+        {
+          id: "binary-search",
+          term: "Binäre Suche",
+          long: "Effizienter Suchalgorithmus",
+          category: "Programmierung & OOP",
+          definition: "Ein Algorithmus zur Suche eines Werts in einer sortierten Liste. Teilt das Suchintervall wiederholt in der Hälfte, wodurch die Laufzeit auf O(log n) reduziert wird.",
+          mnemonic: "Telefonbuch aufschlagen: Du schlägst genau in der Mitte auf, schaust, ob der Name davor oder danach liegt, wirfst die falsche Hälfte weg und wiederholst das."
+        },
+        {
+          id: "quicksort",
+          term: "Quicksort",
+          long: "Divide-and-Conquer Sortierverfahren",
+          category: "Programmierung & OOP",
+          definition: "Ein schneller, rekursiver Sortieralgorithmus. Wählt ein Pivotelement, teilt die Liste in kleinere (links) und größere (rechts) Elemente und sortiert diese Teillisten separat.",
+          mnemonic: "Teile und herrsche: Wähle eine Zahl als Grenze, schiebe kleinere links, größere rechts. Mach das Gleiche für beide Hälften, bis alles sortiert ist."
+        },
+        {
+          id: "tree-data",
+          term: "Datenstruktur: Baum (Tree)",
+          long: "Hierarchische Baumstruktur",
+          category: "Programmierung & OOP",
+          definition: "Eine nicht-lineare Datenstruktur aus Knoten, die hierarchisch miteinander verbunden sind. Startet bei einem Wurzelknoten (Root), verzweigt sich in Kindknoten und endet an Blättern (Leaves).",
+          mnemonic: "Dateisystem auf deinem PC: Festplatte C: (Root) -> Ordner (Knoten) -> Dateien (Blätter)."
+        },
+        {
+          id: "graph-data",
+          term: "Datenstruktur: Graph",
+          long: "Netzwerkstruktur aus Knoten und Kanten",
+          category: "Programmierung & OOP",
+          definition: "Eine abstrakte Struktur, die aus einer Menge von Knoten (Vertices) und Kanten (Edges), welche Verbindungen zwischen den Knoten darstellen, besteht. Kann gerichtet oder ungerichtet sein.",
+          mnemonic: "Soziales Netzwerk: Personen sind Knoten, Freundschaften sind Kanten (ungerichtet bei Facebook, gerichtet bei Instagram als Follower)."
+        },
+        {
+          id: "isolation-levels",
+          term: "SQL: Isolationslevel",
+          long: "Sicherheitsstufen bei parallelen DB-Transaktionen",
+          category: "Datenbanken",
+          definition: "Regeln die Sichtbarkeit von Änderungen paralleler Transaktionen (Read Uncommitted, Read Committed, Repeatable Read, Serializable) zur Vermeidung von Anomalien wie Dirty Reads.",
+          mnemonic: "**Serializable** = Perfektes Nacheinander (extrem sicher, aber langsam). **Read Uncommitted** = Jeder sieht jeden Entwurf (schnell, aber Chaos-Gefahr)."
+        },
+        {
+          id: "prepared-statements",
+          term: "Prepared Statements",
+          long: "Vorbereitete SQL-Statements",
+          category: "Software-Sicherheit",
+          definition: "Ein Verfahren, bei dem SQL-Statements vorübersetzt und Benutzereingaben als strikte Parameter übergeben werden. Verhindert SQL-Injections, da Parameter nicht als ausführbarer SQL-Code interpretiert werden.",
+          mnemonic: "Die **Lückentext-Schablone**: Der SQL-Befehl steht fest. Benutzereingaben werden als reiner Text in die Lücken geklebt, ohne dass sie die Grammatik des Satzes ändern können."
+        },
+        {
+          id: "state-pattern",
+          term: "Design Pattern: State",
+          long: "Zustandsmuster zur Verhaltensänderung",
+          category: "Software-Architektur",
+          definition: "Ermöglicht es einem Objekt, sein Verhalten zu ändern, wenn sich sein interner Zustand ändert. Das Objekt sieht dann so aus, als ob es seine Klasse gewechselt hätte (Kapselung der Zustände).",
+          mnemonic: "Verkaufsautomat: Je nachdem, ob er den Zustand 'Keine Münze', 'Münze eingeworfen' oder 'Ausverkauft' hat, reagiert der Knopfdruck völlig anders."
+        },
+        {
+          id: "template-method",
+          term: "Design Pattern: Template Method",
+          long: "Schablonenmethode für Algorithmen",
+          category: "Software-Architektur",
+          definition: "Definiert das Skelett eines Algorithmus in einer Methode einer Oberklasse, delegiert aber die konkrete Umsetzung einzelner Schritte an Unterklassen, ohne die Struktur zu verändern.",
+          mnemonic: "Das Backrezept: Die Schritte (Teig machen, Backen, Verzieren) stehen fest. Unterklassen entscheiden nur, ob es ein Schoko- oder Zitronenkuchen wird."
+        },
+        {
+          id: "composite-pattern",
+          term: "Design Pattern: Composite (Kompositum)",
+          long: "Strukturmuster für Baumstrukturen",
+          category: "Software-Architektur",
+          definition: "Fasst Objekte in Baumstrukturen zusammen, um Teil-Ganzes-Hierarchien darzustellen. Clients können so einzelne Objekte sowie Kompositionen von Objekten einheitlich behandeln.",
+          mnemonic: "Dateisystem: Ein Ordner (Kompositum) kann Dateien (Blätter) und andere Ordner enthalten. Alle reagieren einheitlich auf den Befehl `berechneGröße()`."
+        },
+        {
+          id: "facade-pattern",
+          term: "Design Pattern: Facade (Fassade)",
+          long: "Vereinfachtes Interface für komplexe Subsysteme",
+          category: "Software-Architektur",
+          definition: "Bietet eine einheitliche und vereinfachte Schnittstelle zu einer Menge von Schnittstellen in einem komplexen Subsystem, um die Nutzung zu erleichtern.",
+          mnemonic: "Der Lichtschalter: Du drückst einen Knopf (Fassade), statt manuell Drähte zu verbinden, Stromstärken zu regeln und Relais zu schalten."
+        },
+        {
+          id: "proxy-pattern",
+          term: "Design Pattern: Proxy",
+          long: "Stellvertreter für ein anderes Objekt",
+          category: "Software-Architektur",
+          definition: "Stellt ein Stellvertreterobjekt bereit, um den Zugriff auf ein anderes Objekt zu kontrollieren. Kann für Lazy Loading, Zugriffsschutz oder Logging genutzt werden.",
+          mnemonic: "Die EC-Karte (Proxy) statt des echten Geldes (Subjekt). Der Händler bucht ab, ohne dass du physische Scheine übergeben musst."
+        },
+        {
+          id: "grasp-principles",
+          term: "GRASP-Prinzipien",
+          long: "General Responsibility Assignment Software Patterns",
+          category: "Programmierung & OOP",
+          definition: "Eine Reihe von Richtlinien zur Zuweisung von Zuständigkeiten an Klassen im objektorientierten Entwurf (z.B. Creator, Controller, Information Expert, Low Coupling, High Cohesion).",
+          mnemonic: "Der Zuständigkeits-Kompass: Wer soll das Objekt erzeugen? (Creator) Wer weiß am meisten darüber? (Information Expert)."
+        },
+        {
+          id: "coupling-cohesion",
+          term: "Kopplung & Kohäsion",
+          long: "Qualitätskriterien im Software-Entwurf",
+          category: "Programmierung & OOP",
+          definition: "Kopplung: Maß der Abhängigkeit zwischen verschiedenen Modulen (Ziel: lose Kopplung). Kohäsion: Maß des Zusammenhalts von Aufgaben innerhalb eines Moduls (Ziel: starke Kohäsion).",
+          mnemonic: "Das Ideal: Lose Kopplung (Module funktionieren autark) und starke Kohäsion (jede Klasse tut genau eine Sache richtig gut)."
+        },
+        {
+          id: "anemic-domain-model",
+          term: "Anemic Domain Model",
+          long: "Blutarmes Domänenmodell",
+          category: "Software-Architektur",
+          definition: "Ein Anti-Pattern, bei dem Domänenklassen nur Daten (Getter/Setter) enthalten, während die eigentliche Geschäftslogik komplett in separate Service-Klassen ausgelagert ist.",
+          mnemonic: "Klassen als reine Datenbehälter ohne logisches Leben. Verletzt das OOP-Prinzip, wonach Daten und Verhalten zusammengehören."
+        },
+        {
+          id: "cqrs",
+          term: "CQRS",
+          long: "Command Query Responsibility Segregation",
+          category: "Software-Architektur",
+          definition: "Ein Entwurfsmuster, das Leseoperationen (Queries) und Schreiboperationen (Commands) einer Anwendung strikt in separate Modelle und Datenflüsse trennt.",
+          mnemonic: "Getrennte Wege: Ein Modell optimiert für das Schreiben (Normalisiert, sicher), ein anderes optimiert für das schnelle Lesen (Denormalisiert, gecacht)."
+        },
+        {
+          id: "event-sourcing",
+          term: "Event Sourcing",
+          long: "Statusermittlung über Ereignishistorie",
+          category: "Software-Architektur",
+          definition: "Speichert nicht den aktuellen Zustand eines Objekts in der DB, sondern eine lückenlose Kette aller zustandsändernden Ereignisse (Events). Der Zustand wird durch Abspielen der Events rekonstruiert.",
+          mnemonic: "Das Bankkonto: In der DB steht kein Kontostand, sondern nur jede einzelne Buchung (+50, -20, +10). Der Kontostand ergibt sich aus der Summe aller Einträge."
+        },
+        {
+          id: "concurrency-parallelism",
+          term: "Concurrency vs. Parallelism",
+          long: "Nebenläufigkeit vs. Parallelität",
+          category: "Programmierung & OOP",
+          definition: "Nebenläufigkeit: Mehrere Aufgaben werden verschachtelt abgearbeitet (sieht gleichzeitig aus, läuft oft auf einem Kern). Parallelität: Aufgaben laufen physisch exakt zur gleichen Zeit auf verschiedenen Kernen.",
+          mnemonic: "Nebenläufig = Ein Jongleur wirft mehrere Bälle (nacheinander gefangen). Parallel = Zwei Jongleure werfen je einen Ball zeitgleich."
+        },
+        {
+          id: "deadlock-race",
+          term: "Deadlock & Race Condition",
+          long: "Concurrency-Konflikte im Speicher",
+          category: "Programmierung & OOP",
+          definition: "Deadlock: Zwei Threads blockieren sich gegenseitig, weil jeder auf eine Ressource wartet, die der andere hält. Race Condition: Das Ergebnis hängt unvorhersehbar davon ab, welcher Thread schneller schreibt.",
+          mnemonic: "Deadlock = Verkehrskreuzung (jeder blockiert jeden). Race = Wettlauf zum Buffet (wer zuerst kommt, isst – fatal, wenn Daten überschrieben werden)."
+        },
+        {
+          id: "garbage-collection",
+          term: "Garbage Collection (GC)",
+          long: "Automatische Speicherbereinigung",
+          category: "Programmierung & OOP",
+          definition: "Ein Prozess in Laufzeitumgebungen (z.B. Java, C#), der automatisch nicht mehr referenzierte Objekte im Heap-Speicher aufspürt und freigibt, um Speicherlecks zu verhindern.",
+          mnemonic: "Die Müllabfuhr im RAM: Objekte, zu denen keine Variable mehr führt, werden automatisch weggeschmissen. Spart manuelles `free()`."
+        },
+        {
+          id: "window-functions",
+          term: "SQL: Window Functions",
+          long: "Analytische Fensterfunktionen (OVER, PARTITION BY)",
+          category: "Datenbanken",
+          definition: "Ermöglicht Berechnungen über eine Gruppe von Tabellenzeilen hinweg, die mit der aktuellen Zeile in Beziehung stehen, ohne die Zeilen wie bei GROUP BY zu einer einzigen Ergebniszeile zu reduzieren.",
+          mnemonic: "Gleitende Berechnung: Ermittle die laufende Summe oder den Rang (`ROW_NUMBER()`) innerhalb einer Partition, während alle Zeilen sichtbar bleiben."
+        },
+        {
+          id: "stored-procedures",
+          term: "SQL: Stored Procedures & Triggers",
+          long: "Datenbankinterne Abläufe",
+          category: "Datenbanken",
+          definition: "Stored Procedure: Ein vorkompiliertes Programm direkt in der Datenbank. Trigger: Ein SQL-Skript, das automatisch bei bestimmten Events (INSERT, UPDATE, DELETE) ausgeführt wird.",
+          mnemonic: "Der Datenbank-Roboter: Sobald ein neuer User angelegt wird (Trigger), berechnet eine Prozedur im Hintergrund automatisch seine Start-XP."
+        },
+        {
+          id: "orm-db",
+          term: "Object-Relational Mapping (ORM)",
+          long: "Objektrelationale Abbildung",
+          category: "Datenbanken",
+          definition: "Technik, mit der Objekte einer objektorientierten Sprache in Tabellen einer relationalen Datenbank übersetzt werden (z.B. via Hibernate, Entity Framework).",
+          mnemonic: "Der Übersetzer: Du arbeitest im Code mit normalen Objekten `user.save()`, das ORM-Framework erzeugt daraus das `INSERT INTO users...` im Hintergrund."
+        },
+        {
+          id: "websockets-sse",
+          term: "WebSockets vs. SSE",
+          long: "Echtzeit-Kommunikationstechnologien",
+          category: "Web-Technologien",
+          definition: "WebSockets: Bidirektionale, dauerhafte TCP-Verbindung für Echtzeit-Datenaustausch in beide Richtungen. SSE (Server-Sent Events): Unidirektionaler Push-Kanal vom Server zum Client über HTTP.",
+          mnemonic: "Websockets = Telefonat (beide reden gleichzeitig). SSE = Radio (nur der Sender schickt Infos, der Empfänger hört nur zu)."
+        },
+        {
+          id: "http-versions",
+          term: "HTTP/2 vs. HTTP/3",
+          long: "Weiterentwicklung des Webprotokolls",
+          category: "Web-Technologien",
+          definition: "HTTP/2: Multiplexing über eine einzige TCP-Verbindung (verhindert Blockaden). HTTP/3: Nutzt das UDP-basierte QUIC-Protokoll zur Reduzierung von Verbindungsaufbau-Zeiten und Paketverlust-Problemen.",
+          mnemonic: "HTTP/2 = Ein LKW mit vielen Paketen (TCP). HTTP/3 = Viele kleine, superschnelle Drohnen über ein neues Protokoll (UDP/QUIC)."
+        },
+        {
+          id: "spa-vs-ssr",
+          term: "SPA vs. SSR",
+          long: "Single Page Application vs. Server-Side Rendering",
+          category: "Web-Technologien",
+          definition: "SPA: Der Browser lädt eine leere HTML-Seite und rendert alles dynamisch via JS (Client-Side). SSR: Der Server generiert das fertige HTML pro Anfrage und schickt es an den Browser (besser für SEO).",
+          mnemonic: "SPA = Fertigmischung (du kriegst Pulver und rührst es im Browser an). SSR = Fertiges Gericht (der Server kocht und liefert es essfertig)."
+        },
+        {
+          id: "csp-security",
+          term: "Content Security Policy (CSP)",
+          long: "Sicherheits-Header gegen XSS",
+          category: "Software-Sicherheit",
+          definition: "Ein HTTP-Header, mit dem Webseitenbetreiber einschränken können, welche Ressourcen (Skripte, Bilder, CSS) aus welchen Quellen im Browser geladen und ausgeführt werden dürfen.",
+          mnemonic: "Die Gästeliste: Der Browser führt nur Skripte aus, die explizit von den in der CSP freigegebenen Domains stammen."
+        },
+        {
+          id: "oauth-grants",
+          term: "OAuth 2.0: Grant Types",
+          long: "Autorisierungsabläufe in OAuth 2.0",
+          category: "Software-Sicherheit",
+          definition: "Verschiedene Abläufe zur Token-Erlangung. Authorization Code Grant (mit PKCE): Für sichere Web-/Mobile-Apps. Client Credentials Grant: Für Server-zu-Server-Kommunikation.",
+          mnemonic: "Authorization Code = Zwei-Wege-Bestätigung mit Code-Austausch über den Server. Client Credentials = Direkter API-Schlüssel für Maschinen."
+        },
+        {
+          id: "password-hashing",
+          term: "Password Hashing (Argon2, bcrypt)",
+          long: "Sichere Einweg-Verschlüsselung für Passwörter",
+          category: "Software-Sicherheit",
+          definition: "Kryptografische Einwegfunktionen mit integriertem Salt (Zufallswert) und Arbeitsfaktor, die Passwörter unumkehrbar verschlüsseln und resistent gegen Brute-Force- und Rainbow-Table-Angriffe machen.",
+          mnemonic: "Aus Passwort wird unumkehrbares Häckselgut. Durch das Salt hat selbst gleicher Text völlig unterschiedliche Hashes."
+        },
+        {
+          id: "pentest",
+          term: "Penetration Testing",
+          long: "Autorisierter Hackerangriff zur Schwachstellensuche",
+          category: "Software-Sicherheit",
+          definition: "Ein kontrollierter, simulierter Angriff auf ein IT-System oder eine Anwendung, um Sicherheitslücken aufzuspüren, bevor echte Angreifer diese ausnutzen können.",
+          mnemonic: "Der Einbruchstest: Du bezahlst einen Profi-Einbrecher (Ethical Hacker), um deine Schlösser zu prüfen und dir zu sagen, wo er reingekommen wäre."
+        },
+        {
+          id: "bdd-testing",
+          term: "Behavior-Driven Development (BDD)",
+          long: "Verhaltensgetriebene Softwareentwicklung",
+          category: "DevOps & Prozesse",
+          definition: "Eine Erweiterung von TDD. Spezifiziert das Verhalten einer Anwendung in natürlicher Sprache aus Benutzersicht (meist im Format: Gegeben..., Wenn..., Dann...).",
+          mnemonic: "Gherkin-Syntax: GIVEN I am logged in, WHEN I click delete, THEN the post should be gone. Liest jeder Fachbereich wie ein Drehbuch."
+        },
+        {
+          id: "mutation-testing",
+          term: "Mutation Testing",
+          long: "Qualitätstest für Unit Tests",
+          category: "DevOps & Prozesse",
+          definition: "Ein Testverfahren, bei dem gezielt kleine Fehler (Mutationen) in den Quellcode geschleust werden, um zu prüfen, ob die vorhandenen Unit Tests diese Fehler bemerken und fehlschlagen (Kill the Mutants).",
+          mnemonic: "Der Test des Testsystems: Erkennt die Alarmanlage (Unit Test) einen simulierten, künstlichen Einbruch (Mutation)?"
+        },
+        {
+          id: "static-code-analysis",
+          term: "Static Code Analysis (SonarQube)",
+          long: "Statische Codeanalyse zur Qualitätssicherung",
+          category: "DevOps & Prozesse",
+          definition: "Automatische Prüfung des Quellcodes vor der Laufzeit auf Programmierfehler, Sicherheitslücken, Einhaltung von Richtlinien und Code-Smells (z.B. mittels Linter oder SonarQube).",
+          mnemonic: "Der Autokorrektur-Lektor: Er liest den Code, ohne ihn zu starten, und meckert bei unbenutzten Variablen oder potenziellen Schwachstellen."
+        },
+        {
+          id: "iac-terraform",
+          term: "Infrastructure as Code (IaC)",
+          long: "Infrastruktur-Bereitstellung über Code (Terraform)",
+          category: "DevOps & Prozesse",
+          definition: "Das automatische Erstellen, Ändern und Verwalten von IT-Infrastruktur (Server, Netzwerke) über maschinenlesbare Definitionsdateien anstelle von manueller Konfiguration.",
+          mnemonic: "Der Bauplan zum Server: Ein Text-Skript definiert 'Ich will 3 Server und eine Datenbank'. Terraform liest das und baut es vollautomatisch bei AWS/Azure auf."
+        },
+        {
+          id: "docker-multistage",
+          term: "Docker: Multistage Builds",
+          long: "Mehrstufige Image-Erstellung im Container-Bau",
+          category: "DevOps & Prozesse",
+          definition: "Ein Dockerfile-Entwurfsmuster, bei dem mehrere temporäre Build-Stufen genutzt werden. Nur die fertigen Artefakte werden in das finale, extrem schlanke Produktiv-Image kopiert.",
+          mnemonic: "Der Rohbau: Du installierst Compiler und SDKs in Stufe 1, baust die App und kopierst in Stufe 2 nur die fertige .exe in ein minimales Betriebssystem. Spart gigantisch viel Speicher."
+        },
+        {
+          id: "continuous-delivery",
+          term: "Continuous Delivery vs. Deployment (CD)",
+          long: "Automatisierte Software-Veröffentlichungsprozesse",
+          category: "DevOps & Prozesse",
+          definition: "Continuous Delivery: Jedes erfolgreich getestete Build wird automatisch in eine Release-Bereitschaft versetzt, der Release erfolgt manuell. Continuous Deployment: Das Release erfolgt komplett vollautomatisch direkt in die Produktion.",
+          mnemonic: "Delivery = Fertiges Paket liegt am Lkw, Chef drückt noch manuell den Start-Button. Deployment = Paket fliegt vollautomatisch direkt zum Kunden."
+        },
+        {
+          id: "twelve-factor-app",
+          term: "12-Factor App Methodology",
+          long: "Soll-Kriterien für moderne Web- & Cloud-Services",
+          category: "Software-Architektur",
+          definition: "Eine Reihe von 12 bewährten Richtlinien zur deklarativen Konfiguration, sauberen Portabilität und Skalierbarkeit von SaaS- und Cloud-Native-Anwendungen.",
+          mnemonic: "Die 12 Gebote für Cloud-Software: Nutze Umgebungsvariablen für Konfigurationen, trenne Build und Run strikt und halte Dev/Prod-Umgebungen absolut identisch."
+        },
+        {
+          id: "soa-architecture",
+          term: "SOA",
+          long: "Service-Oriented Architecture (Service-orientierte Architektur)",
+          category: "Software-Architektur",
+          definition: "Ein Software-Architekturmuster, bei dem Anwendungsfunktionen als lose gekoppelte, wiederverwendbare Dienste (Services) über standardisierte Protokolle (oft SOAP/WSDL oder REST) bereitgestellt werden.",
+          mnemonic: "Das Lego-Prinzip: Einzelne Dienste (z.B. 'Zahlungs-Service') werden über feste Stecker (Schnittstellen) zu einem großen Ganzen zusammengesteckt."
+        },
+        {
+          id: "ddd-concepts-1",
+          term: "DDD: Ubiquitous Language & Bounded Context",
+          long: "Domain-Driven Design - Strategische Muster",
+          category: "Software-Architektur",
+          definition: "Ubiquitous Language: Eine einheitliche, allgegenwärtige Fachsprache, die Entwickler und Fachexperten gleichermaßen nutzen. Bounded Context: Eine klare Grenze, innerhalb derer diese Begriffe eine eindeutige Bedeutung haben.",
+          mnemonic: "Ubiquitous Language = Gemeinsames Wörterbuch. Bounded Context = Das Hoheitsgebiet einer Klasse, in dem Wörter exakt eine feste Bedeutung besitzen."
+        },
+        {
+          id: "ddd-concepts-2",
+          term: "DDD: Entities, Value Objects & Aggregates",
+          long: "Domain-Driven Design - Taktische Muster",
+          category: "Software-Architektur",
+          definition: "Entity: Ein Objekt mit eindeutiger Identität über die Zeit (z.B. User-ID). Value Object: Hat keine Identität, wird nur durch seine Werte definiert (z.B. Geldbetrag). Aggregate: Eine Gruppe von Objekten, die als Einheit manipuliert werden.",
+          mnemonic: "Entity = Ein bestimmtes Auto (Fahrgestellnummer zählt). Value Object = Die Farbe des Autos (rot ist rot, egal welches Auto). Aggregate = Auto inklusive Lenkrad und Reifen als logische Kauf-Einheit."
+        },
+        {
+          id: "hash-map-ds",
+          term: "Hash Map / Hash Table",
+          long: "Schlüssel-Wert-Datenstruktur (Key-Value-Store)",
+          category: "Programmierung & OOP",
+          definition: "Eine Datenstruktur, die Schlüssel-Wert-Paare speichert. Sie nutzt eine Hash-Funktion, um den Index für ein Element zu berechnen, und erlaubt so Lese-/Schreibzugriffe in konstanter Zeit O(1).",
+          mnemonic: "Das Telefonbuch: Du suchst den Namen (Key) und springst direkt zur Telefonnummer (Value) ohne die Seiten einzeln durchzublättern."
+        },
+        {
+          id: "heap-ds",
+          term: "Heap (Datenstruktur)",
+          long: "Baumbasierte Datenstruktur",
+          category: "Programmierung & OOP",
+          definition: "Ein spezieller binärer Baum. Beim Max-Heap ist der Wert jedes Elternknotens größer oder gleich den Werten seiner Kinder (Wurzel = Maximum). Beim Min-Heap ist die Wurzel das Minimum. Genutzt z.B. für Priority Queues.",
+          mnemonic: "Die Chef-Pyramide: Der oberste Knoten ist immer der Größte (Max-Heap) oder Kleinste (Min-Heap). Perfekt, um immer sofort das wichtigste Element zu ziehen."
+        },
+        {
+          id: "linked-list-ds",
+          term: "Linked List (Verkettete Liste)",
+          long: "Dynamische, zeigerbasierte Datenstruktur",
+          category: "Programmierung & OOP",
+          definition: "Eine lineare Sammlung von Datenelementen (Knoten), bei der jeder Knoten auf das nächste Element im Speicher verweist (Single Linked) oder zusätzlich auf das vorherige (Double Linked).",
+          mnemonic: "Die Schnitzeljagd: Jeder Fundort (Knoten) enthält ein Geschenk (Wert) und einen Zettel mit der Wegbeschreibung (Zeiger) zum nächsten Fundort."
+        },
+        {
+          id: "bubblesort-insertion",
+          term: "Bubblesort & Insertion Sort",
+          long: "Einfache Sortieralgorithmen",
+          category: "Programmierung & OOP",
+          definition: "Bubblesort: Vergleicht benachbarte Elemente und tauscht sie paarweise aus (O(n²)). Insertion Sort: Sortiert Elemente nacheinander in eine bereits sortierte Teilliste ein.",
+          mnemonic: "Bubblesort = Blasen steigen auf (große Zahlen wandern langsam nach rechts). Insertion Sort = Spielkarten sortieren (du ziehst eine Karte und steckst sie an die richtige Stelle)."
+        },
+        {
+          id: "dijkstra-algo",
+          term: "Dijkstra-Algorithmus",
+          long: "Pfadfindungsalgorithmus für Graphen",
+          category: "Programmierung & OOP",
+          definition: "Ein Algorithmus zur Berechnung der kürzesten Pfade zwischen einem Startknoten und allen anderen Knoten in einem kantengewichteten Graphen (ohne negative Gewichte).",
+          mnemonic: "Das Navi-Prinzip: Breitet sich kreisförmig wie eine Welle aus und findet garantiert den schnellsten Weg durch das Straßennetz von A nach B."
+        },
+        {
+          id: "rest-vs-graphql",
+          term: "REST vs. GraphQL",
+          long: "API-Design-Konzepte im Vergleich",
+          category: "Web-Technologien",
+          definition: "REST: Nutzt feste Endpunkte für Ressourcen. GraphQL: Bietet einen einzigen Endpunkt, an den der Client eine präzise Abfrage schickt, um exakt die benötigten Datenfelder zu erhalten.",
+          mnemonic: "REST = Restaurant-Menü (du kriegst die fertige Combo, auch wenn du die Pommes nicht willst). GraphQL = Buffet (du legst dir exakt das auf den Teller, was du essen willst)."
+        },
+        {
+          id: "mocking-testing",
+          term: "Mocking vs. Stubbing",
+          long: "Test-Double-Techniken",
+          category: "DevOps & Prozesse",
+          definition: "Stub: Liefert fest programmierte Antwortwerte für Tests (Zustandstest). Mock: Simuliert ein komplexes Verhalten und prüft aktiv, ob bestimmte Methoden mit den richtigen Argumenten aufgerufen wurden (Verhaltenstest).",
+          mnemonic: "Stub = Ein stummer Dummy, der auf jede Frage stumpf 'Ja' sagt. Mock = Ein Detektiv-Dummy, der mitschreibt, wie oft du ihn gefragt hast."
         }
       ];
 
@@ -592,6 +1130,12 @@
 
         setCategory(cat) {
           this.currentCategory = cat;
+          
+          // Sync select element if exists
+          const select = document.getElementById("categorySelect");
+          if (select) {
+            select.value = cat;
+          }
           
           // Update active button state
           const buttons = document.querySelectorAll("[id^='cat-']");
