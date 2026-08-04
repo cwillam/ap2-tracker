@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glossar & Eselsbrücken | AP2 Tracker FIAE</title>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="theme-color" content="#8b5cf6" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5.0" />
+
+    <!-- Tailwind Configuration -->
+    <script src="assets/js/tailwind.js?v=2.5.0"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "dark-bg": "#020617",
+              "dark-card": "#0f172a",
+              "dark-border": "#1e293b",
+              "dark-muted": "#64748b",
+              "dark-text": "#f8fafc",
+              "dark-accent": "#8b5cf6",
+              "dark-accent-hover": "#7c3aed",
+              "dark-success": "#10b981",
+              "dark-warning": "#f59e0b",
+              "dark-danger": "#ef4444",
+            },
+            fontFamily: {
+              sans: [
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "sans-serif",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Custom scrollbar for horizontal categories on mobile */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white"
+  >
+    <!-- Header -->
+    <header
+      class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50"
+    >
+      <div
+        class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between"
+      >
+        <a
+          href="index.html"
+          class="flex items-center gap-3 group hover:opacity-80 transition-opacity"
+        >
+          <div
+            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
+          >
+            <i
+              data-lucide="arrow-left"
+              class="text-dark-muted group-hover:text-dark-accent transition-colors w-4 h-4"
+            ></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-lg tracking-tight leading-none"
+              >AP2 <span class="text-dark-accent">Tracker</span></span
+            >
+            <span class="text-[10px] text-dark-muted font-mono"
+              >Zurück zum Dashboard</span
+            >
+          </div>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="help.html"
+            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center hover:border-dark-accent transition-colors text-dark-muted hover:text-white"
+            title="Hilfe & FAQ"
+          >
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+          </a>
+          <span
+            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
+            >v2.5.0</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
+      <!-- Intro Section -->
+      <div class="text-center mb-8 fade-in">
+        <h1
+          class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-dark-accent to-indigo-400 bg-clip-text text-transparent mb-3 pb-1 leading-tight flex items-center justify-center gap-3"
+        >
+          <i data-lucide="brain" class="text-dark-accent w-8 h-8"></i>
+          Glossar &amp; Eselsbrücken (FIAE)
+        </h1>
+        <p class="text-dark-muted max-w-lg mx-auto text-sm md:text-base">
+          Das schnelle Nachschlagewerk für wichtige IHK-Entwicklerkonzepte, OOP-Prinzipien, SQL, APIs, UML und clevere Eselsbrücken zur FIAE-Prüfung.
+        </p>
+      </div>
+
+      <!-- Control Panel -->
+      <div class="bg-dark-card border border-dark-border rounded-2xl p-4 md:p-6 mb-6 fade-in shadow-xl">
+        <!-- Search bar -->
+        <div class="relative w-full mb-4">
+          <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-dark-muted w-4 h-4"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Begriff, Muster oder Entwurfsmuster suchen (z.B. SOLID, Observer)..."
+            class="w-full pl-10 pr-4 py-2.5 bg-dark-bg border border-dark-border rounded-xl text-dark-text placeholder:text-dark-muted focus:outline-none focus:border-dark-accent/60 transition-all text-sm"
+          />
+        </div>
+
+        <!-- Categories horizontal scroll -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1.5 mb-4 text-xs font-bold border-b border-dark-border/40">
+          <button onclick="glossaryApp.setCategory('all')" id="cat-all" class="px-3 py-1.5 rounded-lg bg-dark-accent text-white transition-all shrink-0">
+            Alle
+          </button>
+          <button onclick="glossaryApp.setCategory('favorites')" id="cat-favorites" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0 flex items-center gap-1">
+            <i data-lucide="star" class="w-3 h-3 text-dark-warning fill-dark-warning"></i> Favoriten
+          </button>
+          <button onclick="glossaryApp.setCategory('Software-Architektur')" id="cat-Architektur" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Architektur &amp; UML
+          </button>
+          <button onclick="glossaryApp.setCategory('Datenbanken')" id="cat-Datenbanken" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Datenbanken
+          </button>
+          <button onclick="glossaryApp.setCategory('Programmierung & OOP')" id="cat-OOP" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Programmierung &amp; OOP
+          </button>
+          <button onclick="glossaryApp.setCategory('Web-Technologien')" id="cat-Web" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Web &amp; APIs
+          </button>
+          <button onclick="glossaryApp.setCategory('Software-Sicherheit')" id="cat-Sicherheit" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Sicherheit
+          </button>
+          <button onclick="glossaryApp.setCategory('DevOps & Prozesse')" id="cat-DevOps" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            DevOps &amp; Agile
+          </button>
+        </div>
+
+        <!-- A-Z Alphabet Filter -->
+        <div class="flex flex-wrap items-center justify-center gap-1.5 text-xs font-mono">
+          <button onclick="glossaryApp.setLetter('all')" id="let-all" class="px-2 py-1 rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all font-sans font-bold">
+            A-Z
+          </button>
+          <script>
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+            letters.forEach(l => {
+              document.write(`
+                <button onclick="glossaryApp.setLetter('${l}')" id="let-${l}" class="w-6 h-6 flex items-center justify-center rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all">
+                  ${l}
+                </button>
+              `);
+            });
+          </script>
+        </div>
+      </div>
+
+      <!-- Stats counter -->
+      <div class="flex items-center justify-between mb-4 px-2 text-xs font-bold text-dark-muted fade-in">
+        <span id="statsText">Lade Begriffe...</span>
+        <button onclick="glossaryApp.resetFilters()" class="text-dark-accent hover:underline hover:text-dark-accent-hover transition-colors">
+          Filter zurücksetzen
+        </button>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="termsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-in">
+        <!-- Cards injected dynamically by JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden flex flex-col items-center justify-center text-center py-16 bg-dark-card border border-dark-border border-dashed rounded-2xl p-6 fade-in">
+        <i data-lucide="search" class="w-12 h-12 text-dark-muted mb-4"></i>
+        <h3 class="text-lg font-bold mb-1">Keine Einträge gefunden</h3>
+        <p class="text-sm text-dark-muted max-w-sm mb-4">
+          Probier einen anderen Suchbegriff oder setze die Filter zurück.
+        </p>
+        <button onclick="glossaryApp.resetFilters()" class="px-4 py-2 bg-dark-accent hover:bg-dark-accent-hover text-white text-xs font-bold rounded-lg transition-colors">
+          Alle Filter zurücksetzen
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-dark-border bg-dark-bg py-8 mt-12 text-xs text-dark-muted">
+      <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex flex-col items-center sm:items-start gap-1">
+          <div class="flex items-center gap-1.5 font-bold text-dark-text">
+            <span>© 2026 Christoph Willam</span>
+          </div>
+          <span>IHK-Prüfungsvorbereitung (AP2 FIAE)</span>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap justify-center font-bold">
+          <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition flex items-center gap-1.5">
+            <i data-lucide="code-2" class="w-3.5 h-3.5"></i> GitHub
+          </a>
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-[#5865F2] transition flex items-center gap-1.5">
+            <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Discord
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Lucide icons -->
+    <script src="assets/js/lucide.min.js?v=2.5.0"></script>
+
+    <!-- Glossary App Logic -->
+    <script>
+      // Database of 35 specific FIAE terms for AP2
+      const glossaryData = [
+        {
+          id: "solid",
+          term: "SOLID-Prinzipien",
+          long: "Fünf Grundregeln des objektorientierten Softwaredesigns",
+          category: "Software-Architektur",
+          definition: "Ein Akronym für: Single Responsibility (eine Klasse, eine Aufgabe), Open/Closed (offen für Erweiterung, geschlossen für Änderung), Liskov Substitution (Unterklassen müssen Oberklassen ersetzen können), Interface Segregation (viele spezifische Interfaces statt eines großen), Dependency Inversion (Abhängigkeiten von Abstraktionen, nicht von Implementierungen).",
+          mnemonic: "<strong>S-O-L-I-D</strong> macht deine Softwarearchitektur solide, wartbar und resistent gegen Codefäule."
+        },
+        {
+          id: "singleton",
+          term: "Singleton",
+          long: "Erzeugungsmuster (Design Pattern)",
+          category: "Software-Architektur",
+          definition: "Ein Entwurfsmuster, das sicherstellt, dass von einer Klasse im gesamten Programmverlauf nur eine einzige Instanz existiert (z. B. für eine Datenbankverbindung oder ein Logging-System) und einen globalen Zugriffspunkt darauf bietet.",
+          mnemonic: "Der **Einzelgänger**. Es darf im gesamten System nur genau einen von ihm geben."
+        },
+        {
+          id: "observer",
+          term: "Observer-Pattern",
+          long: "Verhaltensmuster (Design Pattern)",
+          category: "Software-Architektur",
+          definition: "Ein Muster zur Definition einer 1:n-Abhängigkeit zwischen Objekten. Ändert sich der Zustand des Hauptobjekts (Subject), werden alle abhängigen Beobachter (Observer) automatisch benachrichtigt.",
+          mnemonic: "Das <strong>Abonnement-Prinzip</strong> (z.B. YouTube-Kanal oder Newsletter). Der Subscriber wartet passiv auf Benachrichtigungen vom Publisher."
+        },
+        {
+          id: "strategy",
+          term: "Strategy-Pattern",
+          long: "Verhaltensmuster (Design Pattern)",
+          category: "Software-Architektur",
+          definition: "Definiert eine Familie von Algorithmen, kapselt sie in eigenen Klassen und macht sie austauschbar. Ermöglicht es, Algorithmen unabhängig von den Clients, die sie nutzen, zur Laufzeit zu variieren.",
+          mnemonic: "Der **Austauschbare Algorithmus** (z.B. Rabattberechnung oder Sortierung). Die Strategie kann je nach Situation flexibel im laufenden Betrieb getauscht werden."
+        },
+        {
+          id: "factory",
+          term: "Factory-Pattern",
+          long: "Fabrikmethode / Erzeugungsmuster",
+          category: "Software-Architektur",
+          definition: "Auslagerung der Objekterzeugung. Bietet eine Schnittstelle zur Erstellung von Objekten in einer Oberklasse, erlaubt es Unterklassen jedoch, den konkreten Typ der zu erstellenden Objekte zu ändern.",
+          mnemonic: "Die **Autofabrik**. Du sagst: 'Ich will ein Cabrio', die Fabrik entscheidet intern anhand des Standorts, welches konkrete Automodell sie dir baut."
+        },
+        {
+          id: "adapter",
+          term: "Adapter-Pattern",
+          long: "Strukturmuster (Design Pattern)",
+          category: "Software-Architektur",
+          definition: "Übersetzt die Schnittstelle einer Klasse in eine andere Schnittstelle, die der Client erwartet. Ermöglicht die Zusammenarbeit von Klassen, die wegen inkompatibler Schnittstellen sonst nicht kooperieren könnten.",
+          mnemonic: "Der **Reiseadapter**. Er vermittelt zwischen der Steckdose im Ausland (bestehender Code) und deinem heimischen Netzstecker (neuer Client-Code)."
+        },
+        {
+          id: "mvc",
+          term: "MVC (Model-View-Controller)",
+          long: "Architekturmuster für Benutzeroberflächen",
+          category: "Software-Architektur",
+          definition: "Trennt eine Anwendung in drei Komponenten: Model (Daten & Logik), View (Präsentation/UI) und Controller (Steuerung/Ereignisverarbeitung), um Kopplung zu minimieren.",
+          mnemonic: "<strong>Model</strong> = Die Daten in der Küche.<br><strong>View</strong> = Der Teller auf dem Tisch des Gastes.<br><strong>Controller</strong> = Der Kellner, der die Befehle entgegennimmt."
+        },
+        {
+          id: "uml-klassendiagramm",
+          term: "UML-Klassenbeziehungen",
+          long: "Assoziation vs. Aggregation vs. Komposition",
+          category: "Software-Architektur",
+          definition: "Assoziation: lose Beziehung ('kennt sich'). Aggregation: 'besteht-aus' (Teil kann ohne das Ganze leben, z. B. Bibliothek & Buch). Komposition: starke Existenzabhängigkeit (Teil stirbt mit dem Ganzen, z. B. Haus & Raum).",
+          mnemonic: "Aggregation = **leere Raute** (nicht-tödliche Bindung).<br>Komposition = **gefüllte schwarze Raute** (tödliche Bindung: Geht das Ganze kaputt, sterben alle Teile)."
+        },
+        {
+          id: "uml-sequenzdiagramm",
+          term: "UML-Sequenzdiagramm",
+          long: "Interaktionsdiagramm",
+          category: "Software-Architektur",
+          definition: "Ein Diagramm, das den zeitlichen Ablauf des Nachrichtenaustauschs zwischen verschiedenen Objekten in einem Szenario darstellt.",
+          mnemonic: "Die **Zeitachse von oben nach unten**. Zeigt genau, wer wem wann welche Nachricht schickt."
+        },
+        {
+          id: "normalisierung",
+          term: "Normalisierung (1NF, 2NF, 3NF)",
+          long: "Schrittweise Optimierung relationaler Datenstrukturen",
+          category: "Datenbanken",
+          definition: "Aufteilung von Tabellen zur Vermeidung von Redundanzen und Anomalien. 1. NF: Werte sind atomar. 2. NF: In 1. NF und jedes Nicht-Primärattribut hängt voll vom Primärschlüssel ab. 3. NF: In 2. NF und keine transitiven Abhängigkeiten.",
+          mnemonic: "<strong>1. NF:</strong> Keine Gruppen/Listen (atomar).<br><strong>2. NF:</strong> Kein halber Schlüssel reicht aus.<br><strong>3. NF:</strong> Keine Abweichungen über Dritte (Nicht-Schlüssel-Attribute hängen nicht voneinander ab)."
+        },
+        {
+          id: "acid",
+          term: "ACID-Prinzip",
+          long: "Transaktionseigenschaften in Datenbanksystemen",
+          category: "Datenbanken",
+          definition: "Garantiert die Zuverlässigkeit von Datenbanktransaktionen. Atomicity (Atomarität: ganz oder gar nicht), Consistency (Konsistenz), Isolation (Isolation: Transaktionen stören sich nicht), Durability (Dauerhaftigkeit: Daten überleben Abstürze).",
+          mnemonic: "<strong>A-C-I-D</strong>: Stell dir einen Geldtransfer vor. Entweder wird das Geld komplett abgebucht UND gutgeschrieben (Atomar) oder der Zustand bleibt unverändert."
+        },
+        {
+          id: "db-index",
+          term: "Datenbank-Index",
+          long: "Suchbeschleuniger für Tabellen",
+          category: "Datenbanken",
+          definition: "Eine Datenstruktur (meist B-Baum), die es dem DBMS erlaubt, Zeilen in einer Tabelle extrem schnell zu finden, ohne die gesamte Tabelle sequenziell durchsuchen zu müssen (Full Table Scan).",
+          mnemonic: "Das **Stichwortverzeichnis** ganz hinten im Buch. Du musst nicht 500 Seiten lesen, sondern schlägst gezielt das Wort auf der angegebenen Seite nach."
+        },
+        {
+          id: "joins",
+          term: "SQL Joins",
+          long: "Inner, Left, Right & Outer Join",
+          category: "Datenbanken",
+          definition: "Inner Join: Nur Datensätze, die in beiden Tabellen passen. Left Join: Alle aus der linken Tabelle + passende aus der rechten. Right Join: Umgekehrt. Full Join: Alle Daten aus beiden Tabellen.",
+          mnemonic: "<strong>Inner</strong> = Die reine Schnittmenge.<br><strong>Left</strong> = Die linke Tabelle ist dominant, rechts gibt es bei Fehlen NULL-Werte."
+        },
+        {
+          id: "erd",
+          term: "ERD",
+          long: "Entity-Relationship-Diagramm",
+          category: "Datenbanken",
+          definition: "Ein konzeptionelles Datenbankschema, das Entitätstypen, deren Attribute und die Beziehungen (1:1, 1:n, m:n) zwischen ihnen grafisch darstellt.",
+          mnemonic: "Der **Bauplan der Datenbank** vor dem eigentlichen SQL-Create. Kardinalitäten (z.B. Chen- oder Krähenfuß-Notation) legen fest, wer wie oft mit wem verknüpft sein darf."
+        },
+        {
+          id: "nosql",
+          term: "NoSQL",
+          long: "Not Only SQL (Nicht-relationale Datenbanken)",
+          category: "Datenbanken",
+          definition: "Datenbanksysteme, die nicht auf dem klassischen relationalen Modell basieren. Unterteilt in Dokumentenorientiert (z.B. MongoDB), Key-Value (z.B. Redis), Spaltenorientiert oder Graphdatenbanken.",
+          mnemonic: "Verzichtet auf starre Tabellenstrukturen und Joins für **hohe Skalierbarkeit** bei unstrukturierten Big-Data-Mengen."
+        },
+        {
+          id: "big-o",
+          term: "Big-O-Notation",
+          long: "Laufzeitkomplexität von Algorithmen",
+          category: "Programmierung & OOP",
+          definition: "Beschreibt die Leistung oder den Speicherbedarf eines Algorithmus im schlimmsten Fall (Worst Case) in Abhängigkeit von der Eingabemenge n (z.B. O(1) konstant, O(n) linear, O(n²) quadratisch).",
+          mnemonic: "<strong>O(1)</strong> = Sofort gefunden (unabhängig von der Größe).<br><strong>O(n)</strong> = Du musst n Elemente nacheinander anschauen.<br><strong>O(n²)</strong> = Schlimm! Zwei geschachtelte Schleifen (Wachstum explodiert)."
+        },
+        {
+          id: "polymorphie",
+          term: "Polymorphie",
+          long: "Vielgestaltigkeit (OOP-Grundpfeiler)",
+          category: "Programmierung & OOP",
+          definition: "Erlaubt es, dass verschiedene Klassen auf denselben Methodenaufruf unterschiedlich reagieren. Meist realisiert durch das Überschreiben (Overriding) von Methoden einer Oberklasse oder Interface-Implementierung.",
+          mnemonic: "<strong>Eine Methode, viele Gesichter</strong>. Wenn du die Methode 'lautGeben()' bei 'Hund' und 'Katze' aufrufst, bellt der eine und die andere miaut."
+        },
+        {
+          id: "kapselung",
+          term: "Kapselung (Encapsulation)",
+          long: "Datenkapselung (OOP-Grundpfeiler)",
+          category: "Programmierung & OOP",
+          definition: "Das Verbergen des inneren Zustands eines Objekts vor direktem Zugriff von außen. Variablen werden 'private' deklariert; der Zugriff erfolgt kontrolliert über öffentliche 'getter' und 'setter' Methoden.",
+          mnemonic: "Die **Schutzmauer**. Verhindert, dass externer Code deine internen Variablen unkontrolliert oder fehlerhaft überschreiben kann."
+        },
+        {
+          id: "vererbung",
+          term: "Vererbung",
+          long: "Klassenvererbung (OOP-Grundpfeiler)",
+          category: "Programmierung & OOP",
+          definition: "Ein Mechanismus, bei dem eine Unterklasse (Subclass) Attribute und Methoden einer Oberklasse (Superclass) übernimmt und spezialisieren oder erweitern kann.",
+          mnemonic: "Die **Ist-ein-Beziehung**. Ein 'Porsche' **ist ein** 'Auto' und erbt dessen Basiseigenschaften (Räder, Motor)."
+        },
+        {
+          id: "tdd",
+          term: "TDD",
+          long: "Test-Driven Development (Testgetriebene Entwicklung)",
+          category: "Programmierung & OOP",
+          definition: "Entwicklungszyklus: 1. Fehlschlagenden Unit-Test schreiben. 2. Minimalen Code schreiben, damit der Test besteht. 3. Code aufräumen und strukturieren (Refactoring).",
+          mnemonic: "<strong>Red - Green - Refactor</strong>: Erst Rot (Test schlägt fehl), dann Grün (Test besteht), dann Refactor (Code hübsch machen)."
+        },
+        {
+          id: "unit-integration-test",
+          term: "Unit- vs. Integrationstest",
+          long: "Qualitätssicherungsebenen",
+          category: "Programmierung & OOP",
+          definition: "Unit Test: Testet eine einzelne Code-Einheit (z.B. eine Funktion) isoliert von externen Abhängigkeiten (unter Einsatz von Mocks). Integrationstest: Testet das Zusammenspiel mehrerer Komponenten.",
+          mnemonic: "<strong>Unit:</strong> Funktioniert das Zahnrad einzeln? <br><strong>Integration:</strong> Greifen die Zahnräder richtig ineinander?"
+        },
+        {
+          id: "dry-kiss",
+          term: "DRY & KISS",
+          long: "Software-Entwicklungsprinzipien",
+          category: "Programmierung & OOP",
+          definition: "DRY (Don't Repeat Yourself): Vermeide Codeduplizierung durch Abstraktionen/Funktionen. KISS (Keep It Simple, Stupid): Halte Lösungen so einfach und verständlich wie möglich.",
+          mnemonic: "Kopierst du Code per Copy-Paste, hast du das **DRY-Prinzip** verletzt. Halte es einfach statt überkompliziert (**KISS**)."
+        },
+        {
+          id: "stack-queue",
+          term: "Stack & Queue",
+          long: "Lineare Datenstrukturen",
+          category: "Programmierung & OOP",
+          definition: "Stack (Stapel): Last-In-First-Out (LIFO), Elemente werden oben aufgelegt und entnommen. Queue (Warteschlange): First-In-First-Out (FIFO), Einfügen hinten, Entnehmen vorne.",
+          mnemonic: "<strong>Stack</strong> = Tellerstapel (der letzte Teller kommt zuerst weg).<br><strong>Queue</strong> = Warteschlange an der Kasse (wer zuerst ansteht, wird zuerst bedient)."
+        },
+        {
+          id: "owasp-top-10",
+          term: "OWASP Top 10",
+          long: "Die 10 kritischsten Sicherheitsrisiken für Web-Anwendungen",
+          category: "Software-Sicherheit",
+          definition: "Ein regelmäßig aktualisierter Bericht, der die dringendsten Sicherheitslücken in Webapplikationen beschreibt (z.B. Broken Access Control, Cryptographic Failures, Injections).",
+          mnemonic: "Die **Bibel der Anwendungssicherheit**. Wer Web-Anwendungen baut, muss diese 10 Lücken kennen und absichern."
+        },
+        {
+          id: "sql-injection",
+          term: "SQL-Injection (SQLi)",
+          long: "Einschleusen von Datenbankbefehlen",
+          category: "Software-Sicherheit",
+          definition: "Eine Sicherheitslücke, bei der Angreifer SQL-Code über Benutzereingaben in eine Datenbankabfrage einschleusen, um unbefugten Zugriff auf Daten zu erlangen.",
+          mnemonic: "Verhindert durch **Prepared Statements** (parametrisierte Abfragen). Dabei werden Daten und SQL-Befehle strikt getrennt."
+        },
+        {
+          id: "xss",
+          term: "Cross-Site Scripting (XSS)",
+          long: "Clientseitige Code-Injektion",
+          category: "Software-Sicherheit",
+          definition: "Eine Schwachstelle, bei der bösartiger JavaScript-Code in eine vertrauenswürdige Website eingeschleust und im Browser der Besucher ausgeführt wird (reflektiert, persistent oder DOM-basiert).",
+          mnemonic: "Der Angreifer zwingt **deinen Browser**, bösartiges Javascript in deinem Sitzungskontext auszuführen (z.B. zum Session-Klau)."
+        },
+        {
+          id: "csrf",
+          term: "CSRF",
+          long: "Cross-Site Request Forgery (Sitzungsübernahme)",
+          category: "Software-Sicherheit",
+          definition: "Ein Angriff, bei dem das Opfer unbewusst eine HTTP-Anfrage auf einer Web-Applikation ausführt, bei der es authentifiziert ist (z. B. Geldüberweisung über ein präpariertes Bild).",
+          mnemonic: "<strong>Fremde Befehle untergeschoben</strong>: Der Angreifer missbraucht das aktive Login-Cookie deines Browsers für Aktionen im Hintergrund."
+        },
+        {
+          id: "hashing-encryption",
+          term: "Hashing vs. Encryption",
+          long: "Kryptografische Schutzverfahren",
+          category: "Software-Sicherheit",
+          definition: "Hashing: Einwegfunktion zur Erzeugung einer Prüfsumme fester Länge (nicht umkehrbar, z.B. SHA-256 für Passwörter). Encryption: Zweiwegfunktion zur ver- und entschlüsselbaren Datenübertragung.",
+          mnemonic: "Ein **Hash** ist wie eine Tomate, die zu Ketchup verarbeitet wird (du kommst nie zurück zur Tomate). **Verschlüsselung** ist eine Kiste mit Schlüssel."
+        },
+        {
+          id: "jwt",
+          term: "JWT (JSON Web Token)",
+          long: "Zustandsloser Authentifizierungsstandard",
+          category: "Web-Technologien",
+          definition: "Ein kompakter, URL-sicherer Token zur Übertragung von JSON-Daten. Besteht aus Header, Payload (Claims) und einer kryptografischen Signatur zur Verifizierung.",
+          mnemonic: "Der **digitale Ausweis** für APIs. Er ist selbst-verifizierend und benötigt keine Sitzungsdatenbank auf dem Server."
+        },
+        {
+          id: "rest-api",
+          term: "REST-API",
+          long: "Representational State Transfer API-Stil",
+          category: "Web-Technologien",
+          definition: "Ein zustandsloser (stateless) Architekturstil für APIs. Nutzt HTTP-Standards (GET, POST, PUT, DELETE, PATCH) zur Manipulation von Ressourcen.",
+          mnemonic: "<strong>REST ist zustandslos</strong>: Jede Anfrage steht für sich alleine. Der Server vergisst den Client sofort nach dem Senden der Antwort."
+        },
+        {
+          id: "http-statuscodes",
+          term: "HTTP-Statuscodes",
+          long: "API-Antwortklassen",
+          category: "Web-Technologien",
+          definition: "Antwortcodes des Servers. 2xx: Erfolg (z.B. 200 OK). 3xx: Umleitung (z.B. 301 Moved). 4xx: Client-Fehler (z.B. 404 Not Found). 5xx: Server-Fehler (z.B. 500 Internal Error).",
+          mnemonic: "<strong>400er:</strong> Du hast einen Fehler gemacht (z.B. falsche URL oder JSON).<br><strong>500er:</strong> Der Server-Code ist abgestürzt."
+        },
+        {
+          id: "websockets",
+          term: "WebSockets",
+          long: "Echtzeit-Netzwerkprotokoll",
+          category: "Web-Technologien",
+          definition: "Ein TCP-basiertes Protokoll, das eine dauerhafte, bidirektionale Vollduplex-Verbindung zwischen einem Webbrowser und einem Server aufbaut.",
+          mnemonic: "Die **Standleitung** für Chats oder Live-Systeme. Spart den Overhead von ständig neuen HTTP-Requests."
+        },
+        {
+          id: "json-xml",
+          term: "JSON vs. XML",
+          long: "Strukturierte Datenformate",
+          category: "Web-Technologien",
+          definition: "JSON: Daten als Schlüssel-Wert-Paare (schlank, JS-nativ). XML: Baumstruktur mit öffnenden und schließenden Tags (schwerfälliger, unterstützt Schemadateien wie XSD).",
+          mnemonic: "<strong>JSON</strong> = Schlank {name: 'Tom'}.<br><strong>XML</strong> = Tag-basiert &lt;name&gt;Tom&lt;/name&gt; (komplexer)."
+        },
+        {
+          id: "docker",
+          term: "Docker / Container",
+          long: "Software-Standardisierung",
+          category: "DevOps & Prozesse",
+          definition: "Eine Plattform, die Anwendungen inklusive aller System-Abhängigkeiten in einer isolierten, leichtgewichtigen Umgebung (Container) verpackt, um Portabilität zu garantieren.",
+          mnemonic: "<strong>'Funktioniert auf meinem Rechner'</strong> wird Realität für die Produktion, da das komplette System eingepackt wird."
+        },
+        {
+          id: "ci-cd",
+          term: "CI/CD-Pipeline",
+          long: "Continuous Integration & Deployment",
+          category: "DevOps & Prozesse",
+          definition: "Der Prozess der automatisierten Zusammenführung von Code (Integration) und der anschließenden Bereitstellung (Deployment) nach erfolgreichen Security- und Unit-Tests.",
+          mnemonic: "Das **Fließband der Softwareentwicklung**. Verhindert, dass kaputter oder ungetesteter Code auf die Server gelangt."
+        },
+        {
+          id: "git-flow",
+          term: "Git-Flow vs. Trunk-Based",
+          long: "Verzweigungsstrategien in Git",
+          category: "DevOps & Prozesse",
+          definition: "Git-Flow: Komplexe Strategie mit langlebigen Verzweigungen (main, develop, feature, release, hotfix). Trunk-Based: Entwickler arbeiten auf einem einzigen Hauptbranch (Trunk) mit kurzen Commits.",
+          mnemonic: "<strong>Git-Flow</strong> = Viele feste Zwischenstopps und strukturierte Releases.<br><strong>Trunk-Based</strong> = Schnelles Liefern durch ständige Integration auf dem Main-Branch."
+        }
+      ];
+
+      // Glossary Application state and logic
+      class GlossaryApp {
+        constructor(data) {
+          this.data = data;
+          this.currentCategory = "all";
+          this.currentLetter = "all";
+          this.favorites = this.loadFavorites();
+          
+          this.initElements();
+          this.initEvents();
+          this.render();
+        }
+
+        initElements() {
+          this.container = document.getElementById("termsContainer");
+          this.searchInput = document.getElementById("searchInput");
+          this.emptyState = document.getElementById("emptyState");
+          this.statsText = document.getElementById("statsText");
+        }
+
+        initEvents() {
+          this.searchInput.addEventListener("input", () => this.render());
+        }
+
+        loadFavorites() {
+          try {
+            const favs = localStorage.getItem("ap2_glossary_favorites");
+            return favs ? JSON.parse(favs) : [];
+          } catch (e) {
+            return [];
+          }
+        }
+
+        saveFavorites() {
+          localStorage.setItem("ap2_glossary_favorites", JSON.stringify(this.favorites));
+        }
+
+        toggleFavorite(id) {
+          const index = this.favorites.indexOf(id);
+          if (index === -1) {
+            this.favorites.push(id);
+          } else {
+            this.favorites.splice(index, 1);
+          }
+          this.saveFavorites();
+          this.render();
+        }
+
+        setCategory(cat) {
+          this.currentCategory = cat;
+          
+          // Update active button state
+          const buttons = document.querySelectorAll("[id^='cat-']");
+          buttons.forEach(btn => {
+            if (btn.id === `cat-${cat === 'favorites' ? 'favorites' : cat.replace(" & ", "").replace("-", "")}`) {
+              btn.className = "px-3 py-1.5 rounded-lg bg-dark-accent text-white transition-all shrink-0";
+            } else {
+              if (btn.id === 'cat-favorites') {
+                btn.className = "px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0 flex items-center gap-1";
+              } else {
+                btn.className = "px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0";
+              }
+            }
+          });
+
+          this.render();
+        }
+
+        setLetter(letter) {
+          this.currentLetter = letter;
+
+          // Update active button state
+          const buttons = document.querySelectorAll("[id^='let-']");
+          buttons.forEach(btn => {
+            if (btn.id === `let-${letter}`) {
+              btn.className = btn.id === 'let-all' 
+                ? "px-2 py-1 rounded bg-dark-accent border border-dark-accent text-white transition-all font-sans font-bold"
+                : "w-6 h-6 flex items-center justify-center rounded bg-dark-accent border border-dark-accent text-white transition-all";
+            } else {
+              btn.className = btn.id === 'let-all'
+                ? "px-2 py-1 rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all font-sans font-bold"
+                : "w-6 h-6 flex items-center justify-center rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all";
+            }
+          });
+
+          this.render();
+        }
+
+        resetFilters() {
+          this.searchInput.value = "";
+          this.setCategory("all");
+          this.setLetter("all");
+        }
+
+        getCategoryStyles(category) {
+          switch (category) {
+            case "Software-Architektur":
+              return "bg-blue-500/10 text-blue-400 border border-blue-500/20";
+            case "Datenbanken":
+              return "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            case "Programmierung & OOP":
+              return "bg-pink-500/10 text-pink-400 border border-pink-500/20";
+            case "Web-Technologien":
+              return "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20";
+            case "Software-Sicherheit":
+              return "bg-red-500/10 text-red-400 border border-red-500/20";
+            case "DevOps & Prozesse":
+              return "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+            default:
+              return "bg-dark-muted/10 text-dark-muted border border-dark-border";
+          }
+        }
+
+        render() {
+          const searchQuery = this.searchInput.value.toLowerCase().trim();
+          
+          // Filter data
+          const filtered = this.data.filter(item => {
+            // Category filter
+            if (this.currentCategory === "favorites") {
+              if (!this.favorites.includes(item.id)) return false;
+            } else if (this.currentCategory !== "all" && item.category !== this.currentCategory) {
+              return false;
+            }
+
+            // Letter filter (first letter of term)
+            if (this.currentLetter !== "all" && item.term.charAt(0).toUpperCase() !== this.currentLetter) {
+              return false;
+            }
+
+            // Search query filter
+            if (searchQuery) {
+              const inTerm = item.term.toLowerCase().includes(searchQuery);
+              const inLong = item.long.toLowerCase().includes(searchQuery);
+              const inDef = item.definition.toLowerCase().includes(searchQuery);
+              return inTerm || inLong || inDef;
+            }
+
+            return true;
+          });
+
+          // Sort alphabetically
+          filtered.sort((a, b) => a.term.localeCompare(b.term));
+
+          // Render stats
+          this.statsText.textContent = `${filtered.length} von ${this.data.length} Begriffen angezeigt`;
+
+          // Handle empty state
+          if (filtered.length === 0) {
+            this.container.innerHTML = "";
+            this.emptyState.classList.remove("hidden");
+            return;
+          } else {
+            this.emptyState.classList.add("hidden");
+          }
+
+          // Build HTML cards
+          this.container.innerHTML = filtered.map(item => {
+            const isFav = this.favorites.includes(item.id);
+            const catClass = this.getCategoryStyles(item.category);
+            
+            return `
+              <div class="bg-dark-card border border-dark-border rounded-xl p-5 hover:border-dark-accent/40 transition-all flex flex-col justify-between shadow-md">
+                <div>
+                  <div class="flex items-start justify-between gap-4 mb-2">
+                    <div class="flex flex-col">
+                      <h2 class="text-xl font-bold text-white tracking-tight">${item.term}</h2>
+                      <span class="text-xs text-dark-muted font-mono leading-tight mt-0.5">${item.long}</span>
+                    </div>
+                    <button 
+                      onclick="glossaryApp.toggleFavorite('${item.id}')" 
+                      class="text-dark-muted hover:text-dark-warning transition-colors"
+                      title="${isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}"
+                    >
+                      <i data-lucide="star" class="w-4 h-4 ${isFav ? 'text-dark-warning fill-dark-warning' : ''}"></i>
+                    </button>
+                  </div>
+                  
+                  <span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${catClass} mb-3.5">
+                    ${item.category}
+                  </span>
+
+                  <p class="text-slate-300 text-sm leading-relaxed">${item.definition}</p>
+                </div>
+
+                <!-- Mnemonic Box -->
+                ${item.mnemonic ? `
+                  <div class="mt-4 p-3 bg-dark-bg/60 border border-dark-warning/10 rounded-lg flex items-start gap-2.5">
+                    <i data-lucide="lightbulb" class="w-4 h-4 text-dark-warning shrink-0 mt-0.5"></i>
+                    <div class="text-xs text-slate-400 leading-normal font-sans">
+                      <span class="font-bold text-dark-warning">Eselsbrücke:</span><br>
+                      ${item.mnemonic}
+                    </div>
+                  </div>
+                ` : ""}
+              </div>
+            `;
+          }).join("");
+
+          // Re-create icons via Lucide
+          if (window.lucide) {
+            lucide.createIcons();
+          }
+        }
+      }
+
+      // Initialize the App
+      const glossaryApp = new GlossaryApp(glossaryData);
+    </script>
+  </body>
+</html>
