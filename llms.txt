@@ -1,0 +1,28 @@
+# AP2 Tracker FIAE – IHK Prüfungsvorbereitung für Anwendungsentwickler
+
+> Ein interaktiver, lokaler Fortschritts-Tracker speziell für Fachinformatiker Anwendungsentwicklung (FIAE) zur Vorbereitung auf die IHK-Abschlussprüfung Teil 2 (AP2). 100 % kostenlos, werbefrei, ohne Registrierung und vollständig offline-fähig.
+
+## Kernfunktionen
+
+- **FIAE-Spezifische Lernfelder:** Software-Architektur, Design Patterns (GoF), OOP-Konzepte, SOLID, Clean Code, fortgeschrittene Datenbanken (SQL & NoSQL), UML-Diagramme und Software-Testing.
+- **Lernkarten-System (Anki 2.0):** Über 790 FIAE-spezifische Karteikarten mit Codebeispielen, Spaced Repetition und Tastatur-Shortcuts.
+- **SQL-Labor (`/sql.html`):** Fortgeschrittenes SQL-Training (Joins, Subqueries, Aggregationen, GROUP BY, Transaktionen).
+- **Subnetz-Trainer (`/subnet.html`):** Training für IPv4/IPv6-Netzwerkberechnungen.
+- **Glossar & Eselsbrücken (`/glossar.html`):** 100 FIAE-Kernbegriffe mit Merkhilfen und Favoritenliste.
+- **Datenschutz & Offline-First:** 100 % clientseitige Datenspeicherung (`localStorage`), PWA-Support und Android-App im Google Play Store.
+
+## Relevante Seiten
+
+- [Startseite & Checkliste](https://ap2.cwillam.de/)
+- [SQL-Labor](https://ap2.cwillam.de/sql.html)
+- [Subnetz- & IP-Trainer](https://ap2.cwillam.de/subnet.html)
+- [Glossar & Eselsbrücken](https://ap2.cwillam.de/glossar.html)
+- [Updates & Roadmap](https://ap2.cwillam.de/updates.html)
+- [Hilfe & FAQ](https://ap2.cwillam.de/help.html)
+- [Für Schulen & Bildungseinrichtungen](https://ap2.cwillam.de/bildungseinrichtungen.html)
+- [Datenschutzerklärung](https://ap2.cwillam.de/datenschutz.html)
+
+## Community & Open Source
+
+- **Discord-Community:** https://discord.gg/5BM5YJadDs (Lerngruppen, Fragen & Austausch)
+- **GitHub-Repository:** https://github.com/cwillam/ap2-tracker (AGPL-3.0 Lizenz)
