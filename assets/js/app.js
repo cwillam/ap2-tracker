@@ -511,10 +511,18 @@ const app = {
         }
       }
 
-      if (localStorage.getItem('ap2_infobox_dismissed')) {
-        const infoBox = document.getElementById('infoBox');
-        if (infoBox) infoBox.classList.add('hidden');
-      }
+      ['schoolBox', 'infoBox'].forEach((boxId) => {
+        const storagePrefix = 'ap2_';
+        if (localStorage.getItem(storagePrefix + boxId + '_dismissed') === 'true') {
+          const el = document.getElementById(boxId);
+          if (el) el.remove();
+        } else if (localStorage.getItem(storagePrefix + boxId + '_collapsed') === 'true') {
+          const content = document.getElementById(boxId + 'Content');
+          const chevron = document.getElementById(boxId + 'Chevron');
+          if (content) content.classList.add('hidden');
+          if (chevron) chevron.classList.add('rotate-180');
+        }
+      });
 
       // Willkommens-Modal beim Start deaktiviert
 
@@ -876,10 +884,23 @@ const app = {
     });
   },
 
-  hideInfoBox() {
-    const el = document.getElementById('infoBox');
+  toggleBox(boxId) {
+    const content = document.getElementById(boxId + 'Content');
+    const chevron = document.getElementById(boxId + 'Chevron');
+    if (!content) return;
+    const isHidden = content.classList.toggle('hidden');
+    if (chevron) chevron.classList.toggle('rotate-180', isHidden);
+    localStorage.setItem('ap2_' + boxId + '_collapsed', isHidden ? 'true' : 'false');
+  },
+
+  dismissBox(boxId) {
+    const el = document.getElementById(boxId);
     if (el) el.remove();
-    localStorage.setItem('ap2_infobox_dismissed', 'true');
+    localStorage.setItem('ap2_' + boxId + '_dismissed', 'true');
+  },
+
+  hideInfoBox() {
+    this.dismissBox('infoBox');
   },
 
   getState(id) {
@@ -1219,6 +1240,10 @@ const app = {
     if (confirm('Wirklich ALLE Daten unwiderruflich löschen?')) {
       localStorage.removeItem('ap2_tracker_state_v1');
       localStorage.removeItem('ap2_infobox_dismissed');
+      localStorage.removeItem('ap2_schoolBox_dismissed');
+      localStorage.removeItem('ap2_schoolBox_collapsed');
+      localStorage.removeItem('ap2_infoBox_dismissed');
+      localStorage.removeItem('ap2_infoBox_collapsed');
       location.reload();
     }
   },
