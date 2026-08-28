@@ -21,6 +21,7 @@
 - [Hilfe & FAQ](https://ap2.cwillam.de/help.html)
 - [Für Schulen & Bildungseinrichtungen](https://ap2.cwillam.de/bildungseinrichtungen.html)
 - [Datenschutzerklärung](https://ap2.cwillam.de/datenschutz.html)
+- [Google Play Store App](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
 
 ## Community & Open Source
 

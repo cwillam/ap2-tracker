@@ -1,6 +1,7 @@
 # AP2 Tracker FIAE - Dein Lernbegleiter (v2.7.0 Update)
 
-[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de) [![Version](https://img.shields.io/badge/Version-v2.7.0-blue?style=for-the-badge)](https://ap2.cwillam.de)
+[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FIAE_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
+[![Version](https://img.shields.io/badge/Version-v2.7.0-blue?style=for-the-badge)](https://ap2.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-tracker/issues/new?template=feature.yml)
 
@@ -169,7 +170,7 @@ Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
 ## Roadmap
 
-- [ ] **Google Play Store Release:** Öffentlicher Store-Rollout für Android-Geräte (Android 16 / API-Level 36).
+- [x] **Google Play Store Release:** Öffentlicher Store-Rollout für Android-Geräte (Android 16 / API-Level 36).
 - [x] **Closed-Beta-Test:** 14-Tage-Testphase im Google Play Store erfolgreich abgeschlossen.
 - [ ] **Prüfungs-Simulator:** Zufällige Fragenkombinationen zur Simulation der echten Abschlussprüfung.
 - [ ] **Detaillierte Lernzettel:** Download-Bereich für komprimierte Zusammenfassungen (Cheat Sheets).
