@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Pseudocode & Algorithmen-Labor | AP2 FIAE Tracker</title>
+    <link rel="canonical" href="https://ap2.cwillam.de/pseudocode.html" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="theme-color" content="#8b5cf6" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2.7.0" />
+
+    <!-- Tailwind Configuration -->
+    <script src="assets/js/tailwind.js?v=2.7.0"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "Helvetica Neue",
+                "Arial",
+                "sans-serif",
+              ],
+              mono: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "Liberation Mono",
+                "Courier New",
+                "monospace",
+              ],
+            },
+            colors: {
+              dark: {
+                bg: "#020617",
+                card: "#0f172a",
+                border: "#1e293b",
+                muted: "#94a3b8",
+                text: "#f8fafc",
+                accent: "#8b5cf6",
+                "accent-hover": "#7c3aed",
+                success: "#10b981",
+                warning: "#f59e0b",
+                danger: "#ef4444",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Smooth bar transitions */
+      .algo-bar {
+        transition: height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                    background-color 0.2s ease,
+                    opacity 0.25s ease,
+                    transform 0.2s ease;
+      }
+      /* Code line highlight */
+      .code-line {
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+      }
+      .code-line.active {
+        background-color: rgba(139, 92, 246, 0.22);
+        border-left: 3px solid #8b5cf6;
+        color: #c4b5fd;
+      }
+      /* Custom scrollbars */
+      .custom-scroll::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 4px;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: #334155;
+      }
+      /* Table input states */
+      .trace-input {
+        font-size: 14px; /* Prevents auto-zoom on mobile iOS */
+        touch-action: manipulation;
+      }
+      .trace-input.correct {
+        background-color: rgba(16, 185, 129, 0.25) !important;
+        border-color: #10b981 !important;
+        color: #34d399 !important;
+      }
+      .trace-input.wrong {
+        background-color: rgba(239, 68, 68, 0.25) !important;
+        border-color: #ef4444 !important;
+        color: #f87171 !important;
+      }
+      /* Puzzle item animation */
+      .puzzle-line {
+        user-select: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      /* Mobile tap highlight reset */
+      button, a {
+        -webkit-tap-highlight-color: transparent;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white antialiased"
+  >
+    <!-- Header -->
+    <header
+      class="w-full border-b border-dark-border bg-dark-bg/95 backdrop-blur-md sticky top-0 z-50"
+    >
+      <div
+        class="max-w-6xl mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-3"
+      >
+        <a
+          href="index.html"
+          class="flex items-center gap-2.5 sm:gap-3 group hover:opacity-85 transition-opacity no-underline"
+        >
+          <div
+            class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors shrink-0 shadow-sm"
+          >
+            <i
+              data-lucide="arrow-left"
+              class="text-dark-muted group-hover:text-dark-accent transition-colors w-4 h-4 sm:w-5 sm:h-5"
+            ></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-base sm:text-lg tracking-tight leading-none text-white"
+              >AP2 <span class="text-dark-accent">FIAE Tracker</span></span
+            >
+            <span class="text-[10px] text-dark-muted font-mono leading-tight mt-1"
+              >Pseudocode & Algorithmen-Labor</span
+            >
+          </div>
+        </a>
+
+        <!-- Streak / Status Indicator -->
+        <div class="flex items-center gap-2">
+          <div
+            id="streakBadge"
+            class="flex items-center gap-1.5 px-3 py-1.5 bg-dark-card border border-dark-border rounded-xl text-xs font-mono text-slate-200 shadow-sm"
+            title="Erfolgreich gelöste Aufgaben"
+          >
+            <i data-lucide="flame" class="w-4 h-4 text-purple-400"></i>
+            <span id="streakCount" class="font-bold text-white">0</span>
+            <span class="hidden sm:inline text-slate-400">gelöst</span>
+          </div>
+
+          <div
+            class="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-dark-accent/10 border border-dark-accent/30 rounded-xl text-xs font-mono text-dark-accent"
+          >
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span>100% Offline</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- PROMINENTER 3-MODULE-NAVIGATOR (SEHR GUT SICHTBAR!)          -->
+    <!-- ============================================================ -->
+    <div class="border-b border-dark-border bg-slate-950/80 sticky top-16 z-40 shadow-md">
+      <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5">
+        <nav class="grid grid-cols-3 gap-1.5 sm:gap-3" aria-label="Hauptnavigation Module">
+          <!-- Tab 1 -->
+          <button
+            type="button"
+            id="tabBtn-guide"
+            onclick="switchTab('guide')"
+            class="tab-btn active flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-accent text-white shadow-md shadow-purple-500/20 border border-purple-400/40"
+          >
+            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0 transition-colors">
+              <i data-lucide="book-open" class="w-4 h-4 text-white"></i>
+            </div>
+            <div class="min-w-0">
+              <div class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-white">1. FIAE-Guide</div>
+              <div class="tab-sub text-[9px] sm:text-[10px] text-purple-100 hidden sm:block truncate opacity-95">O-Notation & Algos</div>
+            </div>
+          </button>
+
+          <!-- Tab 2 -->
+          <button
+            type="button"
+            id="tabBtn-visualizer"
+            onclick="switchTab('visualizer')"
+            class="tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card border border-dark-border text-slate-400 hover:text-white hover:border-slate-600"
+          >
+            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800/80 flex items-center justify-center shrink-0 transition-colors">
+              <i data-lucide="play-circle" class="w-4 h-4 text-slate-400"></i>
+            </div>
+            <div class="min-w-0">
+              <div class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-slate-300">2. Visualizer</div>
+              <div class="tab-sub text-[9px] sm:text-[10px] text-slate-500 hidden sm:block truncate">Profi-Simulator</div>
+            </div>
+          </button>
+
+          <!-- Tab 3 -->
+          <button
+            type="button"
+            id="tabBtn-exercises"
+            onclick="switchTab('exercises')"
+            class="tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card border border-dark-border text-slate-400 hover:text-white hover:border-slate-600"
+          >
+            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800/80 flex items-center justify-center shrink-0 transition-colors">
+              <i data-lucide="check-square" class="w-4 h-4 text-slate-400"></i>
+            </div>
+            <div class="min-w-0">
+              <div class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-slate-300">3. Üben & Test</div>
+              <div class="tab-sub text-[9px] sm:text-[10px] text-slate-500 hidden sm:block truncate">FIAE Prüfungsset</div>
+            </div>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-3 sm:px-4 py-5 sm:py-6 flex-1 w-full">
+
+      <!-- ============================================================ -->
+      <!-- TAB 1: FIAE-GUIDE & O-NOTATION (AUSFÜHRLICHE THEORIE)        -->
+      <!-- ============================================================ -->
+      <section id="tabContent-guide" class="space-y-6 sm:space-y-8">
+        
+        <!-- Hero Box -->
+        <div class="bg-gradient-to-br from-slate-900 via-dark-card to-slate-950 border border-dark-border rounded-2xl p-5 sm:p-7 shadow-card">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div>
+              <div class="flex items-center gap-2 text-dark-accent text-xs font-mono mb-2 uppercase tracking-wider">
+                <i data-lucide="code-2" class="w-4 h-4"></i>
+                <span>Spezialisierung Anwendungsentwicklung (FIAE)</span>
+              </div>
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
+                Algorithmen, Sortierverfahren & Effizienz (O-Notation)
+              </h1>
+              <p class="text-slate-300 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
+                In der AP2 (FIAE) sind Algorithmen der absolute Dreh- und Angelpunkt: 
+                Vergleich von <strong>Sortierverfahren</strong>, <strong>Binärer Suche</strong>, 
+                <strong>Rekursion</strong> und deren mathematischer <strong>Laufzeitkomplexität</strong>.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2.5 shrink-0">
+              <button
+                type="button"
+                onclick="switchTab('visualizer')"
+                class="w-full sm:w-auto px-4 py-3 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-purple-500/15 transition-all"
+              >
+                <span>Zum Live-Visualizer</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big-O Explanation: Der Praxis-Vergleich -->
+        <div class="bg-dark-card border border-dark-border rounded-2xl p-5 sm:p-7 shadow-card">
+          <div class="flex items-start gap-3.5 mb-4">
+            <div class="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold font-mono shrink-0">O</div>
+            <div>
+              <h2 class="text-base sm:text-lg font-bold text-white">Was bedeutet die O-Notation in der Prüfung?</h2>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+                Die O-Notation (Landau-Symbol) beschreibt, wie stark die Laufzeit oder der Speicherbedarf wächst, 
+                wenn die Datenmenge <code>n</code> größer wird. Sie misst keine Sekunden, sondern die <strong>Anzahl der Rechenschritte</strong>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Practical Growth comparison -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 font-mono text-xs">
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-3.5">
+              <div class="text-emerald-400 font-bold text-sm">O(1)</div>
+              <div class="text-white font-semibold mt-1">Konstant</div>
+              <div class="text-[11px] text-slate-400 mt-1">Immer gleich schnell, egal wie groß n ist (z.B. Array-Zugriff <code>arr[5]</code>).</div>
+            </div>
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-3.5">
+              <div class="text-sky-400 font-bold text-sm">O(log n)</div>
+              <div class="text-white font-semibold mt-1">Logarithmisch</div>
+              <div class="text-[11px] text-slate-400 mt-1">Extrem schnell! Verdoppelt sich n, braucht es nur 1 Schritt mehr (Binäre Suche).</div>
+            </div>
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-3.5">
+              <div class="text-amber-400 font-bold text-sm">O(n)</div>
+              <div class="text-white font-semibold mt-1">Linear</div>
+              <div class="text-[11px] text-slate-400 mt-1">Wächst 1:1 mit den Daten. 1000 Elemente = 1000 Durchläufe (Einfache Schleife).</div>
+            </div>
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-3.5">
+              <div class="text-rose-400 font-bold text-sm">O(n²)</div>
+              <div class="text-white font-semibold mt-1">Quadratisch</div>
+              <div class="text-[11px] text-slate-400 mt-1">Gefährlich langsam bei großen Daten! Schachtelschleifen (Bubble/Selection Sort).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big-O Notation Table (Comprehensive AP2 Standard) -->
+        <div class="bg-dark-card border border-dark-border rounded-2xl p-5 sm:p-7 shadow-card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-base sm:text-lg text-white">Alle Prüfungs-Algorithmen im Laufzeit-Vergleich</h3>
+            <span class="text-[11px] text-purple-400 font-mono bg-purple-500/10 px-2.5 py-1 rounded-lg border border-purple-500/20">AP2 Pflichtwissen</span>
+          </div>
+
+          <div class="custom-scroll overflow-x-auto rounded-xl border border-dark-border">
+            <table class="w-full text-left text-xs font-mono border-collapse">
+              <thead>
+                <tr class="bg-slate-900 text-slate-300 border-b border-dark-border">
+                  <th class="p-3 font-bold">Algorithmus</th>
+                  <th class="p-3 font-bold">Best Case</th>
+                  <th class="p-3 font-bold">Average Case</th>
+                  <th class="p-3 font-bold">Worst Case</th>
+                  <th class="p-3 font-bold">In-Place?</th>
+                  <th class="p-3 font-bold">Stabilität?</th>
+                  <th class="p-3 font-bold">Wann einsetzen?</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-dark-border/60 bg-dark-bg">
+                <tr class="hover:bg-slate-900/40">
+                  <td class="p-3 font-bold text-white">Lineare Suche</td>
+                  <td class="p-3 text-emerald-400">O(1)</td>
+                  <td class="p-3 text-amber-400">O(n)</td>
+                  <td class="p-3 text-rose-400">O(n)</td>
+                  <td class="p-3 text-emerald-400">Ja</td>
+                  <td class="p-3 text-slate-400">–</td>
+                  <td class="p-3 text-slate-400">Unsortierte Daten; kleine Arrays.</td>
+                </tr>
+                <tr class="hover:bg-slate-900/40">
+                  <td class="p-3 font-bold text-purple-300">Binäre Suche</td>
+                  <td class="p-3 text-emerald-400">O(1)</td>
+                  <td class="p-3 text-emerald-400">O(log n)</td>
+                  <td class="p-3 text-emerald-400">O(log n)</td>
+                  <td class="p-3 text-emerald-400">Ja</td>
+                  <td class="p-3 text-slate-400">–</td>
+                  <td class="p-3 text-slate-400"><strong>Zwingend sortiertes Array!</strong> Bei 1 Mio. Werten max. 20 Schritte.</td>
+                </tr>
+                <tr class="hover:bg-slate-900/40">
+                  <td class="p-3 font-bold text-white">Bubble Sort</td>
+                  <td class="p-3 text-emerald-400">O(n)*</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-emerald-400">Ja</td>
+                  <td class="p-3 text-emerald-400">Stabil</td>
+                  <td class="p-3 text-slate-400">Lehrzwecke; *Best-Case O(n) nur mit getauscht-Flag!</td>
+                </tr>
+                <tr class="hover:bg-slate-900/40">
+                  <td class="p-3 font-bold text-white">Selection Sort</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-emerald-400">Ja</td>
+                  <td class="p-3 text-rose-400">Instabil</td>
+                  <td class="p-3 text-slate-400">Minimale Tausch-Anzahl (exakt n Tausche); z.B. bei teurem Flash-Speicher.</td>
+                </tr>
+                <tr class="hover:bg-slate-900/40">
+                  <td class="p-3 font-bold text-white">Insertion Sort</td>
+                  <td class="p-3 text-emerald-400">O(n)</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-emerald-400">Ja</td>
+                  <td class="p-3 text-emerald-400">Stabil</td>
+                  <td class="p-3 text-slate-400">Hervorragend für <strong>bereits fast sortierte Daten</strong> oder Online-Streams.</td>
+                </tr>
+                <tr class="hover:bg-slate-900/40">
+                  <td class="p-3 font-bold text-white">QuickSort</td>
+                  <td class="p-3 text-emerald-400">O(n log n)</td>
+                  <td class="p-3 text-emerald-400">O(n log n)</td>
+                  <td class="p-3 text-rose-400">O(n²)</td>
+                  <td class="p-3 text-emerald-400">Ja</td>
+                  <td class="p-3 text-rose-400">Instabil</td>
+                  <td class="p-3 text-slate-400">In der Praxis meist der schnellste Allrounder (Divide & Conquer).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Detail: Die 5 Algorithmen mit Alltags-Analogien -->
+        <div class="bg-dark-card border border-dark-border rounded-2xl p-5 sm:p-7 shadow-card">
+          <h3 class="font-bold text-base sm:text-lg text-white mb-4">Die 5 FIAE-Sortier- und Suchverfahren im Detail</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            
+            <!-- 1. Binäre Suche -->
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-sm text-purple-400">1. Binäre Suche (Telefonbuch-Methode)</span>
+                  <span class="text-[10px] text-emerald-400 font-mono">O(log n)</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                  Schlage das Buch in der <strong>Mitte</strong> auf. Ist der gesuchte Name weiter vorne, wirfst du die gesamte rechte Buchhälfte weg. Bei jedem Schritt halbiert sich die Arbeit!
+                </p>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-200 space-y-1">
+                  <div>SOLANGE links <= rechts TUE</div>
+                  <div class="pl-3">mitte = (links + rechts) // 2</div>
+                  <div class="pl-3">WENN arr[mitte] == ziel DANN RÜCKGABE mitte</div>
+                  <div class="pl-3">WENN arr[mitte] < ziel DANN links = mitte + 1</div>
+                  <div class="pl-3">SONST rechts = mitte - 1</div>
+                  <div>ENDE SOLANGE</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Insertion Sort -->
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-sm text-sky-400">2. Insertion Sort (Kartenspiel-Methode)</span>
+                  <span class="text-[10px] text-sky-400 font-mono">O(n) bis O(n²)</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                  Wie beim Sortieren von Spielkarten auf der Hand: Du nimmst die nächste Karte, schaust von rechts nach links durch die bereits sortierten Karten und schiebst sie an die passende Stelle.
+                </p>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-200 space-y-1">
+                  <div>FÜR i = 1 BIS n - 1</div>
+                  <div class="pl-3">aktuell = arr[i], j = i - 1</div>
+                  <div class="pl-3">SOLANGE j >= 0 UND arr[j] > aktuell TUE</div>
+                  <div class="pl-6">arr[j + 1] = arr[j], j = j - 1</div>
+                  <div class="pl-3">arr[j + 1] = aktuell</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Selection Sort -->
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-sm text-amber-400">3. Selection Sort (Such- & Tausch-Methode)</span>
+                  <span class="text-[10px] text-amber-400 font-mono">Immer O(n²)</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                  Suche das absolute Minimum im gesamten Rest des Arrays. Wenn du es gefunden hast, tausche es mit dem Element ganz links. Wiederhole das für Position 1, 2, ...
+                </p>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-200 space-y-1">
+                  <div>FÜR i = 0 BIS n - 2</div>
+                  <div class="pl-3">minIdx = i</div>
+                  <div class="pl-3">FÜR j = i + 1 BIS n - 1</div>
+                  <div class="pl-6">WENN arr[j] < arr[minIdx] DANN minIdx = j</div>
+                  <div class="pl-3">TAUSCHE arr[i], arr[minIdx]</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. QuickSort -->
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-sm text-purple-400">4. QuickSort (Divide & Conquer)</span>
+                  <span class="text-[10px] text-emerald-400 font-mono">O(n log n)</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                  Wähle ein Vergleichselement (<strong>Pivot</strong>). Sortiere alle kleineren Zahlen nach links und alle größeren nach rechts. Wende dasselbe rekursiv auf die linke und rechte Hälfte an.
+                </p>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-200 space-y-1">
+                  <div>pivot = arr[rechts]</div>
+                  <div>// Partitioniere: alle < pivot nach links</div>
+                  <div>partition(arr, links, rechts)</div>
+                  <div>quickSort(arr, links, pivotIdx - 1)</div>
+                  <div>quickSort(arr, pivotIdx + 1, rechts)</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Rekursion & Call-Stack -->
+        <div class="bg-gradient-to-r from-purple-950/40 via-dark-card to-slate-900 border border-purple-500/30 rounded-2xl p-5 sm:p-7">
+          <div class="flex items-start gap-3.5">
+            <div class="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-white">Rekursion & der Call-Stack (Was passiert im RAM?)</h3>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+                Jedes Mal, wenn eine Funktion sich selbst aufruft, reserviert das Betriebssystem einen neuen <strong>Stack Frame</strong> im Arbeitsspeicher für die lokalen Variablen.
+                Fehlt die Abbruchbedingung (Basisfall), wächst der Stack unendlich, bis der Speicher voll ist: der berüchtigte <strong>Stack Overflow</strong>!
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- TAB 2: PROFI-VISUALIZER (FEATURE-REICH & CLEAN)             -->
+      <!-- ============================================================ -->
+      <section id="tabContent-visualizer" class="hidden space-y-5 sm:space-y-6">
+        
+        <!-- Control Bar -->
+        <div class="bg-dark-card border border-dark-border rounded-2xl p-4 sm:p-6 shadow-card space-y-4">
+          
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            
+            <!-- Algorithm Selector & Presets -->
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+              <label for="algoSelect" class="text-xs font-mono text-slate-400 uppercase tracking-wider shrink-0">Algorithmus:</label>
+              <select
+                id="algoSelect"
+                onchange="onAlgorithmChange()"
+                class="bg-dark-bg border border-dark-border rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white font-medium focus:border-dark-accent focus:outline-none w-full sm:w-auto sm:min-w-[220px]"
+              >
+                <optgroup label="Suchalgorithmen">
+                  <option value="binary_search">1. Binäre Suche (Binary Search)</option>
+                  <option value="linear_search">2. Lineare Suche (Linear Search)</option>
+                </optgroup>
+                <optgroup label="Sortieralgorithmen">
+                  <option value="bubble_sort">3. Bubble Sort (Optimiert)</option>
+                  <option value="selection_sort">4. Selection Sort (Auswahl)</option>
+                  <option value="insertion_sort">5. Insertion Sort (Einfügen)</option>
+                  <option value="quick_sort">6. QuickSort (Divide & Conquer)</option>
+                </optgroup>
+              </select>
+
+              <!-- Presets Dropdown -->
+              <div class="flex items-center gap-1.5">
+                <select
+                  id="presetSelect"
+                  onchange="applyArrayPreset(this.value)"
+                  class="bg-dark-bg border border-dark-border rounded-xl px-3 py-2 text-xs font-mono text-slate-300 focus:border-dark-accent focus:outline-none"
+                >
+                  <option value="random">Datensatz: Zufall</option>
+                  <option value="nearly_sorted">Fast sortiert</option>
+                  <option value="reverse">Umgekehrt sortiert (Worst-Case)</option>
+                  <option value="small_numbers">Kleine Werte (1 bis 20)</option>
+                  <option value="duplicates">Mit Duplikaten</option>
+                </select>
+
+                <button
+                  type="button"
+                  onclick="generateNewArray()"
+                  class="p-2.5 bg-dark-bg border border-dark-border hover:border-slate-600 rounded-xl text-slate-300 hover:text-white transition-colors shrink-0"
+                  title="Neu mischen"
+                >
+                  <i data-lucide="shuffle" class="w-4 h-4 text-dark-accent"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Playback Controls -->
+            <div class="flex items-center justify-between sm:justify-end gap-1.5 sm:gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-dark-border/60">
+              <button
+                type="button"
+                id="btnStepBack"
+                onclick="stepBackward()"
+                class="px-3.5 py-2.5 bg-dark-bg border border-dark-border hover:border-slate-600 rounded-xl text-xs font-mono text-slate-200 flex items-center gap-1.5 transition-colors active:scale-95"
+                title="Einen Schritt zurück"
+              >
+                <i data-lucide="skip-back" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Schritt</span>
+              </button>
+
+              <button
+                type="button"
+                id="btnPlayPause"
+                onclick="togglePlayPause()"
+                class="px-5 py-2.5 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all shadow-md shadow-purple-500/15 min-w-[100px] justify-center active:scale-95"
+              >
+                <i data-lucide="play" id="playIcon" class="w-4 h-4"></i>
+                <span id="playBtnText">Start</span>
+              </button>
+
+              <button
+                type="button"
+                id="btnStepForward"
+                onclick="stepForward()"
+                class="px-3.5 py-2.5 bg-dark-bg border border-dark-border hover:border-slate-600 rounded-xl text-xs font-mono text-slate-200 flex items-center gap-1.5 transition-colors active:scale-95"
+                title="Einen Schritt vor"
+              >
+                <span class="hidden sm:inline">Schritt</span>
+                <i data-lucide="skip-forward" class="w-4 h-4"></i>
+              </button>
+
+              <button
+                type="button"
+                id="btnReset"
+                onclick="resetAlgorithm()"
+                class="p-2.5 bg-dark-bg border border-dark-border hover:border-slate-600 rounded-xl text-slate-400 hover:text-white transition-colors ml-1 active:scale-95"
+                title="Zurück an den Anfang"
+              >
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Sliders & Inputs -->
+          <div class="pt-3.5 border-t border-dark-border/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400 text-[11px] font-mono">Tempo:</span>
+              <input
+                type="range"
+                id="speedSlider"
+                min="100"
+                max="1200"
+                step="50"
+                value="600"
+                onchange="updateSpeed(this.value)"
+                class="w-24 sm:w-32 accent-dark-accent cursor-pointer"
+              />
+              <span id="speedLabel" class="text-[10px] font-mono text-slate-400 w-14">Normal</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400 text-[11px] font-mono">Elemente:</span>
+              <input
+                type="range"
+                id="sizeSlider"
+                min="5"
+                max="10"
+                step="1"
+                value="7"
+                onchange="updateArraySize(this.value)"
+                class="w-20 sm:w-24 accent-dark-accent cursor-pointer"
+              />
+              <span id="sizeLabel" class="text-[10px] font-mono text-slate-400">7</span>
+            </div>
+
+            <div class="flex items-center gap-2 ml-auto">
+              <div id="targetValueWrapper" class="flex items-center gap-1.5">
+                <span class="text-slate-400 text-[11px] font-mono">Zielwert:</span>
+                <input
+                  type="number"
+                  id="targetSearchInput"
+                  value="42"
+                  class="w-16 bg-dark-bg border border-dark-border rounded-lg px-2 py-1 text-xs text-white font-mono text-center focus:border-dark-accent focus:outline-none"
+                  onchange="updateSearchTarget(this.value)"
+                  title="Gesuchter Wert (oder direkt auf einen Balken klicken)"
+                />
+                <span class="text-[10px] text-slate-500 font-mono hidden sm:inline">(oder Klick auf Balken)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Binary Search Sorted Notice -->
+          <div id="binarySearchBadge" class="hidden text-xs font-mono text-purple-300 bg-purple-950/40 border border-purple-800/50 rounded-xl px-3.5 py-2 flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-purple-400 shrink-0"></i>
+            <span>Hinweis: Für die binäre Suche wird das Array <strong>immer automatisch aufsteigend sortiert</strong> (Grundvoraussetzung für O(log n)).</span>
+          </div>
+        </div>
+
+        <!-- Visual Stage (Array Bars) -->
+        <div class="bg-dark-card border border-dark-border rounded-2xl p-4 sm:p-6 shadow-card">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <h2 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-dark-accent"></i>
+              <span>Speicher & Zeiger (Visualisierung)</span>
+            </h2>
+            <div class="flex flex-wrap items-center gap-2.5 sm:gap-4 text-[10px] sm:text-[11px] font-mono text-slate-400">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-purple-500 inline-block"></span> Normal</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-amber-400 inline-block"></span> Mitte / Vergleich</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-rose-500 inline-block"></span> Tausch</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span> Sortiert / Treffer</span>
+            </div>
+          </div>
+
+          <!-- Bar Canvas Container -->
+          <div
+            id="barContainer"
+            class="h-48 sm:h-64 flex items-end justify-center gap-2 sm:gap-4 px-2 pb-3 pt-6 border border-dark-border/60 bg-dark-bg/80 rounded-xl relative overflow-x-auto custom-scroll"
+          >
+            <!-- Generated dynamically by pseudocode.js -->
+          </div>
+
+          <!-- Step Narration Box (Plain German explanation) -->
+          <div class="mt-4 p-3.5 sm:p-4 bg-dark-bg border border-dark-border rounded-xl flex items-start gap-3">
+            <div class="w-7 h-7 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center text-dark-accent shrink-0 mt-0.5">
+              <i data-lucide="message-square" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500">
+                Schritt <span id="currentStepNumber" class="text-purple-400 font-bold">0</span> von <span id="totalStepsNumber" class="text-white font-bold">0</span>
+              </div>
+              <p id="stepExplanation" class="text-xs sm:text-sm text-slate-100 mt-1 leading-relaxed font-medium">
+                Klicke auf "Start" oder "Schritt", um den Algorithmus schrittweise zu analysieren.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side-by-Side: Code vs. Variable Inspector -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+          <div class="lg:col-span-7 bg-dark-card border border-dark-border rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-xs sm:text-sm text-white flex items-center gap-2">
+                  <i data-lucide="code" class="w-4 h-4 text-dark-accent"></i>
+                  <span>FIAE-Pseudocode (Prüfungsstandard)</span>
+                </h3>
+                <span class="text-[10px] font-mono text-slate-400 bg-slate-900 px-2 py-0.5 rounded-md border border-slate-800">
+                  Aktive Zeile leuchtet
+                </span>
+              </div>
+              <div
+                id="codeContainer"
+                class="font-mono text-xs text-slate-300 bg-dark-bg border border-dark-border rounded-xl p-3 sm:p-3.5 custom-scroll overflow-x-auto leading-relaxed space-y-0.5"
+              >
+                <!-- Generated dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-dark-card border border-dark-border rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-xs sm:text-sm text-white flex items-center gap-2">
+                  <i data-lucide="cpu" class="w-4 h-4 text-purple-400"></i>
+                  <span>Live-Trace & Variablen</span>
+                </h3>
+                <span class="text-[10px] font-mono text-purple-400">Speicher-Monitor</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3 leading-relaxed">
+                Variablenzustände, Grenzen und Zwischenergebnisse des aktuellen Schritts:
+              </p>
+              <div id="variableInspector" class="space-y-2">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3.5 border-t border-dark-border/80 text-[11px] text-slate-400 flex items-center justify-between">
+              <span>Status: <strong id="algoStatusText" class="text-purple-400">Bereit</strong></span>
+              <span id="operationCounter" class="font-mono text-slate-500">Vergleiche: 0</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- TAB 3: SCHREIBTISCHTEST & FIAE-ÜBUNGEN (GROSSES SET)         -->
+      <!-- ============================================================ -->
+      <section id="tabContent-exercises" class="hidden space-y-5 sm:space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-dark-card border border-dark-border rounded-2xl p-3 sm:p-4 shadow-card">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider hidden sm:inline">Modus:</span>
+            <div class="grid grid-cols-2 sm:inline-flex rounded-xl border border-dark-border bg-dark-bg p-1 text-xs w-full sm:w-auto">
+              <button
+                type="button"
+                id="btnSubMode-trace"
+                onclick="setExerciseSubMode('trace')"
+                class="px-2.5 sm:px-3.5 py-2 rounded-lg font-semibold transition-all bg-dark-accent text-white shadow-sm text-center text-[11px] sm:text-xs"
+              >
+                <span class="sm:hidden">Trace-Tabellen</span>
+                <span class="hidden sm:inline">Trace-Tabellen (Schreibtischtests)</span>
+              </button>
+              <button
+                type="button"
+                id="btnSubMode-puzzle"
+                onclick="setExerciseSubMode('puzzle')"
+                class="px-2.5 sm:px-3.5 py-2 rounded-lg font-semibold transition-all text-slate-400 hover:text-white text-center text-[11px] sm:text-xs"
+              >
+                <span class="sm:hidden">Code-Puzzles</span>
+                <span class="hidden sm:inline">Code-Puzzles (Zeilen ordnen)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <label for="exerciseSelect" class="text-xs font-mono text-slate-400 shrink-0">Aufgabe:</label>
+            <select
+              id="exerciseSelect"
+              onchange="onExerciseChange()"
+              class="bg-dark-bg border border-dark-border rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:border-dark-accent focus:outline-none w-full sm:w-auto sm:max-w-[280px]"
+            >
+              <!-- Filled by JS -->
+            </select>
+          </div>
+        </div>
+
+        <div id="exerciseStage" class="bg-dark-card border border-dark-border rounded-2xl p-4 sm:p-6 shadow-card space-y-5">
+          <!-- Filled dynamically by JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-[10px] text-dark-muted py-6 font-mono border-t border-dark-border mt-auto">
+      AP2 FIAE Tracker · Pseudocode & Algorithmen-Labor · 100% Lokal & Offline-fähig
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js?v=2.7.1"></script>
+    <script src="assets/js/confetti.js?v=2.7.1"></script>
+    <script src="assets/js/pseudocode.js?v=2.7.1"></script>
+    <script>
+      if (window.lucide) lucide.createIcons();
+    </script>
+    <script>
+      // Service Worker Registration
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("sw.js?v=2.7.1").catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

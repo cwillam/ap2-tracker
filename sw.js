@@ -1,4 +1,4 @@
-const CACHE_NAME = "ap2-tracker-v2.7.0";
+const CACHE_NAME = "ap2-tracker-v2.7.1";
 const ASSETS = [
 	"index.html",
 	"glossar.html",
@@ -6,19 +6,21 @@ const ASSETS = [
 	"help.html",
 	"subnet.html",
 	"sql.html",
+	"pseudocode.html",
 	"favicon.svg",
 	"manifest.json",
-	"assets/css/style.css?v=2.7.0",
-	"assets/js/tailwind.js?v=2.7.0",
-	"assets/js/lucide.min.js?v=2.7.0",
-	"assets/js/confetti.js?v=2.7.0",
-	"assets/js/data.js?v=2.7.0",
-	"assets/js/questions.js?v=2.7.0",
-	"assets/js/app.js?v=2.7.0",
-	"assets/js/subnet.js?v=2.7.0",
-	"assets/js/sql.js?v=2.7.0",
-	"icon-192.png?v=2.7.0",
-	"icon-512.png?v=2.7.0",
+	"assets/css/style.css?v=2.7.1",
+	"assets/js/tailwind.js?v=2.7.1",
+	"assets/js/lucide.min.js?v=2.7.1",
+	"assets/js/confetti.js?v=2.7.1",
+	"assets/js/data.js?v=2.7.1",
+	"assets/js/questions.js?v=2.7.1",
+	"assets/js/app.js?v=2.7.1",
+	"assets/js/subnet.js?v=2.7.1",
+	"assets/js/sql.js?v=2.7.1",
+	"assets/js/pseudocode.js?v=2.7.1",
+	"icon-192.png?v=2.7.1",
+	"icon-512.png?v=2.7.1",
 ];
 
 self.addEventListener("install", (event) => {
