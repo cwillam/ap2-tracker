@@ -90,7 +90,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    <script src="assets/js/tailwind.js?v=2.7.0"></script>
+    <script src="assets/js/tailwind.js?v=2.7.2"></script>
 
     <script>
       tailwind.config = {
@@ -144,7 +144,7 @@
       };
     </script>
 
-    <link href="assets/css/style.css?v=2.7.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=2.7.2" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen">
@@ -435,8 +435,8 @@
                   >by cwillam</span
                 >
                 <span
-                  class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded"
-                  >v2.7.0</span
+                  class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
+                  >v2.7.2</span
                 >
               </div>
             </div>
@@ -2013,10 +2013,10 @@
       </div>
     </template>
 
-    <script src="assets/js/confetti.js?v=2.7.0"></script>
-    <script src="assets/js/data.js?v=2.7.0"></script>
-    <script src="assets/js/questions.js?v=2.7.0"></script>
-    <script src="assets/js/lucide.min.js?v=2.7.0"></script>
+    <script src="assets/js/confetti.js?v=2.7.2"></script>
+    <script src="assets/js/data.js?v=2.7.2"></script>
+    <script src="assets/js/questions.js?v=2.7.2"></script>
+    <script src="assets/js/lucide.min.js?v=2.7.2"></script>
     <script src="assets/js/app.js?v=2.7.2"></script>
 
     <!-- PWA Service Worker Registration -->
@@ -2024,7 +2024,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=2.7.0")
+            .register("sw.js?v=2.7.2")
             .then((reg) =>
               console.log("PWA Service Worker registered successfully", reg),
             )
