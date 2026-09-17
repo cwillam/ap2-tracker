@@ -1,7 +1,7 @@
-# AP2 Tracker FIAE - Dein Lernbegleiter (v2.7.0 Update)
+# AP2 Tracker FIAE - Dein Lernbegleiter (v2.7.2 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FIAE_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
-[![Version](https://img.shields.io/badge/Version-v2.7.0-blue?style=for-the-badge)](https://ap2.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.7.2-blue?style=for-the-badge)](https://ap2.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-tracker/issues/new?template=feature.yml)
 
@@ -24,12 +24,24 @@ Der **AP2 Tracker FIAE** wurde entwickelt, um Anwendungsentwicklern eine struktu
 
 Im Gegensatz zur AP1 liegt hier der Fokus auf tiefergehenden Themen wie Software-Architektur, fortgeschrittenen SQL-Konzepten, UML-Modellierung und fachspezifischer Wirtschaftslehre.
 
+### Highlights v2.7.2 (In-App Feedback-System & Qualitätssicherung)
+
+- **In-App Karten-Feedback:** Fehler, veraltete IHK-Normen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
+- **Automatischer Kontext:** Übermittlung von Karten-ID, Modul, Fragetext und Antwortauszug ohne manuelles Copy-Paste.
+- **100% DSGVO- & Offline-Safe:** Anonyme Übertragung ohne Cookies, Tracker oder Mailprogramm-Zwang.
+- **Service Worker & Cache-Busting:** Caching auf `v2.7.2` aktualisiert für sofortige automatische Updates.
+
+### Highlights v2.7.1 (Pseudocode-Labor & FIAE-Algorithmen)
+
+- **6 Kern-Algorithmen:** Binäre Suche, Lineare Suche, Bubble Sort, Selection Sort, Insertion Sort & QuickSort interaktiv animiert mit Zeiger- und Speicher-Inspektor.
+- **18 FIAE-Übungen:** 10 Schreibtischtests (inkl. Lomuto-QuickSort & Stack LIFO) und 8 Code-Puzzles zur Ablauflogik.
+- **Theorie & O-Notation:** FIAE-Cheat-Sheet zu Zeitkomplexität O(log n), O(n), O(n²), In-Place und Stabilität.
+
 ### Highlights v2.7.0 (Play Store Release & Vorbereitung)
 
 - **Google Play Store Release Ready:** 14-tägige geschlossene Testphase mit Testern erfolgreich abgeschlossen, Vorbereitung des weltweiten Rollouts und Android 16 (API-Level 36) Konformität.
 - **Einklappbare Banner mit Persistenz:** Community- und Schul-Hinweise lassen sich platzsparend einklappen (Zustand wird im `localStorage` gespeichert).
 - **Discord-Lerncommunity:** Direkte Integration unserer Community für AP1 & AP2 Lerngruppen, Prüfungsaustausch und Release-Ankündigungen.
-- **Service Worker & Cache-Busting:** Bereinigtes Caching (`v2.7.0`) für nahtlose Updates ohne manuellen Hard Refresh.
 
 ### Highlights v2.2.0 (Fortschrittskreise & Shortcuts)
 
@@ -100,7 +112,20 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v2.7.0 (27. August 2026)
+**Aktuelle Version:** v2.7.2 (17. September 2026)
+
+### v2.7.2 (17. September 2026)
+
+- **In-App Feedback-System:** 1-Klick-Meldesystem direkt auf jeder Lernkarte zur Meldung von Fehlern, veralteten IHK-Normen oder Unklarheiten.
+- **Kontext-Übertragung:** Automatische Erfassung von Karten-ID, Modul, Frage, Antwort und Lernmodus.
+- **100% DSGVO-konform:** Kein Tracking, keine externen Bibliotheken, vollkommen anonym nutzbar.
+- **Service Worker & Cache:** Cache auf `v2.7.2` gebumpt.
+
+### v2.7.1 (14. September 2026)
+
+- **Pseudocode-Labor:** Interaktiver Algorithmen-Visualizer für Binäre Suche, Lineare Suche, Bubble Sort, Selection Sort, Insertion Sort & QuickSort.
+- **18 FIAE-Übungen:** 10 Schreibtischtests und 8 interaktive Code-Puzzles zur Ablauflogik.
+- **Theorie & O-Notation:** Umfassendes Cheat-Sheet zu Komplexitätsklassen.
 
 ### v2.7.0 (27. August 2026)
 
