@@ -15,13 +15,36 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="theme-color" content="#8b5cf6" />
+    <meta name="theme-color" content="#09090b" />
+
+    <!-- Preload Fonts -->
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-SemiBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.7.2" />
+    <link rel="stylesheet" href="assets/css/style.css?v=3.0.0" />
 
     <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.7.2"></script>
+    <script src="assets/js/tailwind.js?v=3.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -29,54 +52,56 @@
           extend: {
             fontFamily: {
               sans: [
+                "Inter",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
                 "Segoe UI",
                 "Roboto",
-                "Helvetica Neue",
-                "Arial",
                 "sans-serif",
               ],
               mono: [
                 "ui-monospace",
                 "SFMono-Regular",
+                "JetBrains Mono",
                 "Menlo",
                 "Monaco",
                 "Consolas",
-                "Liberation Mono",
-                "Courier New",
                 "monospace",
               ],
             },
             colors: {
               dark: {
-                bg: "#020617",
-                card: "#0f172a",
-                border: "#1e293b",
-                muted: "#94a3b8",
-                text: "#f8fafc",
+                bg: "#09090b",
+                card: "#121215",
+                "card-hover": "#18181d",
+                border: "#23232a",
+                "border-subtle": "#191920",
+                strong: "#383842",
+                text: "#f4f4f5",
+                muted: "#a1a1aa",
+                dim: "#71717a",
                 accent: "#8b5cf6",
                 "accent-hover": "#7c3aed",
+                "accent-dim": "rgba(139, 92, 246, 0.12)",
                 success: "#10b981",
+                "success-dim": "rgba(16, 185, 129, 0.12)",
                 warning: "#f59e0b",
+                "warning-dim": "rgba(245, 158, 11, 0.12)",
                 danger: "#ef4444",
+                "danger-dim": "rgba(239, 68, 68, 0.12)",
               },
             },
           },
         },
       };
     </script>
-  </head>
-  <body
-    class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white"
-  >
     <style>
       .sql-next-pulse {
         animation: sql-pulse 1.4s ease-in-out infinite;
-        border-color: rgb(139, 92, 246);
+        border-color: #8b5cf6;
         color: white;
-        background-color: rgb(139, 92, 246);
+        background-color: #8b5cf6;
       }
       @keyframes sql-pulse {
         0%,
@@ -95,195 +120,346 @@
         box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.55);
       }
     </style>
+  </head>
+  <body
+    class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white"
+  >
     <!-- Header -->
     <header
-      class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50"
+      class="w-full border-b border-dark-border bg-dark-bg/90 backdrop-blur-md sticky top-0 z-40"
     >
       <div
-        class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between"
+        class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4"
       >
-        <a
-          href="index.html"
-          class="flex items-center gap-3 group hover:opacity-80 transition-opacity"
-        >
-          <div
-            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
-          >
-            <i
-              data-lucide="arrow-left"
-              class="text-dark-muted group-hover:text-dark-accent transition-colors"
-            ></i>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-bold text-lg tracking-tight leading-none"
-              >AP2 <span class="text-dark-accent">Tracker</span></span
-            >
-            <span class="text-[10px] text-dark-muted font-mono"
-              >Zurück zum Dashboard</span
-            >
-          </div>
-        </a>
         <div class="flex items-center gap-3">
+          <a
+            href="index.html"
+            class="flex items-center gap-2.5 group focus:outline-none"
+            title="Zurück zum Dashboard"
+          >
+            <div
+              class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
+            >
+              <i
+                data-lucide="arrow-left"
+                class="w-4 h-4 text-dark-muted group-hover:text-dark-accent transition-colors"
+              ></i>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="kbd-cap bg-purple-600/15 border-purple-500/40 text-purple-400 font-bold px-2 py-1 text-xs">AP2</span>
+              <span class="font-bold text-base tracking-tight text-white group-hover:text-purple-400 transition-colors">Tracker</span>
+              <span class="text-[9px] font-mono font-bold bg-purple-950/60 border border-purple-500/40 text-purple-400 px-1.5 py-0.5 rounded">FIAE</span>
+            </div>
+          </a>
+          <span class="hidden sm:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
+            SQL-Labor · v3.0.0
+          </span>
+        </div>
+
+        <!-- Quick Navigation & Stats -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div class="hidden md:flex items-center gap-1.5 border-r border-dark-border pr-3 mr-1">
+            <a href="subnet.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Subnetz-Trainer">
+              <i data-lucide="network" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>Subnetz</span>
+            </a>
+            <a href="pseudocode.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Pseudocode-Labor">
+              <i data-lucide="code" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Pseudocode</span>
+            </a>
+            <a href="glossar.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Fach-Glossar">
+              <i data-lucide="book-open" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Glossar</span>
+            </a>
+          </div>
+
           <span
             id="streakBadge"
-            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-accent"
-            >🔥 0</span
+            class="text-xs font-mono bg-dark-card border border-dark-border px-2.5 py-1 rounded-lg text-orange-400 flex items-center gap-1"
           >
+            <i data-lucide="flame" class="w-3.5 h-3.5"></i>
+            <span>0</span>
+          </span>
           <span
             id="xpBadge"
-            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-emerald-400"
-            >0 XP</span
+            class="text-xs font-mono bg-dark-card border border-dark-border px-2.5 py-1 rounded-lg text-emerald-400"
           >
-          <span
-            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted hidden sm:inline"
-            >v2.7.2</span
+            0 XP
+          </span>
+          <!-- Support Button -->
+          <button
+            type="button"
+            onclick="openSupportModal()"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#FFDD00]/40 bg-dark-card hover:bg-[#FFDD00]/10 text-dark-muted hover:text-[#FFDD00] transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Support / Projekt unterstützen"
           >
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            <span class="hidden sm:inline font-mono text-[11px] font-medium">Support</span>
+          </button>
         </div>
       </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow w-full max-w-6xl mx-auto px-4 py-6">
+    <main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
       <div class="text-center mb-6">
         <h1
-          class="text-3xl font-extrabold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2 pb-1 flex items-center justify-center gap-3"
+          class="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-white to-purple-400 bg-clip-text text-transparent mb-2 pb-1 flex items-center justify-center gap-3"
         >
-          <i data-lucide="database" class="text-dark-accent"></i>
+          <i data-lucide="database" class="w-7 h-7 text-purple-400"></i>
           SQL-Labor
         </h1>
-        <p class="text-dark-muted text-sm max-w-xl mx-auto">
-          Trainiere SQL gegen eine Mock-Datenbank mit vier Tabellen – von
-          SELECT-Basics bis Joins, Subqueries und Transaktionen.
-          <kbd
-            class="font-mono bg-dark-card border border-dark-border px-1 rounded"
-            >Strg+Enter</kbd
-          >
+        <p class="text-dark-muted text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+          Trainiere praxisnahe SQL-Queries gegen eine lokale Mock-Datenbank mit vier Tabellen – von SELECT-Basics bis Joins, Subqueries und Transaktionen.
+          <kbd class="font-mono bg-dark-card border border-dark-border px-1.5 py-0.5 rounded text-[11px] text-white">Strg+Enter</kbd>
           führt die Query aus.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <aside class="lg:col-span-1 space-y-3">
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-4">
-            <div class="flex items-center justify-between mb-3">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- Sidebar Schema Explorer -->
+        <aside class="lg:col-span-1 space-y-4">
+          <div class="bg-dark-card border border-dark-border rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between mb-3 border-b border-dark-border/60 pb-2.5">
               <h2 class="font-bold text-sm text-white flex items-center gap-2">
                 <i
                   data-lucide="table-properties"
-                  class="w-4 h-4 text-dark-accent"
+                  class="w-4 h-4 text-purple-400"
                 ></i>
                 Datenbank-Schema
               </h2>
               <button
                 id="btnReset"
-                class="text-[10px] font-mono text-dark-muted hover:text-dark-accent flex items-center gap-1"
+                class="text-[10px] font-mono text-dark-muted hover:text-purple-400 transition-colors flex items-center gap-1"
+                title="Datenbank auf Standard zurücksetzen"
               >
                 <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reset
               </button>
             </div>
-            <div id="schemaExplorer" class="space-y-3"></div>
+            <div id="schemaExplorer" class="space-y-3 font-mono text-xs"></div>
           </div>
+
           <div
-            class="bg-dark-card border border-dark-border rounded-2xl p-4 text-xs text-dark-muted leading-relaxed"
+            class="bg-dark-card border border-dark-border rounded-xl p-4 text-xs text-dark-muted leading-relaxed"
           >
             <h3
               class="font-bold text-white mb-2 text-sm flex items-center gap-2"
             >
               <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400"></i>
-              Hinweis
+              Prüfungs-Hinweis
             </h3>
-            Drei Schwierigkeits-Stufen: Basics, Intermediate (Joins, GROUP BY,
-            String-Funktionen), Expert (Subqueries, Transaktionen). Alle Daten
-            werden lokal gehalten.
+            Drei IHK-relevante Schwierigkeitsstufen: Basics (SELECT, WHERE, ORDER BY), Intermediate (INNER/LEFT JOIN, GROUP BY, String-Funktionen) und Expert (Subqueries, Transaktionen). Alle Daten laufen 100% lokal im Browser.
           </div>
         </aside>
 
+        <!-- Workspace & Editor -->
         <section class="lg:col-span-2 space-y-4">
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-5">
+          <!-- Task Card -->
+          <div class="bg-dark-card border border-dark-border rounded-xl p-5 shadow-sm">
             <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
               <div class="flex items-center gap-2">
                 <span
                   id="taskLevel"
-                  class="bg-dark-accent/15 text-dark-accent px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider"
+                  class="bg-purple-600/15 border border-purple-500/30 text-purple-400 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider"
                   >Stufe 1</span
                 >
-                <span id="taskCounter" class="text-dark-muted text-xs font-mono"
+                <span id="taskCounter" class="text-dark-muted text-xs font-mono font-semibold"
                   >1 / 12</span
                 >
               </div>
               <div class="flex items-center gap-2">
                 <button
                   id="btnPrev"
-                  class="px-2 py-1 bg-dark-bg border border-dark-border rounded-lg text-dark-muted hover:text-white text-xs"
+                  class="px-2.5 py-1 bg-dark-bg border border-dark-border hover:border-dark-strong rounded-lg text-dark-muted hover:text-white text-xs font-mono flex items-center gap-1 transition-colors"
                 >
-                  <i data-lucide="chevron-left" class="w-3 h-3 inline"></i>
-                  Zurück
+                  <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                  <span>Zurück</span>
                 </button>
                 <button
                   id="btnNext"
-                  class="px-2 py-1 bg-dark-bg border border-dark-border rounded-lg text-dark-muted hover:text-white text-xs"
+                  class="px-2.5 py-1 bg-dark-bg border border-dark-border hover:border-dark-strong rounded-lg text-dark-muted hover:text-white text-xs font-mono flex items-center gap-1 transition-colors"
                 >
-                  Weiter
-                  <i data-lucide="chevron-right" class="w-3 h-3 inline"></i>
+                  <span>Weiter</span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
             </div>
-            <h2 id="taskTitle" class="text-lg font-bold text-white mb-2"></h2>
+            <h2 id="taskTitle" class="text-base sm:text-lg font-bold text-white mb-2 tracking-tight"></h2>
             <p
               id="taskPrompt"
-              class="text-dark-muted text-sm leading-relaxed"
+              class="text-dark-muted text-xs sm:text-sm leading-relaxed"
             ></p>
           </div>
 
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-3">
-            <div class="flex items-center justify-between mb-2 px-1">
+          <!-- Code Editor Box -->
+          <div class="bg-dark-card border border-dark-border rounded-xl p-3.5 shadow-sm">
+            <div class="flex items-center justify-between mb-2.5 px-1">
               <span
-                class="text-[10px] font-mono uppercase tracking-wider text-dark-muted"
-                >SQL-Editor</span
+                class="text-[10px] font-mono uppercase tracking-wider text-dark-dim font-bold"
+                >// SQL-EDITOR</span
               >
               <button
                 id="btnRun"
-                class="px-3 py-1.5 bg-dark-accent text-white rounded-lg font-bold text-xs hover:bg-dark-accent-hover transition-all flex items-center gap-1"
+                class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold font-mono text-xs transition-colors flex items-center gap-1.5 shadow-sm"
               >
-                <i data-lucide="play" class="w-3 h-3"></i> Ausführen
+                <i data-lucide="play" class="w-3 h-3 fill-white"></i> Ausführen
               </button>
             </div>
             <textarea
               id="editor"
               spellcheck="false"
-              class="w-full h-32 bg-dark-bg border border-dark-border rounded-lg p-3 font-mono text-sm text-slate-200 focus:outline-none focus:border-dark-accent resize-y"
+              class="w-full h-36 bg-dark-bg border border-dark-border rounded-lg p-3 font-mono text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 resize-y transition-colors"
               placeholder="SELECT m.Name, a.Name FROM Mitarbeiter m INNER JOIN Abteilungen a ON m.AbtID = a.AbtID;"
             ></textarea>
           </div>
 
           <div id="feedback"></div>
 
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-4">
-            <div class="flex items-center justify-between mb-2">
+          <!-- Live Result Table -->
+          <div class="bg-dark-card border border-dark-border rounded-xl p-4 shadow-sm overflow-hidden">
+            <div class="flex items-center justify-between mb-2.5">
               <h2 class="font-bold text-sm text-white flex items-center gap-2">
-                <i data-lucide="table-2" class="w-4 h-4 text-dark-accent"></i>
+                <i data-lucide="table-2" class="w-4 h-4 text-purple-400"></i>
                 Live-Ergebnis
               </h2>
             </div>
-            <div id="resultTable"></div>
+            <div id="resultTable" class="overflow-x-auto text-xs font-mono"></div>
           </div>
         </section>
       </div>
     </main>
 
-    <footer class="text-center text-[10px] text-dark-muted py-4 font-mono">
-      SQL-Labor v2.7.2 · Mock-Engine · Offline-fähig
+    <!-- Footer -->
+    <footer class="border-t border-dark-border py-8 px-4 sm:px-6 text-xs font-mono text-dark-dim w-full mt-auto">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <a href="https://github.com/cwillam" target="_blank" rel="noopener" class="text-white font-semibold hover:text-purple-400 transition-colors">cwillam</a>
+          <span>© 2026</span>
+          <span>·</span>
+          <span>Open Source & 100% Lokal</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-5 text-dark-muted">
+          <button onclick="openSupportModal()" class="hover:text-[#FFDD00] transition-colors flex items-center gap-1 font-bold">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 text-[#FFDD00]"></i> Support
+          </button>
+          <a href="updates.html" class="hover:text-white transition-colors">Updates</a>
+          <a href="help.html" class="hover:text-white transition-colors">Hilfe & FAQ</a>
+          <a href="https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5">
+            <i data-lucide="bug" class="w-3.5 h-3.5 text-rose-400"></i> Bug melden
+          </a>
+          <a href="https://github.com/cwillam" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5">
+            <i data-lucide="code-2" class="w-3.5 h-3.5"></i> GitHub
+          </a>
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5">
+            <i data-lucide="message-square" class="w-3.5 h-3.5 text-[#5865F2]"></i> Discord
+          </a>
+        </div>
+      </div>
     </footer>
 
-    <script src="assets/js/lucide.min.js?v=2.7.2"></script>
-    <script src="assets/js/confetti.js?v=2.7.2"></script>
-    <script src="assets/js/sql.js?v=2.7.2"></script>
+    <!-- Standardized Support Modal -->
+    <div
+      id="supportModal"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4"
+      onclick="if(event.target === this) closeSupportModal()"
+    >
+      <div class="w-full max-w-md bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl space-y-4 relative">
+        <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#FFDD00]/15 border border-[#FFDD00]/30 flex items-center justify-center text-[#FFDD00]">
+              <i data-lucide="coffee" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-white leading-tight">Projekt unterstützen</h3>
+              <span class="text-[10px] font-mono text-dark-dim leading-none">Freiwillig &amp; 100% werbefrei</span>
+            </div>
+          </div>
+          <button
+            onclick="closeSupportModal()"
+            class="w-8 h-8 rounded-lg border border-dark-border hover:border-dark-border/80 bg-dark-bg hover:bg-dark-border/40 text-dark-muted hover:text-white transition-all flex items-center justify-center"
+            title="Schließen"
+            aria-label="Modal schließen"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Die Tracker sind komplett kostenlos, werbefrei und quelloffen. Wenn dir das Tool bei der Prüfungsvorbereitung hilft, freue ich mich riesig über einen Kaffee!
+        </p>
+        <div class="flex flex-col gap-3 pt-1">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#0070BA]/10 border border-[#0070BA]/30 hover:border-[#0070BA]/60 hover:bg-[#0070BA]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#0070BA]/20 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
+                <i data-lucide="wallet" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">PayPal</span>
+                <span class="text-[10px] text-dark-muted font-mono">paypal.me/parablepanorama · Schnell &amp; unkompliziert</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+
+          <!-- Buy Me A Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#FFDD00]/10 border border-[#FFDD00]/30 hover:border-[#FFDD00]/60 hover:bg-[#FFDD00]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#FFDD00]/20 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
+                <i data-lucide="coffee" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">Buy Me a Coffee</span>
+                <span class="text-[10px] text-dark-muted font-mono">buymeacoffee.com/cwillam · Einmalig spenden</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+        </div>
+        <div class="pt-2 border-t border-dark-border/60 flex items-center justify-center gap-1.5 text-[11px] font-mono text-dark-dim">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Sichere Weiterleitung · Keine Datenübertragung</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script src="assets/js/confetti.js?v=3.0.0"></script>
+    <script src="assets/js/sql.js?v=3.0.0"></script>
     <script>
+      function openSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) {
+          modal.classList.remove("hidden");
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+
+      function closeSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) modal.classList.add("hidden");
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSupportModal();
+      });
+
       if (window.lucide) lucide.createIcons();
     </script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=2.7.2").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=3.0.0").catch(() => {});
         });
       }
     </script>

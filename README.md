@@ -1,7 +1,7 @@
-# AP2 Tracker FIAE - Dein Lernbegleiter (v2.7.2 Update)
+# AP2 Tracker FIAE - Dein Lernbegleiter (v3.0.0 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FIAE_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
-[![Version](https://img.shields.io/badge/Version-v2.7.2-blue?style=for-the-badge)](https://ap2.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v3.0.0-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-tracker/issues/new?template=feature.yml)
 
@@ -24,12 +24,13 @@ Der **AP2 Tracker FIAE** wurde entwickelt, um Anwendungsentwicklern eine struktu
 
 Im Gegensatz zur AP1 liegt hier der Fokus auf tiefergehenden Themen wie Software-Architektur, fortgeschrittenen SQL-Konzepten, UML-Modellierung und fachspezifischer Wirtschaftslehre.
 
-### Highlights v2.7.2 (In-App Feedback-System & Qualitätssicherung)
+### Highlights v3.0.0 (Design System Relaunch & In-App Feedback-System)
 
+- **Obsidian-Zinc Designsystem:** Modernes Dark-Design mit präzisen Electric-Violet-Akzenten (`#8b5cf6`), barrierefreien Kontrasten und standardisierten Komponenten.
 - **In-App Karten-Feedback:** Fehler, veraltete Prüfungsnormen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
-- **Automatischer Kontext:** Übermittlung von Karten-ID, Modul, Fragetext und Antwortauszug ohne manuelles Copy-Paste.
-- **100% DSGVO- & Offline-Safe:** Anonyme Übertragung ohne Cookies, Tracker oder Mailprogramm-Zwang.
-- **Service Worker & Cache-Busting:** Caching auf `v2.7.2` aktualisiert für sofortige automatische Updates.
+- **Harmonisierte Entwickler-Labore:** Pseudocode-Labor (6 Algorithmen, Schreibtischtests & Puzzles), SQL-Labor (In-Memory Mock-Engine), Fach-Glossar (100 FIAE-Begriffe & Eselsbrücken) und Subnetz-Trainer.
+- **Anki Spaced Repetition Relaunch:** Neuer Schwachstellen-Modus, Tastatur-Shortcuts (1-4, Leertaste, Esc) und optimierte Wiederholungszyklen.
+- **100% DSGVO- & Offline-Safe:** Live im Google Play Store verfügbar, PWA-fähig und strikt lokal im Browser ohne fremde Tracking-Server.
 
 ### Highlights v2.7.1 (Pseudocode-Labor & FIAE-Algorithmen)
 
@@ -74,7 +75,7 @@ Die Anwendung wurde kontinuierlich optimiert, um eine „Offline-First“ Erfahr
 ### Features
 
 - **Detaillierte Checklisten:** Lernfortschritt für alle relevanten Themengebiete der AP2.
-- **Lernkarten (Anki-Style):** 1.488 detaillierte Karten für alle Themenbereiche inklusive Codebeispielen, UML-Diagrammen und Tastatur-Shortcuts.
+- **Lernkarten (Anki-Style):** 897 detaillierte Karten für alle Themenbereiche inklusive Codebeispielen, UML-Diagrammen und Tastatur-Shortcuts.
 - **Pomodoro-Timer:** Integrierte Stoppuhr zur Steuerung deiner Lerneinheiten.
 - **Import/Export:** Volle Datensouveränität durch lokale Backups als JSON-Dateien.
 - **Smart-Focus-Engine:** Schlägt dir Themen basierend auf ihrer Gewichtung und deinem aktuellen Fortschritt vor.
@@ -82,18 +83,19 @@ Die Anwendung wurde kontinuierlich optimiert, um eine „Offline-First“ Erfahr
 
 ---
 
-## Tech Stack & Workflow
+## Tech Stack & Architektur
 
-Dieses Projekt setzt auf maximale Performance durch "Vanilla Web Technologies".
+Dieses Projekt setzt auf maximale Ausführungsgeschwindigkeit, Barrierefreiheit und vollständige Unabhängigkeit durch "Vanilla Web Technologies".
 
-| Bereich                 | Technologie                                                                     |
-| :---------------------- | :------------------------------------------------------------------------------ |
-| **Frontend**            | HTML5, Vanilla JavaScript (ES6+)                                                |
-| **Styling**             | Tailwind CSS (Lokal eingebunden)                                                |
-| **Icons**               | Lucide Icons (Lokal eingebunden)                                                |
-| **Animation**           | Canvas Confetti                                                                 |
-| **IDE**                 | VS Code                                                                         |
-| **AI Pair Programming** | **Gemini + Perplexity + MiniMaxM3 API** (AI Pair Programming Unterstützung)    |
+| Bereich | Technologie |
+| :--- | :--- |
+| **Markup & Struktur** | Semantic HTML5, WAI-ARIA Barrierefreiheit |
+| **Styling & Design** | Tailwind CSS (lokale Engine v3), CSS Custom Properties, Dark Mode (`#09090b`) |
+| **Logik & Interaktion** | Vanilla JavaScript (ES6+), kein schweres Framework-Overhead |
+| **Icons & Assets** | Lucide Icons (lokal eingebunden als Vektorgrafiken) |
+| **Typografie** | Inter (woff2 lokal gehostet, Zero-CDN) |
+| **Offline & PWA** | Service Worker mit Stale-While-Revalidate Caching (`v3.0.0`), Web App Manifest |
+| **Datenschutz & Speicher** | 100 % Client-Side via `localStorage`, keine Tracking-Cookies |
 
 ---
 
@@ -112,14 +114,14 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v2.7.2 (17. September 2026)
+**Aktuelle Version:** v3.0.0 (18. September 2026)
 
-### v2.7.2 (17. September 2026)
+### v3.0.0 (18. September 2026)
 
+- **Obsidian-Zinc Designsystem:** Modernes Dark-Design mit Electric-Violet-Akzenten (`#8b5cf6`), barrierefreien Kontrasten und standardisierten Komponenten.
 - **In-App Feedback-System:** 1-Klick-Meldesystem direkt auf jeder Lernkarte zur Meldung von Fehlern, veralteten Prüfungsnormen oder Unklarheiten.
-- **Kontext-Übertragung:** Automatische Erfassung von Karten-ID, Modul, Frage, Antwort und Lernmodus.
-- **100% DSGVO-konform:** Kein Tracking, keine externen Bibliotheken, vollkommen anonym nutzbar.
-- **Service Worker & Cache:** Cache auf `v2.7.2` gebumpt.
+- **Harmonisierte Entwickler-Labore:** Pseudocode-Labor (6 Algorithmen, Schreibtischtests & Puzzles), SQL-Labor, Fach-Glossar (100 FIAE-Begriffe) und Subnetz-Trainer.
+- **Service Worker & Cache:** Cache auf `v3.0.0` aktualisiert für sofortige automatische Updates.
 
 ### v2.7.1 (14. September 2026)
 

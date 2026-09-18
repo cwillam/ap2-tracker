@@ -1,26 +1,29 @@
 # AP2 Tracker FIAE – IHK Prüfungsvorbereitung für Anwendungsentwickler
 
-> Ein interaktiver, lokaler Fortschritts-Tracker speziell für Fachinformatiker Anwendungsentwicklung (FIAE) zur Vorbereitung auf die IHK-Abschlussprüfung Teil 2 (AP2). 100 % kostenlos, werbefrei, ohne Registrierung und vollständig offline-fähig.
+> Ein interaktiver, lokaler Fortschritts-Tracker speziell für Fachinformatiker Anwendungsentwicklung (FIAE) zur Vorbereitung auf die IHK-Abschlussprüfung Teil 2 (AP2). 100 % kostenlos, werbefrei, ohne Registrierung und vollständig offline-fähig (v3.0.0).
 
 ## Kernfunktionen
 
 - **FIAE-Spezifische Lernfelder:** Software-Architektur, Design Patterns (GoF), OOP-Konzepte, SOLID, Clean Code, fortgeschrittene Datenbanken (SQL & NoSQL), UML-Diagramme und Software-Testing.
-- **Lernkarten-System (Anki 2.0):** Über 790 FIAE-spezifische Karteikarten mit Codebeispielen, Spaced Repetition und Tastatur-Shortcuts.
-- **SQL-Labor (`/sql.html`):** Fortgeschrittenes SQL-Training (Joins, Subqueries, Aggregationen, GROUP BY, Transaktionen).
+- **Lernkarten-System (Spaced Repetition):** 897 FIAE-spezifische Karteikarten mit Codebeispielen, Spaced Repetition, Schwachstellen-Modus und Tastatur-Shortcuts.
+- **Pseudocode- & Algorithmen-Labor (`/pseudocode.html`):** 6 interaktiv animierte Algorithmen (Sortieren & Suchen) mit Zeiger- und Speicher-Inspektor, O-Notation Spickzettel und 18 Schreibtischtests & Code-Puzzles.
+- **SQL-Labor (`/sql.html`):** Fortgeschrittenes SQL-Training (Joins, Subqueries, Aggregationen, GROUP BY, Transaktionen) mit In-Memory Mock-Engine.
+- **Fach-Glossar & Eselsbrücken (`/glossar.html`):** 100 FIAE-Kernbegriffe mit Merkhilfen, Favoritenliste und A-Z Filter.
 - **Subnetz-Trainer (`/subnet.html`):** Training für IPv4/IPv6-Netzwerkberechnungen.
-- **Glossar & Eselsbrücken (`/glossar.html`):** 100 FIAE-Kernbegriffe mit Merkhilfen und Favoritenliste.
-- **Datenschutz & Offline-First:** 100 % clientseitige Datenspeicherung (`localStorage`), PWA-Support und Android-App im Google Play Store.
+- **Datenschutz & Offline-First:** 100 % clientseitige Datenspeicherung (`localStorage`), PWA-Support und offizielle Android-App im Google Play Store.
 
 ## Relevante Seiten
 
 - [Startseite & Checkliste](https://ap2.cwillam.de/)
+- [Pseudocode- & Algorithmen-Labor](https://ap2.cwillam.de/pseudocode.html)
 - [SQL-Labor](https://ap2.cwillam.de/sql.html)
+- [Fach-Glossar & Eselsbrücken](https://ap2.cwillam.de/glossar.html)
 - [Subnetz- & IP-Trainer](https://ap2.cwillam.de/subnet.html)
-- [Glossar & Eselsbrücken](https://ap2.cwillam.de/glossar.html)
 - [Updates & Roadmap](https://ap2.cwillam.de/updates.html)
 - [Hilfe & FAQ](https://ap2.cwillam.de/help.html)
 - [Für Schulen & Bildungseinrichtungen](https://ap2.cwillam.de/bildungseinrichtungen.html)
 - [Datenschutzerklärung](https://ap2.cwillam.de/datenschutz.html)
+- [Impressum](https://ap2.cwillam.de/impressum.html)
 - [Google Play Store App](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
 
 ## Community & Open Source
