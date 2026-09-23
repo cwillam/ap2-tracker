@@ -363,12 +363,13 @@
         <div id="solutionPanelIpv6" class="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-sm hidden fade-in">
           <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
             <i data-lucide="help-circle" class="w-4 h-4 text-purple-400"></i>
-            Kürzungsregeln
+            IHK Kürzungsregeln nach RFC 5952
           </h3>
           <div class="text-xs text-dark-muted space-y-3 leading-relaxed">
             <p><strong>1. Führende Nullen entfernen:</strong> Innerhalb jedes Hexadezimalblocks dürfen führende Nullen weggelassen werden (z.B. wird <code class="text-white font-mono">0db8</code> zu <code class="text-white font-mono">db8</code> und <code class="text-white font-mono">0000</code> zu <code class="text-white font-mono">0</code>).</p>
-            <p><strong>2. Blöcke aus Nullen einsparen:</strong> Eine oder mehrere aufeinanderfolgende Gruppen, die nur aus Nullen bestehen (z.B. <code class="text-white font-mono">:0000:0000:</code>), dürfen durch ein einziges Doppel-Doppelpunkt-Zeichen <code class="text-white font-mono">::</code> ersetzt werden.</p>
-            <p class="text-amber-400">⚠️ <strong>Achtung:</strong> Die <code class="text-white font-mono">::</code>-Kürzung darf <strong>nur ein einziges Mal</strong> in der gesamten Adresse angewendet werden, um Eindeutigkeit zu wahren!</p>
+            <p><strong>2. Null-Blöcke zusammenfassen (mind. 2 Blöcke):</strong> Mindestens zwei aufeinanderfolgende Gruppen reiner Nullen (z.B. <code class="text-white font-mono">:0000:0000:</code>) dürfen durch ein einziges <code class="text-white font-mono">::</code> ersetzt werden. Ein einzelner 0-Block bleibt als <code class="text-white font-mono">:0:</code> stehen (RFC 5952 § 4.2.2), da <code class="text-white font-mono">::</code> keine Zeichenersparnis bringt.</p>
+            <p class="text-amber-400">⚠️ <strong>Achtung:</strong> Die <code class="text-white font-mono">::</code>-Kürzung darf <strong>nur ein einziges Mal</strong> angewendet werden. Bei Gleichstand wird die erste Sequenz gekürzt (RFC 5952 § 4.2.3).</p>
+            <div id="ipv6Hint" class="hidden p-3 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-300 font-mono text-[11px]"></div>
             <div class="bg-dark-bg border border-dark-border rounded-xl p-3 mt-4 text-xs font-mono">
               <span class="block text-[10px] text-dark-dim uppercase font-bold mb-1">Berechnete korrekte Antwort:</span>
               <span id="ipv6SolutionText" class="text-white font-bold font-mono"></span>
@@ -483,7 +484,7 @@
 
     <!-- Scripts -->
     <script src="assets/js/lucide.min.js?v=3.0.0"></script>
-    <script src="assets/js/subnet.js?v=3.0.0"></script>
+    <script src="assets/js/subnet.js?v=3.0.1"></script>
     <script>
       function openSupportModal() {
         const modal = document.getElementById("supportModal");
