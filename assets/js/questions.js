@@ -932,7 +932,7 @@ window.ANKI_QUESTIONS = {
     { id: '4.1_34', q: 'Was ist der Unterschied zwischen Mitbestimmung und Mitwirkung?', a: 'Mitbestimmung: Arbeitgeber braucht Zustimmung. Mitwirkung: Arbeitgeber muss nur informieren oder anhören.' },
     { id: '4.1_35', q: 'Muss der Betriebsrat vor jeder Kündigung angehört werden?', a: 'Ja, eine Kündigung ohne vorherige Anhörung des Betriebsrats ist unwirksam.' },
     { id: '4.1_36', q: 'Was ist eine Betriebsvereinbarung?', a: 'Ein Vertrag zwischen Arbeitgeber und Betriebsrat über Arbeitsbedingungen im konkreten Betrieb.' },
-    { id: '4.1_37', q: 'Wer wählt die Jugend- und Auszubildendenvertretung (JAV)?', a: 'Alle Arbeitnehmer unter 18 Jahren sowie Azubis unter 25 Jahren.' },
+    { id: '4.1_37', q: 'Wer darf die Jugend- und Auszubildendenvertretung (JAV) wählen?', a: 'Alle jugendlichen Arbeitnehmer unter 18 Jahren sowie alle Auszubildenden – unabhängig von ihrem Alter (§ 61 Abs. 1 BetrVG).' },
     { id: '4.1_38', q: 'Was ist das Ziel der Montan-Mitbestimmung?', a: 'Paritätische Besetzung des Aufsichtsrats (50% Anteilseigner, 50% Arbeitnehmer) in der Kohle- und Stahlindustrie.' },
     { id: '4.1_39', q: 'Darf der Betriebsrat zum Streik aufrufen?', a: 'Nein, der Betriebsrat muss parteipolitisch und gewerkschaftlich neutral agieren; Streiks sind Sache der Gewerkschaften.' },
     { id: '4.1_40', q: 'Was regelt das Drittelbeteiligungsgesetz?', a: 'Ein Drittel des Aufsichtsrats muss aus Arbeitnehmervertretern bestehen (in Kapitalgesellschaften mit 500 bis 2000 Mitarbeitern).' },
