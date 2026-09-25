@@ -38,6 +38,24 @@
   // ============================================================
   window.switchTab = function (tabId) {
     const tabs = ["guide", "visualizer", "exercises"];
+    const tabMeta = {
+      guide: {
+        badgeDefault: "Guide",
+        iconBoxInactive: "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 transition-colors",
+        iconInactive: "w-4 h-4 text-blue-400"
+      },
+      visualizer: {
+        badgeDefault: "Simulator",
+        iconBoxInactive: "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0 transition-colors",
+        iconInactive: "w-4 h-4 text-amber-400"
+      },
+      exercises: {
+        badgeDefault: "18 Tests",
+        iconBoxInactive: "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-purple-500/15 border border-purple-500/30 flex items-center justify-center shrink-0 transition-colors",
+        iconInactive: "w-4 h-4 text-purple-400"
+      }
+    };
+
     tabs.forEach((id) => {
       const content = document.getElementById(`tabContent-${id}`);
       const btn = document.getElementById(`tabBtn-${id}`);
@@ -47,20 +65,30 @@
       const icon = btn.querySelector(".tab-icon i, .tab-icon svg");
       const title = btn.querySelector(".tab-title");
       const sub = btn.querySelector(".tab-sub");
+      const badge = btn.querySelector(".tab-badge");
+      const meta = tabMeta[id];
 
       if (id === tabId) {
         content.classList.remove("hidden");
-        btn.className = "tab-btn active flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-accent text-white shadow-md shadow-purple-500/20 border border-purple-400/40";
+        btn.className = "tab-btn active flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-3.5 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 border border-purple-300/40 cursor-pointer";
         if (iconBox) iconBox.className = "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0 transition-colors";
         if (icon) icon.className = "w-4 h-4 text-white";
         if (title) title.className = "tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-white";
+        if (badge) {
+          badge.className = "tab-badge text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/20 text-white font-semibold hidden sm:inline-block";
+          badge.textContent = "● Aktiv";
+        }
         if (sub) sub.className = "tab-sub text-[9px] sm:text-[10px] text-purple-100 hidden sm:block truncate opacity-95";
       } else {
         content.classList.add("hidden");
-        btn.className = "tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card border border-dark-border text-slate-400 hover:text-white hover:border-slate-600";
-        if (iconBox) iconBox.className = "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800/80 flex items-center justify-center shrink-0 transition-colors";
-        if (icon) icon.className = "w-4 h-4 text-slate-400";
-        if (title) title.className = "tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-slate-300";
+        btn.className = "tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-3.5 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-bg/70 hover:bg-dark-bg border border-dark-border/80 hover:border-purple-500/40 text-slate-300 hover:text-white cursor-pointer group";
+        if (iconBox && meta) iconBox.className = meta.iconBoxInactive;
+        if (icon && meta) icon.className = meta.iconInactive;
+        if (title) title.className = "tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-slate-300 group-hover:text-white";
+        if (badge && meta) {
+          badge.className = "tab-badge text-[9px] font-mono px-1.5 py-0.5 rounded bg-dark-card border border-dark-border text-dark-muted group-hover:text-white hidden sm:inline-block";
+          badge.textContent = meta.badgeDefault;
+        }
         if (sub) sub.className = "tab-sub text-[9px] sm:text-[10px] text-slate-500 hidden sm:block truncate";
       }
     });
