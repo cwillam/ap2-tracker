@@ -124,6 +124,96 @@ const app = {
       container.innerHTML = html;
     },
 
+    isBookmarked(cardId) {
+      const id = cardId || (this.cards && this.cards[this.currentIndex] && this.cards[this.currentIndex].id);
+      if (!id || !app.state.bookmarks) return false;
+      return app.state.bookmarks.includes(id);
+    },
+
+    toggleBookmark(cardId) {
+      if (!app.state.bookmarks) app.state.bookmarks = [];
+      const currentCard = this.cards && this.cards[this.currentIndex];
+      const id = cardId || (currentCard && currentCard.id);
+      if (!id) return;
+
+      const idx = app.state.bookmarks.indexOf(id);
+      if (idx > -1) {
+        app.state.bookmarks.splice(idx, 1);
+        app.showNotification("Lesezeichen entfernt", "Karte aus deinen gemerkten Karten entfernt.", "info");
+      } else {
+        app.state.bookmarks.push(id);
+        app.showNotification("Karte gemerkt ⭐", "Karte zu deinen Lesezeichen hinzugefügt.", "success");
+      }
+      app.save();
+      this.updateBookmarkButton();
+      app.updateBookmarkBadge();
+    },
+
+    updateBookmarkButton() {
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (!bmBtn) return;
+      const currentCard = this.cards && this.cards[this.currentIndex];
+      if (!currentCard) return;
+
+      const bookmarked = this.isBookmarked(currentCard.id);
+      if (bookmarked) {
+        bmBtn.className = "inline-flex p-1.5 rounded transition-all text-amber-400 bg-amber-400/15 border border-amber-400/40 shadow-sm cursor-pointer";
+        bmBtn.title = "Lesezeichen entfernen (Taste B)";
+        bmBtn.innerHTML = '<i data-lucide="bookmark-check" class="w-4 h-4 fill-amber-400 text-amber-400"></i>';
+      } else {
+        bmBtn.className = "inline-flex p-1.5 rounded transition-all text-dark-dim hover:text-amber-400 hover:bg-dark-bg border border-transparent cursor-pointer";
+        bmBtn.title = "Karte merken / Lesezeichen (Taste B)";
+        bmBtn.innerHTML = '<i data-lucide="bookmark" class="w-4 h-4"></i>';
+      }
+      if (window.lucide) lucide.createIcons();
+    },
+
+    openBookmarks(cards) {
+      console.log("[AP2] ⭐ Opening Bookmarked Anki Session:", cards.length, "cards");
+      this.currentTopicId = "bookmarks";
+      this.allTopicCards = [...cards];
+      this.cards = [...cards];
+
+      document.getElementById("ankiTopicTitle").textContent = `⭐ Gemerkte Karten (${cards.length})`;
+
+      const rBtn = document.getElementById("ankiHeaderReportBtn");
+      if (rBtn) {
+        rBtn.classList.add("hidden");
+        rBtn.classList.remove("inline-flex");
+      }
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (bmBtn) {
+        bmBtn.classList.add("hidden");
+        bmBtn.classList.remove("inline-flex");
+      }
+
+      this.renderBatchSelector();
+
+      const statsContainer = document.getElementById("ankiTopicStats");
+      if (statsContainer) {
+        statsContainer.innerHTML = `
+          <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs font-mono text-amber-300 text-center max-w-lg mx-auto flex items-center justify-center gap-2 mt-4">
+            <i data-lucide="bookmark" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span><strong>${cards.length} gemerkte Karten</strong> aus deinen persönlichen Lesezeichen geladen.</span>
+          </div>
+        `;
+        statsContainer.classList.remove("hidden");
+        app.refreshIcons();
+      }
+
+      // Reset Views
+      document.getElementById("ankiModeView").classList.remove("hidden");
+      document.getElementById("ankiQuestionView").classList.add("hidden");
+      document.getElementById("ankiAnswerView").classList.add("hidden");
+      document.getElementById("ankiFinishView").classList.add("hidden");
+      document.getElementById("ankiModeBadge").classList.add("hidden");
+      document.getElementById("ankiProgress").style.width = "0%";
+
+      const modal = document.getElementById("ankiModal");
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    },
+
     open(topicId) {
       // Debug-Log für Fehlersuche (Browser-Kompatibilität)
       console.log("[AP2] 🎴 Opening Anki for topic:", topicId);
@@ -152,6 +242,11 @@ const app = {
       if (rBtn) {
         rBtn.classList.add("hidden");
         rBtn.classList.remove("inline-flex");
+      }
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (bmBtn) {
+        bmBtn.classList.add("hidden");
+        bmBtn.classList.remove("inline-flex");
       }
 
       this.renderBatchSelector();
@@ -384,6 +479,12 @@ const app = {
         rBtn.classList.remove("hidden");
         rBtn.classList.add("inline-flex");
       }
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (bmBtn) {
+        bmBtn.classList.remove("hidden");
+        bmBtn.classList.add("inline-flex");
+        this.updateBookmarkButton();
+      }
     },
 
     showAnswer() {
@@ -535,6 +636,11 @@ const app = {
         rBtn.classList.add("hidden");
         rBtn.classList.remove("inline-flex");
       }
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (bmBtn) {
+        bmBtn.classList.add("hidden");
+        bmBtn.classList.remove("inline-flex");
+      }
       document.getElementById("ankiProgress").style.width = "100%";
       document.getElementById("ankiModeView")?.classList.add("hidden");
       document.getElementById("ankiQuestionView")?.classList.add("hidden");
@@ -563,6 +669,11 @@ const app = {
 
     close() {
       this.closeReportModal();
+      const bmBtn = document.getElementById("ankiHeaderBookmarkBtn");
+      if (bmBtn) {
+        bmBtn.classList.add("hidden");
+        bmBtn.classList.remove("inline-flex");
+      }
       const modal = document.getElementById("ankiModal");
       modal.classList.add("hidden");
       document.body.style.overflow = "";
@@ -830,6 +941,9 @@ const app = {
         }
       }
 
+      if (!this.state) this.state = {};
+      if (!this.state.bookmarks) this.state.bookmarks = [];
+
       // Bereinige evtl. altes dismissed-Flag für infoBox
       localStorage.removeItem("ap2_infoBox_dismissed");
 
@@ -857,6 +971,7 @@ const app = {
 
       this.renderActivityGraph();
       this.updateCountdown();
+      this.updateBookmarkBadge();
       setInterval(() => this.updateCountdown(), 60000);
       // Keyboard Shortcuts für Lernkarten (Anki)
       window.addEventListener('keydown', (e) => {
@@ -879,6 +994,17 @@ const app = {
           if (e.key === 'Escape') {
             e.preventDefault();
             this.anki.close();
+            return;
+          }
+
+          // Bookmark toggle shortcut (Taste B) während Frage oder Antwort
+          if (
+            (e.key === "b" || e.key === "B") &&
+            ((questionView && !questionView.classList.contains("hidden")) ||
+            (answerView && !answerView.classList.contains("hidden")))
+          ) {
+            e.preventDefault();
+            this.anki.toggleBookmark();
             return;
           }
 
@@ -2487,6 +2613,61 @@ const app = {
 
     this.scheduleStatsUpdate();
     this.refreshIcons();
+  },
+
+  updateBookmarkBadge() {
+    const countEl = document.getElementById("bookmarkedCount");
+    const count = (this.state.bookmarks && this.state.bookmarks.length) || 0;
+    if (countEl) {
+      countEl.textContent = count;
+    }
+    const btn = document.getElementById("bookmarkedCardsBtn");
+    if (btn) {
+      if (count > 0) {
+        btn.classList.add("border-amber-500/40", "text-amber-400", "bg-amber-500/10");
+        btn.classList.remove("text-dark-muted");
+      } else {
+        btn.classList.remove("border-amber-500/40", "text-amber-400", "bg-amber-500/10");
+        btn.classList.add("text-dark-muted");
+      }
+    }
+  },
+
+  startBookmarkedSession() {
+    const bookmarkIds = this.state.bookmarks || [];
+    if (bookmarkIds.length === 0) {
+      this.showNotification(
+        "Keine gemerkten Karten",
+        "Du hast dir noch keine Karten gemerkt. Klicke beim Lernen oben rechts auf das Lesezeichen-Symbol (⭐) oder drücke [B], um wichtige Karten hier zu sammeln.",
+        "info"
+      );
+      return;
+    }
+
+    const allQuestions = window.ANKI_QUESTIONS || {};
+    const bookmarkedCards = [];
+    const foundIds = new Set();
+
+    for (const topicId in allQuestions) {
+      const topicCards = allQuestions[topicId] || [];
+      for (const card of topicCards) {
+        if (bookmarkIds.includes(card.id) && !foundIds.has(card.id)) {
+          foundIds.add(card.id);
+          bookmarkedCards.push({ ...card, topicId });
+        }
+      }
+    }
+
+    if (bookmarkedCards.length === 0) {
+      this.showNotification(
+        "Karten nicht gefunden",
+        "Die gemerkten Karten konnten nicht geladen werden.",
+        "warning"
+      );
+      return;
+    }
+
+    this.anki.openBookmarks(bookmarkedCards);
   },
 };
 
