@@ -1,7 +1,7 @@
-# AP2 Tracker FIAE - Dein Lernbegleiter (v3.0.0 Update)
+# AP2 Tracker FIAE - Dein Lernbegleiter (v3.1.4 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FIAE_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
-[![Version](https://img.shields.io/badge/Version-v3.0.0-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v3.1.4-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-tracker/issues/new?template=feature.yml)
 
@@ -23,6 +23,15 @@ Das Projekt ist einsatzbereit gehostet:
 Der **AP2 Tracker FIAE** wurde entwickelt, um Anwendungsentwicklern eine strukturierte und detaillierte Übersicht über die komplexen Lerninhalte der Abschlussprüfung Teil 2 zu geben.
 
 Im Gegensatz zur AP1 liegt hier der Fokus auf tiefergehenden Themen wie Software-Architektur, fortgeschrittenen SQL-Konzepten, UML-Modellierung und fachspezifischer Wirtschaftslehre.
+
+### Highlights v3.1.4 (Lesezeichen, Active-Recall & Quick-Dock)
+
+- **Karten-Lesezeichen & Favoriten-Modus:** Anspruchsvolle FIAE-Lernkarten mit Stern markieren und gezielt in einer reinen Favoriten-Session lernen.
+- **Flexible Stapelgröße (Batch-Size):** Wähle vor dem Start 10, 20, 50 oder alle Karten des Decks für kurze Lerneinheiten im Alltag.
+- **Active-Recall-Wiederholung:** Falsch beantwortete Karten einer Session können am Rundenende direkt in einem zweiten Durchgang wiederholt werden.
+- **3-Modul Quick-Dock:** Optimierte Schnellzugriffs-Navigation am unteren Bildschirmrand für den schnellen Wechsel zwischen Lernkarten, Pseudocode-Labor und SQL-Labor.
+- **Fachliche Präzisierungen:** Aktualisierte Prüfungsfragen zu Algorithmen, Datenstrukturen und Betriebsverfassungsrecht (JAV-Wahlrecht).
+- **Cache- & Service-Worker-Optimierung:** Schnelle, zuverlässige Offline-Aktualisierung via Cache `v3.1.4`.
 
 ### Highlights v3.0.0 (Design System Relaunch & In-App Feedback-System)
 
