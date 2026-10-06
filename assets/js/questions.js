@@ -346,15 +346,15 @@ window.ANKI_QUESTIONS = {
 
   // Topic 2.1: Algorithmen & Programmierung (~85 Karten optimiert)
   '2.1': [
-    // --- Unterpunkt 1: Pseudocode & Struktogramme (14 Karten) ---
+    // --- Unterpunkt 1: Pseudocode & Kontrollstrukturen (14 Karten) ---
     { id: '2.1_1', q: 'Was ist das Hauptziel von Pseudocode?', a: 'Logik unabhängig von einer konkreten Programmiersprache verständlich darzustellen.' },
-    { id: '2.1_2', q: 'Wie wird eine "Alternative" (If-Else) im Struktogramm dargestellt?', a: 'Durch ein Rechteck, das durch ein "V" in zwei oder drei Teilbereiche (Bedingung, Ja-Zweig, Nein-Zweig) getrennt ist.' },
-    { id: '2.1_3', q: 'Wofür steht die Abkürzung "DIN 66261" im Kontext der Programmierung?', a: 'Es ist die Norm für Sinnbilder von Struktogrammen (Nassi-Shneiderman-Diagramme).' },
-    { id: '2.1_4', q: 'Wie erkennt man eine kopfgesteuerte Schleife im Struktogramm?', a: 'Die Bedingung steht oben, der Schleifenkörper ist darunter eingerückt dargestellt.' },
-    { id: '2.1_5', q: 'Wie erkennt man eine fußgesteuerte Schleife im Struktogramm?', a: 'Die Bedingung steht unten, nach dem Schleifenkörper.' },
-    { id: '2.1_6', q: 'Was ist ein "Case" oder eine "Mehrfachauswahl" im Struktogramm?', a: 'Eine Verzweigung, die mehr als zwei Wege (Fälle) basierend auf einem Wert ermöglicht.' },
-    { id: '2.1_7', q: 'Welches Symbol stellt eine einfache Anweisung (Sequenz) im Struktogramm dar?', a: 'Ein einfaches Rechteck.' },
-    { id: '2.1_8', q: 'Warum sind Struktogramme besser als Flussdiagramme (Flowcharts)?', a: 'Sie erzwingen eine strukturierte Programmierung (kein GOTO möglich) und sind kompakter.' },
+    { id: '2.1_2', q: 'Werden Struktogramme (DIN 66261) oder PAPs noch in der IHK AP2 FIAE geprüft?', a: 'Nein, Struktogramme und PAPs wurden aus dem Prüfungskatalog gestrichen! Die IHK verlangt für Algorithmen ausschließlich standardisierten Pseudocode (textuell) oder UML-Aktivitätsdiagramme (grafisch).' },
+    { id: '2.1_3', q: 'Wie unterscheiden sich Zuweisung und Vergleich im IHK-Pseudocode?', a: 'Zuweisung erfolgt mit "=" (oder ":=" / "←"). Vergleiche in Bedingungen werden mit "==" (Gleichheit) bzw. "!=" (Ungleichheit) formuliert.' },
+    { id: '2.1_4', q: 'Wie werden Kontrollstrukturen im IHK-Pseudocode syntaktisch geschlossen?', a: 'Durch explizite End-Schlüsselwörter: ENDE_WENN (END IF), ENDE_SOLANGE (END WHILE), ENDE_FÜR (END FOR) anstelle geschweifter Klammern.' },
+    { id: '2.1_5', q: 'Wie ist eine fußgesteuerte Schleife im IHK-Pseudocode aufgebaut?', a: 'WIEDERHOLE ... SOLANGE bedingung (bzw. DO ... WHILE). Der Schleifenkörper wird mindestens einmal ausgeführt, da die Bedingung erst am Ende geprüft wird.' },
+    { id: '2.1_6', q: 'Welche Funktion hat der Modulo-Operator (MOD oder %) in IHK-Prüfungsalgorithmen?', a: 'Er liefert den ganzzahligen Rest einer Division (z.B. 7 MOD 3 = 1). Typischer Prüfungsfall: Prüfung auf gerade/ungerade Zahlen (n MOD 2 == 0) oder Schaltjahrregeln.' },
+    { id: '2.1_7', q: 'Was ist die typische IHK-Prüfungsfalle bei Array-Schleifen (Off-by-One)?', a: 'Array-Indizes beginnen bei 0 und enden bei "Länge - 1". Eine Schleife "FÜR i = 0 BIS Länge" führt zu einem IndexOutOfBounds-Fehler.' },
+    { id: '2.1_8', q: 'Was versteht man unter "Kurzschlussauswertung" (Short-Circuit Evaluation) bei Bedingungen?', a: 'Bei "A UND B" wird B nicht mehr ausgewertet, wenn A bereits falsch ist. Bei "A ODER B" wird B übersprungen, wenn A wahr ist (verhindert z.B. NullPointerExceptions: WENN obj != NULL UND obj.wert > 0).' },
     { id: '2.1_9', q: 'Was bedeutet "Einrücken" im Pseudocode?', a: 'Es kennzeichnet die Zugehörigkeit von Codeblöcken zu Schleifen oder Bedingungen.' },
     { id: '2.1_10', q: 'Darf Pseudocode mathematische Symbole verwenden?', a: 'Ja, Pseudocode ist informell und darf Mathematik, natürliche Sprache und Logik mischen.' },
     { id: '2.1_10a', q: 'Pseudocode: Wie sieht eine IF-ELSE Bedingung aus?', a: 'IF condition THEN action1 ELSE action2' },

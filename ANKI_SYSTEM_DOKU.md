@@ -39,7 +39,7 @@ Das System umfasst aktuell **790 spezialisierte Lernkarten**, aufgeteilt in exak
     - 1.5 UI/UX & Ergonomie (Usability, Barrierefreiheit, Design-Prozess, Farblehre) - 40 Karten
 
 - **Modul 2: Algorithmen & Datenbanken**
-    - 2.1 Algorithmen (Struktogramme, Rekursion, Sortierung, O-Notation, Exceptions) - 70 Karten
+    - 2.1 Algorithmen (Pseudocode, Rekursion, Sortierung, O-Notation, Exceptions) - 70 Karten
     - 2.2 DB-Design (ERM, Keys, Normalisierung 1-3, Integrität, NoSQL) - 50 Karten
     - 2.3 Fortgeschrittenes SQL (JOINs, Aggregation, DML, DDL, Performance, ACID, Trigger) - 80 Karten
 

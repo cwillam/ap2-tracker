@@ -89,7 +89,7 @@ window.AP2_DATA = [
         weight: 5,
         time: 150,
         sub: [
-          'Pseudocode & Struktogramme (Nassi-Shneiderman) erstellen und lesen',
+          'Pseudocode & Kontrollstrukturen: IHK-Standardsyntax, Schleifen & Verzweigungen',
           'Aktivitätsdiagramm: Entscheidungen, Gabelungen (Fork/Join), Signalempfang',
           'Schreibtischtests: Variablenzustände manuell verfolgen',
           'Rekursion vs. Iteration (Abbruchbedingung, Stack)',

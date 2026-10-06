@@ -1,4 +1,4 @@
-const CACHE_NAME = "ap2-tracker-v3.1.4";
+const CACHE_NAME = "ap2-tracker-v3.1.5";
 const ASSETS = [
 	"index.html",
 	"glossar.html",
@@ -16,8 +16,8 @@ const ASSETS = [
 	"assets/js/tailwind.js?v=3.0.0",
 	"assets/js/lucide.min.js?v=3.0.0",
 	"assets/js/confetti.js?v=3.0.0",
-	"assets/js/data.js?v=3.0.0",
-	"assets/js/questions.js?v=3.0.1",
+	"assets/js/data.js?v=3.0.1",
+	"assets/js/questions.js?v=3.0.2",
 	"assets/js/app.js?v=3.1.3",
 	"assets/js/subnet.js?v=3.0.1",
 	"assets/js/sql.js?v=3.0.0",
