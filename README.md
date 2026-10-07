@@ -1,7 +1,7 @@
 # AP2 Tracker FIAE - Dein Lernbegleiter (v3.1.4 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FIAE_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
-[![Version](https://img.shields.io/badge/Version-v3.1.4-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v3.2.0-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-tracker/issues/new?template=feature.yml)
 
