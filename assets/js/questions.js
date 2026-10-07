@@ -396,7 +396,7 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_37', q: 'Kann jede Rekursion in eine Iteration umgewandelt werden?', a: 'Ja, theoretisch ist das immer möglich (manchmal mit eigenem Stack-Management).' },
     { id: '2.1_38', q: 'Was ist "Endrekursion" (Tail Recursion)?', a: 'Eine Rekursion, bei der der Selbstaufruf die absolut letzte Aktion der Funktion ist (optimierbar durch Compiler).' },
     { id: '2.1_39', q: 'Nenne ein typisches Beispiel für Rekursion.', a: 'Fakultätsberechnung, Fibonacci-Zahlen, Verzeichnisstrukturen lesen.' },
-    { id: '2.1_40', q: 'Welche Methode ist meist performanter?', a: 'Iteration ist meist schneller und speichereffizienter, da der Overhead der Funktionsaufrufe entfällt.' },
+    { id: '2.1_40', q: 'Rekursion vs. Iteration: Welcher Ansatz ist in der Praxis meist performanter?', a: 'Iteration ist meist schneller und speichereffizienter, da der zusätzliche Call-Stack-Overhead wiederholter Funktionsaufrufe (Stack Frames) entfällt.' },
     { id: '2.1_40a', q: 'Pseudocode: Fakultät rekursiv', a: 'FUNCTION fakultaet(n) IF n <= 1 RETURN 1 ELSE RETURN n * fakultaet(n-1)' },
     { id: '2.1_40b', q: 'Pseudocode: Fakultät iterativ', a: 'FUNCTION fakultaet(n) result = 1 FOR i FROM 2 TO n DO result = result * i RETURN result' },
 
