@@ -59,7 +59,7 @@
     />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=3.0.0"></script>
+    <script src="assets/js/tailwind.js?v=3.1.5"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -112,7 +112,7 @@
     </script>
 
     <!-- Custom High-Craft CSS Tokens & Keycaps -->
-    <link href="assets/css/style.css?v=3.0.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=3.1.5" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-purple-600 selection:text-white">
@@ -145,7 +145,7 @@
             <div class="flex items-center gap-1.5"><span class="font-bold text-base tracking-tight text-white group-hover:text-purple-400 transition-colors">Tracker</span><span class="text-[9px] font-mono font-bold bg-purple-950/60 border border-purple-500/40 text-purple-400 px-1.5 py-0.5 rounded">FIAE</span></div>
           </a>
           <span class="hidden sm:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
-            v3.0.0 · Offline
+            v3.1.5 · Offline
           </span>
         </div>
 
@@ -276,7 +276,7 @@
           </div>
           <div class="flex items-center justify-between">
             <span>Version:</span>
-            <span>v3.0.0</span>
+            <span>v3.1.5</span>
           </div>
         </div>
       </div>
@@ -1394,10 +1394,10 @@
     <!-- ============================================================
          14. JAVASCRIPT BUNDLES & ENGINE
          ============================================================ -->
-    <script src="assets/js/confetti.js?v=3.0.0"></script>
-    <script src="assets/js/data.js?v=3.0.1"></script>
-    <script src="assets/js/questions.js?v=3.0.2"></script>
-    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script src="assets/js/confetti.js?v=3.1.5"></script>
+    <script src="assets/js/data.js?v=3.1.5"></script>
+    <script src="assets/js/questions.js?v=3.1.5"></script>
+    <script src="assets/js/lucide.min.js?v=3.1.5"></script>
     <script>
       // Lucide SVGs initialisieren
       if (window.lucide) lucide.createIcons();
@@ -1419,13 +1419,13 @@
         if (e.key === "Escape") closeSupportModal();
       });
     </script>
-    <script src="assets/js/app.js?v=3.1.3"></script>
+    <script src="assets/js/app.js?v=3.1.5"></script>
 
     <!-- PWA Service Worker -->
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=3.0.0").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=3.1.5").catch(() => {});
         });
       }
 

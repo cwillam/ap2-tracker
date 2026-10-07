@@ -1,7 +1,7 @@
-# AP2 Tracker FIAE - Dein Lernbegleiter (v3.1.4 Update)
+# AP2 Tracker FIAE - Dein Lernbegleiter (v3.1.5 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap2-tracker) [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE) [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap2.cwillam.de) [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de) [![Google Play](https://img.shields.io/badge/Google_Play-AP2_FIAE_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker)
-[![Version](https://img.shields.io/badge/Version-v3.2.0-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v3.1.5-8b5cf6?style=for-the-badge)](https://ap2.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap2-tracker/issues/new?template=feature.yml)
 
@@ -23,6 +23,12 @@ Das Projekt ist einsatzbereit gehostet:
 Der **AP2 Tracker FIAE** wurde entwickelt, um Anwendungsentwicklern eine strukturierte und detaillierte Übersicht über die komplexen Lerninhalte der Abschlussprüfung Teil 2 zu geben.
 
 Im Gegensatz zur AP1 liegt hier der Fokus auf tiefergehenden Themen wie Software-Architektur, fortgeschrittenen SQL-Konzepten, UML-Modellierung und fachspezifischer Wirtschaftslehre.
+
+### Highlights v3.1.5 (IHK-Pseudocode & Algorithmen-Refinement)
+
+- **IHK-Pseudocode Standard (v3.1.5):** Veraltete Struktogramme (DIN 66261) und PAPs vollständig gemäß aktuellem IHK-Prüfungskatalog gestrichen und durch standardisierten IHK-Pseudocode sowie UML-Aktivitätsdiagramme ersetzt.
+- **Prüfungsfokus Kontrollstrukturen:** Vertiefung von Schleifen, Modulo-Operationen, Short-Circuit Evaluation und typischen Klausurfallen (z. B. Off-by-One bei Array-Grenzen).
+- **Service Worker & Cache-Busting:** Caching auf `v3.1.5` für nahtlose Offline-Updates aktualisiert.
 
 ### Highlights v3.1.4 (Lesezeichen, Active-Recall & Quick-Dock)
 
@@ -123,7 +129,7 @@ Datenschutz ist hier kein Werbeslogan, sondern Architektur:
 
 Alle Änderungen sind im Detail im [Changelog](updates.html) dokumentiert.
 
-**Aktuelle Version:** v3.0.0 (18. September 2026)
+**Aktuelle Version:** v3.1.5 (Oktober 2026)
 
 ### v3.0.0 (18. September 2026)
 

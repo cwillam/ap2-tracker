@@ -1,6 +1,6 @@
 # AP2 Tracker FIAE – IHK Prüfungsvorbereitung für Anwendungsentwickler
 
-> Ein interaktiver, lokaler Fortschritts-Tracker speziell für Fachinformatiker Anwendungsentwicklung (FIAE) zur Vorbereitung auf die IHK-Abschlussprüfung Teil 2 (AP2). 100 % kostenlos, werbefrei, ohne Registrierung und vollständig offline-fähig (v3.0.0).
+> Ein interaktiver, lokaler Fortschritts-Tracker speziell für Fachinformatiker Anwendungsentwicklung (FIAE) zur Vorbereitung auf die IHK-Abschlussprüfung Teil 2 (AP2). 100 % kostenlos, werbefrei, ohne Registrierung und vollständig offline-fähig (v3.1.5).
 
 ## Kernfunktionen
 

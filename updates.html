@@ -25,7 +25,7 @@
     <link rel="preload" href="assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Tailwind 3 Engine -->
-    <script src="assets/js/tailwind.js?v=3.0.0"></script>
+    <script src="assets/js/tailwind.js?v=3.1.5"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -76,7 +76,7 @@
     </script>
 
     <!-- Stylesheets -->
-    <link href="assets/css/style.css?v=3.0.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=3.1.5" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-purple-600 selection:text-white font-sans">
@@ -164,7 +164,7 @@
             <div class="flex items-center gap-2 text-purple-400 text-xs font-mono mb-2 uppercase tracking-wider">
               <span class="kbd-cap bg-purple-600/15 border-purple-500/30 text-purple-400 px-2 py-0.5 text-[10px]">ENTWICKLUNGS-HISTORIE</span>
               <span class="text-dark-dim">·</span>
-              <span class="text-emerald-400 font-bold">v3.1.3 LIVE</span>
+              <span class="text-emerald-400 font-bold">v3.1.5 LIVE</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
               <span>Changelog &amp; Roadmap</span>
@@ -198,12 +198,49 @@
 
       <!-- TAB 1: UPDATES / CHANGELOG -->
       <div id="tabUpdatesContent" class="space-y-6">
-        <!-- v3.1.3 · AKTUELL -->
+        <!-- v3.1.5 · AKTUELL -->
         <article class="bg-dark-card border border-purple-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
             <div class="flex items-center gap-2.5 flex-wrap">
               <span class="kbd-cap bg-purple-600/20 border-purple-500/50 text-purple-400 font-mono text-xs font-bold px-2.5 py-0.5">
-                v3.1.3 · AKTUELL
+                v3.1.5 · AKTUELL
+              </span>
+              <h2 class="text-base sm:text-lg font-bold text-white">
+                IHK-Pseudocode Standard &amp; Algorithmen-Refinement
+              </h2>
+            </div>
+            <span class="text-xs font-mono text-dark-dim">6. Oktober 2026</span>
+          </div>
+
+          <p class="text-xs text-dark-muted leading-relaxed">
+            Vollständige Angleichung an den aktuellen IHK-Prüfungskatalog für Fachinformatiker Anwendungsentwicklung: Obsolete Struktogramme (DIN 66261) und PAPs wurden gestrichen und durch standardisierten IHK-Pseudocode und UML-Aktivitätsdiagramme ersetzt.
+          </p>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-dark-muted pt-1">
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">IHK-Standardsyntax:</strong> Explizite Kontrollstruktur-Enden (ENDE_WENN, ENDE_SOLANGE) und klare Operatorentrennung (= vs ==).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">Prüfungsfallen im Fokus:</strong> Schreibtischtests, Modulo-Operationen und Short-Circuit Evaluation systematisch aufbereitet.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">Offline-Cache v3.1.5:</strong> Caching-Layer für sofortige Auslieferung der überarbeiteten Lernkarten aktualisiert.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">Google Play Live:</strong> Harmonisierung aller Metadaten für das offizielle Store-Release.</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- v3.1.3 -->
+        <article class="bg-dark-card border border-purple-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="kbd-cap bg-purple-600/20 border-purple-500/50 text-purple-400 font-mono text-xs font-bold px-2.5 py-0.5">
+                v3.1.3
               </span>
               <h2 class="text-base sm:text-lg font-bold text-white">
                 Lernkarten-Lesezeichen, Active-Recall-Schleife &amp; Quick-Dock
@@ -996,7 +1033,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=3.1.5"></script>
     <script>
       function openSupportModal() {
         const modal = document.getElementById("supportModal");
@@ -1042,7 +1079,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=3.0.0")
+            .register("sw.js?v=3.1.5")
             .catch((err) => console.error("ServiceWorker registration failed", err));
         });
       }

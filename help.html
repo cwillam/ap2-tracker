@@ -25,7 +25,7 @@
     <link rel="preload" href="assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=3.0.0"></script>
+    <script src="assets/js/tailwind.js?v=3.1.5"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -76,7 +76,7 @@
     </script>
 
     <!-- Custom High-Craft CSS Tokens & Keycaps -->
-    <link href="assets/css/style.css?v=3.0.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=3.1.5" rel="stylesheet" />
 
     <style>
       .custom-scroll::-webkit-scrollbar {
@@ -203,7 +203,7 @@
 
           <div class="flex items-center gap-2 shrink-0">
             <span class="font-mono text-xs text-dark-muted px-2.5 py-1 rounded border border-dark-border bg-dark-bg/60">
-              v3.0.0 · 100% Offline
+              v3.1.5 · 100% Offline
             </span>
           </div>
         </div>
@@ -970,7 +970,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=3.1.5"></script>
     <script>
       function openSupportModal() {
         const modal = document.getElementById("supportModal");
@@ -1069,7 +1069,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=3.0.0")
+            .register("sw.js?v=3.1.5")
             .catch((err) => console.error("ServiceWorker registration failed", err));
         });
       }

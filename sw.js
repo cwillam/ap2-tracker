@@ -1,4 +1,4 @@
-const CACHE_NAME = "ap2-tracker-v3.2.1";
+const CACHE_NAME = "ap2-tracker-v3.1.5";
 const ASSETS = [
 	"index.html",
 	"glossar.html",
@@ -12,21 +12,21 @@ const ASSETS = [
 	"impressum.html",
 	"favicon.svg",
 	"manifest.json",
-	"assets/css/style.css?v=3.0.0",
-	"assets/js/tailwind.js?v=3.0.0",
-	"assets/js/lucide.min.js?v=3.0.0",
-	"assets/js/confetti.js?v=3.0.0",
-	"assets/js/data.js?v=3.0.1",
-	"assets/js/questions.js?v=3.0.2",
-	"assets/js/app.js?v=3.1.3",
-	"assets/js/subnet.js?v=3.0.1",
-	"assets/js/sql.js?v=3.0.0",
-	"assets/js/pseudocode.js?v=3.0.0",
+	"assets/css/style.css?v=3.1.5",
+	"assets/js/tailwind.js?v=3.1.5",
+	"assets/js/lucide.min.js?v=3.1.5",
+	"assets/js/confetti.js?v=3.1.5",
+	"assets/js/data.js?v=3.1.5",
+	"assets/js/questions.js?v=3.1.5",
+	"assets/js/app.js?v=3.1.5",
+	"assets/js/subnet.js?v=3.1.5",
+	"assets/js/sql.js?v=3.1.5",
+	"assets/js/pseudocode.js?v=3.1.5",
 	"assets/fonts/Inter-Regular.woff2",
 	"assets/fonts/Inter-SemiBold.woff2",
 	"assets/fonts/Inter-Bold.woff2",
-	"icon-192.png?v=3.0.0",
-	"icon-512.png?v=3.0.0",
+	"icon-192.png",
+	"icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
