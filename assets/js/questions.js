@@ -896,7 +896,7 @@ window.ANKI_QUESTIONS = {
     { id: '4.1_4', q: 'Nenne drei Pflichten des Auszubildenden.', a: 'Lernpflicht, Sorgfaltspflicht, Gehorsamspflicht, Berufsschulpflicht, Berichtsheftführung.' },
     { id: '4.1_5', q: 'Nenne drei Pflichten des Ausbildenden.', a: 'Ausbildungspflicht, Vergütungspflicht, Fürsorgepflicht, Freistellung für die Berufsschule, Zeugnispflicht.' },
     { id: '4.1_6', q: 'Wie kann ein Ausbildungsvertrag während der Probezeit gekündigt werden?', a: 'Jederzeit, ohne Einhaltung einer Frist und ohne Angabe von Gründen.' },
-    { id: '4.1_7', q: 'Unter welchen Bedingungen kann nach der Probezeit gekündigt werden?', a: 'Durch den Azubi mit 4 Wochen Frist (bei Berufsaufgabe/-wechsel) oder durch beide aus wichtigem Grund (fristlos).' },
+    { id: '4.1_7', q: 'BBiG: Unter welchen Bedingungen kann ein Ausbildungsverhältnis nach der Probezeit gekündigt werden?', a: '1. Fristlos aus wichtigem Grund (durch beide Parteien, schriftlich innerhalb von 2 Wochen nach Bekanntwerden). 2. Ordentlich nur durch den Azubi mit 4 Wochen Frist (bei Berufsaufgabe oder Wechsel der Fachrichtung). Der Ausbildende kann nach der Probezeit nicht ordentlich kündigen.' },
     { id: '4.1_8', q: 'Was ist das "Verzeichnis der Berufsausbildungsverhältnisse"?', a: 'Ein Register bei der zuständigen Stelle (z.B. IHK), in das jeder Ausbildungsvertrag eingetragen werden muss.' },
     { id: '4.1_9', q: 'Darf ein Azubi für Überstunden zur Kasse gebeten werden?', a: 'Nein, Überstunden sind grundsätzlich besonders zu vergüten oder durch Freizeit auszugleichen.' },
     { id: '4.1_10', q: 'Was passiert mit dem Ausbildungsverhältnis bei Bestehen der Abschlussprüfung?', a: 'Es endet mit Bekanntgabe des Ergebnisses durch den Prüfungsausschuss, auch wenn der Vertrag ein späteres Datum vorsieht.' },
@@ -959,7 +959,7 @@ window.ANKI_QUESTIONS = {
     { id: '4.2_4', q: 'Nenne die drei Organe einer AG.', a: 'Vorstand (Leitung), Aufsichtsrat (Kontrolle), Hauptversammlung (Aktionäre).' },
     { id: '4.2_5', q: 'Wer haftet bei einer GmbH & Co. KG unbeschränkt?', a: 'Die GmbH als Komplementär (Vollhafter); die Haftung der GmbH selbst ist jedoch auf ihr Gesellschaftsvermögen begrenzt.' },
     { id: '4.2_6', q: 'Was ist der Unterschied zwischen Komplementär und Kommanditist?', a: 'Komplementär: Haftet unbeschränkt (auch privat). Kommanditist: Haftet nur mit seiner Einlage (Teilhafter).' },
-    { id: '4.2_7', q: 'Ab wann muss ein Einzelunternehmen als e.K. im Handelsregister stehen?', a: 'Wenn ein nach Art und Umfang in kaufmännischer Weise eingerichteter Geschäftsbetrieb erforderlich ist.' },
+    { id: '4.2_7', q: 'HGB: Wann muss sich ein Einzelunternehmer als e. K. (eingetragener Kaufmann) ins Handelsregister eintragen lassen?', a: 'Sobald das Gewerbe einen „nach Art und Umfang in kaufmännischer Weise eingerichteten Geschäftsbetrieb“ erfordert (Istkaufmann nach § 1 HGB; Kriterien: Umsatzhöhe, Mitarbeiterzahl, Kredite, doppelte Buchführung). Kleingewerbetreibende sind nicht eintragungspflichtig (Eintragung freiwillig, § 2 HGB).' },
     { id: '4.2_8', q: 'Was ist eine "UG (haftungsbeschränkt)"?', a: 'Die "Mini-GmbH"; kann mit nur 1 Euro Stammkapital gegründet werden, muss aber Rücklagen bilden, bis 25.000 Euro erreicht sind.' },
     { id: '4.2_9', q: 'Was ist das oberste Willensbildungsorgan einer GmbH?', a: 'Die Gesellschafterversammlung.' },
     { id: '4.2_10', q: 'Welche Rechtsform ist eine juristische Person des Privatrechts?', a: 'Kapitalgesellschaften wie GmbH, AG, UG.' },
@@ -1053,7 +1053,7 @@ window.ANKI_QUESTIONS = {
 
     // --- Unterpunkt 4: Umsatzsteuer (10 Karten) ---
     { id: '4.3_31', q: 'Was ist die Vorsteuer?', a: 'Die Umsatzsteuer, die ein Unternehmen beim Einkauf von Waren oder Dienstleistungen an andere Unternehmen zahlt.' },
-    { id: '4.3_32', q: 'Was ist die Mehrwertsteuer (Umsatzsteuer-Schuld)?', a: 'Die Steuer, die das Unternehmen beim Verkauf an seine Kunden einnimmt und ans Finanzamt abführen muss.' },
+    { id: '4.3_32', q: 'Was ist die Umsatzsteuer (Mehrwertsteuer) aus Sicht eines Unternehmens?', a: 'Die Steuer, die das Unternehmen beim Verkauf von Waren oder Dienstleistungen auf den Nettopreis aufschlägt, vom Kunden einnimmt und als Verbindlichkeit ans Finanzamt abführen muss (Gegenstück zur Vorsteuer beim Einkauf).' },
     { id: '4.3_33', q: 'Was bedeutet "Vorsteuerabzugsberechtigung"?', a: 'Unternehmen dürfen die gezahlte Vorsteuer von ihrer eingenommenen Umsatzsteuer abziehen und nur die Differenz ans Finanzamt zahlen.' },
     { id: '4.3_34', q: 'Wie berechnet man die Zahllast an das Finanzamt?', a: 'Eingenommene Umsatzsteuer - gezahlte Vorsteuer = Zahllast.' },
     { id: '4.3_35', q: 'Was ist ein Vorsteuerüberhang?', a: 'Wenn die gezahlte Vorsteuer höher ist als die eingenommene Umsatzsteuer (Erstattungsanspruch gegenüber dem Finanzamt).' },
